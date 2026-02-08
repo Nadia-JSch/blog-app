@@ -1,0 +1,106 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  frontmatter: {
+    title: string;
+    date: string;
+    description?: string;
+    tags?: string[];
+  };
+}
+
+const { frontmatter } = Astro.props;
+const formattedDate = new Date(frontmatter.date).toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<BaseLayout title={frontmatter.title} description={frontmatter.description}>
+  <article class="post">
+    <header class="post-header">
+      <h1>{frontmatter.title}</h1>
+      <time datetime={frontmatter.date}>{formattedDate}</time>
+      {frontmatter.tags && (
+        <div class="tags">
+          {frontmatter.tags.map((tag: string) => (
+            <a href={`/tags/${tag}`} class="tag">{tag}</a>
+          ))}
+        </div>
+      )}
+    </header>
+    <div class="post-content">
+      <slot />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .post-header {
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .post-header h1 {
+    font-size: 2.2rem;
+    color: var(--text-heading);
+    margin-bottom: 0.5rem;
+  }
+
+  .post-header time {
+    font-size: 0.9rem;
+    color: var(--text-light);
+  }
+
+  .tags {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    background: var(--tag-bg);
+    color: var(--tag-text);
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+  }
+
+  .tag:hover {
+    background: var(--tag-bg-hover);
+    color: var(--tag-text-hover);
+    border-color: var(--pink-400);
+  }
+
+  .post-content {
+    font-size: 1.05rem;
+  }
+
+  .post-content :global(h2) {
+    font-size: 1.5rem;
+    color: var(--text-heading-alt);
+    margin: 2rem 0 0.75rem;
+  }
+
+  .post-content :global(h3) {
+    font-size: 1.2rem;
+    color: var(--text-heading);
+    margin: 1.5rem 0 0.5rem;
+  }
+
+  .post-content :global(p) {
+    margin-bottom: 1.25rem;
+  }
+
+  .post-content :global(ul),
+  .post-content :global(ol) {
+    margin-bottom: 1.25rem;
+  }
+</style>

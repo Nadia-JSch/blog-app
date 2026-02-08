@@ -1,0 +1,101 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="pg of code - Home">
+  <section class="hero">
+    <h1>Hey, Welcome In!</h1>
+    <p class="subtitle">
+      This is my little corner of the internet where I jot down things I learn
+      and notes from my coding adventures. Pull up a chair, grab your favorite
+      drink, and browse around.
+    </p>
+  </section>
+
+  <section class="sections">
+    <a href="/til" class="section-card">
+      <span class="emoji">&#x1F4A1;</span>
+      <h2>Today I Learned</h2>
+      <p>Short, bite-sized things I pick up day to day &mdash; little discoveries, tips, and aha moments.</p>
+    </a>
+
+    <a href="/coding-notes" class="section-card">
+      <span class="emoji">&#x1F4DD;</span>
+      <h2>Coding Notes</h2>
+      <p>Longer write-ups, tutorials, and references I come back to when working on projects.</p>
+    </a>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    text-align: center;
+    padding: 3rem 0 4rem;
+  }
+
+  .hero h1 {
+    font-size: 2.8rem;
+    color: var(--text-heading);
+    margin-bottom: 1rem;
+  }
+
+  .subtitle {
+    font-size: 1.15rem;
+    color: var(--text-light);
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.8;
+  }
+
+  .sections {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .section-card {
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.25s ease;
+    box-shadow: var(--shadow);
+    color: inherit;
+  }
+
+  .section-card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-3px);
+    border-color: var(--border-hover);
+    background: var(--bg-hover);
+  }
+
+  .emoji {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+
+  .section-card h2 {
+    font-size: 1.4rem;
+    color: var(--text-heading-alt);
+    margin-bottom: 0.5rem;
+  }
+
+  .section-card p {
+    font-size: 0.95rem;
+    color: var(--text-light);
+    line-height: 1.6;
+  }
+
+  @media (max-width: 600px) {
+    .sections {
+      grid-template-columns: 1fr;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+    }
+  }
+</style>

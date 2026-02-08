@@ -1,0 +1,52 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostCard from '../../components/PostCard.astro';
+
+const posts = await getCollection('coding-notes');
+const sorted = posts.sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+---
+
+<BaseLayout title="Coding Notes - pg of code">
+  <header class="page-header">
+    <h1>Coding Notes</h1>
+    <p>Deeper dives, tutorials, and references from my projects.</p>
+  </header>
+
+  <div class="post-list">
+    {sorted.map((post) => (
+      <PostCard
+        title={post.data.title}
+        date={post.data.date}
+        description={post.data.description}
+        url={`/coding-notes/${post.id}`}
+        tags={post.data.tags}
+      />
+    ))}
+  </div>
+</BaseLayout>
+
+<style>
+  .page-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .page-header h1 {
+    font-size: 2.2rem;
+    color: var(--text-heading);
+    margin-bottom: 0.5rem;
+  }
+
+  .page-header p {
+    color: var(--text-light);
+    font-size: 1.05rem;
+  }
+
+  .post-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+</style>
