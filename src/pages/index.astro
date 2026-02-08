@@ -5,6 +5,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <BaseLayout title="pg of code - Home">
   <section class="hero">
     <h1>Hey, Welcome In!</h1>
+    <img src="/images/ai-abstract.svg" alt="" class="hero-image hero-image--dark" />
+    <img src="/images/ai-abstract-light.svg" alt="" class="hero-image hero-image--light" />
     <p class="subtitle">
       This is my little corner of the internet where I jot down things I learn
       and notes from my coding adventures. Pull up a chair, grab your favorite
@@ -14,23 +16,47 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   <section class="sections">
     <a href="/til" class="section-card">
-      <span class="emoji">&#x1F4A1;</span>
       <h2>Today I Learned</h2>
       <p>Short, bite-sized things I pick up day to day &mdash; little discoveries, tips, and aha moments.</p>
     </a>
 
     <a href="/coding-notes" class="section-card">
-      <span class="emoji">&#x1F4DD;</span>
       <h2>Coding Notes</h2>
       <p>Longer write-ups, tutorials, and references I come back to when working on projects.</p>
+    </a>
+
+    <a href="/thoughts" class="section-card">
+      <h2>Thoughts</h2>
+      <p>Reflections on tech, the industry, and what it's like to be a human learning alongside machines.</p>
+    </a>
+
+    <a href="/experiments" class="section-card">
+      <h2>Experiments</h2>
+      <p>Hands-on CSS experiments and visual demos. Learning by playing.</p>
     </a>
   </section>
 </BaseLayout>
 
 <style>
+  .hero-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    margin-bottom: 1rem;
+  }
+
+  :global([data-theme="dark"]) .hero-image--dark,
+  :global(:not([data-theme])) .hero-image--dark { display: block; }
+  :global([data-theme="dark"]) .hero-image--light,
+  :global(:not([data-theme])) .hero-image--light { display: none; }
+  :global([data-theme="light"]) .hero-image--dark { display: none; }
+  :global([data-theme="light"]) .hero-image--light { display: block; }
+
   .hero {
     text-align: center;
-    padding: 3rem 0 4rem;
+    padding: 2rem 0 4rem;
   }
 
   .hero h1 {
@@ -49,7 +75,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   .sections {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
   }
 
@@ -89,7 +115,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     line-height: 1.6;
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 768px) {
     .sections {
       grid-template-columns: 1fr;
     }

@@ -106,8 +106,6 @@ code {
 }
 
 pre {
-  background: var(--code-bg);
-  color: var(--code-text);
   padding: 1.25rem;
   border-radius: var(--radius);
   overflow-x: auto;
@@ -117,8 +115,20 @@ pre {
 
 pre code {
   background: none;
-  color: inherit;
   padding: 0;
+}
+
+/* Shiki dual theme toggle */
+:root pre,
+:root pre span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+}
+
+[data-theme="light"] pre,
+[data-theme="light"] pre span {
+  color: var(--shiki-light) !important;
+  background-color: var(--shiki-light-bg) !important;
 }
 
 blockquote {

@@ -2,7 +2,7 @@
 title: "CSS :has() selector is a game changer"
 date: "2026-02-07"
 description: "The parent selector we've been waiting for is finally here."
-tags: ["css", "frontend"]
+tags: ["css"]
 ---
 
 Today I learned about the CSS `:has()` selector and it's honestly incredible. We can now style a parent based on its children!

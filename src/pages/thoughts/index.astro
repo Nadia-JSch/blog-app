@@ -3,16 +3,16 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PostCard from '../../components/PostCard.astro';
 
-const posts = await getCollection('coding-notes', (p) => !p.data.draft);
+const posts = await getCollection('thoughts', (p) => !p.data.draft);
 const sorted = posts.sort(
   (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
 );
 ---
 
-<BaseLayout title="Coding Notes - pg of code">
+<BaseLayout title="Thoughts - pg of code">
   <header class="page-header">
-    <h1>Coding Notes</h1>
-    <p>Deeper dives, tutorials, and references from my projects.</p>
+    <h1>Thoughts</h1>
+    <p>Reflections on tech, the industry, and being human in the age of AI.</p>
   </header>
 
   <div class="post-list">
@@ -21,7 +21,7 @@ const sorted = posts.sort(
         title={post.data.title}
         date={post.data.date}
         description={post.data.description}
-        url={`/coding-notes/${post.id}`}
+        url={`/thoughts/${post.id}`}
         tags={post.data.tags}
       />
     ))}

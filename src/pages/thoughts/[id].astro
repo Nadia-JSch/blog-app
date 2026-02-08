@@ -3,7 +3,7 @@ import { getCollection, render } from 'astro:content';
 import PostLayout from '../../layouts/PostLayout.astro';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('coding-notes', (p) => !p.data.draft);
+  const posts = await getCollection('thoughts', (p) => !p.data.draft);
   return posts.map((post) => ({
     params: { id: post.id },
     props: { post },

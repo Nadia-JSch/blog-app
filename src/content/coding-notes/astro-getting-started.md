@@ -2,7 +2,8 @@
 title: "Getting started with Astro"
 date: "2026-02-06"
 description: "Notes from setting up my first Astro project — what I liked and what tripped me up."
-tags: ["astro", "web", "tutorial"]
+tags: ["astro"]
+draft: true
 ---
 
 I just set up this blog with Astro and here are my notes for next time.

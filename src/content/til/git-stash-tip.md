@@ -2,7 +2,7 @@
 title: "Git stash with a message"
 date: "2026-02-05"
 description: "Stop losing track of your stashes with named messages."
-tags: ["git", "workflow"]
+tags: ["git"]
 ---
 
 I always forget what's in my git stashes. Turns out you can name them!

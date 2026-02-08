@@ -2,7 +2,7 @@
 title: "JavaScript array methods cheat sheet"
 date: "2026-02-03"
 description: "The array methods I use most often, with examples."
-tags: ["javascript", "reference"]
+tags: ["javascript"]
 ---
 
 A quick reference for the array methods I reach for most.

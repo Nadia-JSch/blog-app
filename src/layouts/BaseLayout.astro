@@ -27,6 +27,8 @@ const currentPath = Astro.url.pathname;
           <div class="nav-links">
             <a href="/til" class:list={[{ active: currentPath.startsWith('/til') }]}>Today I Learned</a>
             <a href="/coding-notes" class:list={[{ active: currentPath.startsWith('/coding-notes') }]}>Coding Notes</a>
+            <a href="/thoughts" class:list={[{ active: currentPath.startsWith('/thoughts') }]}>Thoughts</a>
+            <a href="/experiments" class:list={[{ active: currentPath.startsWith('/experiments') }]}>Experiments</a>
           </div>
           <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
             <span class="icon-sun">&#9788;</span>
@@ -41,7 +43,7 @@ const currentPath = Astro.url.pathname;
     </main>
 
     <footer class="footer">
-      <p>made with care & lots of coffee</p>
+      <p>made by cats by cat</p>
     </footer>
 
     <script is:inline>
