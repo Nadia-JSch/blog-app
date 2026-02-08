@@ -1,64 +1,62 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&display=swap');
 
-/* dark romantic / gothy dark mode */
+/* terminal cute dark mode */
 :root {
-  --pink-300: #d4a0b0;
-  --pink-400: #c4788a;
-  --pink-500: #a3586e;
-  --pink-600: #8b3a5c;
-  --bg: #0d0b0e;
-  --bg-raised: #161318;
-  --bg-hover: #1e1a22;
-  --border: #2a2230;
-  --border-hover: #3d2f45;
-  --text: #d4cad8;
-  --text-light: #8a7e92;
-  --text-heading: #d4a0b0;
-  --text-heading-alt: #c4788a;
-  --link: #c4788a;
-  --link-hover: #d4a0b0;
-  --tag-bg: rgba(196, 120, 138, 0.12);
-  --tag-text: #c4788a;
-  --tag-bg-hover: rgba(196, 120, 138, 0.22);
-  --tag-text-hover: #d4a0b0;
-  --code-bg: #0a080c;
-  --code-text: #c4788a;
-  --code-inline-bg: rgba(196, 120, 138, 0.1);
-  --code-inline-text: #d4a0b0;
-  --radius: 10px;
+  --bg: #0a0e0a;
+  --bg-raised: #0f1a0f;
+  --bg-hover: #142014;
+  --border: #1a2e1a;
+  --border-hover: #2a4a2a;
+  --text: #b8d4b8;
+  --text-light: #6a8a6a;
+  --text-heading: #7fef7f;
+  --text-heading-alt: #e8a0c0;
+  --link: #e8a0c0;
+  --link-hover: #f0c0d8;
+  --tag-bg: rgba(127, 239, 127, 0.1);
+  --tag-text: #7fef7f;
+  --tag-bg-hover: rgba(127, 239, 127, 0.2);
+  --tag-text-hover: #b8d4b8;
+  --code-bg: #060a06;
+  --code-text: #7fef7f;
+  --code-inline-bg: rgba(127, 239, 127, 0.1);
+  --code-inline-text: #b8d4b8;
+  --radius: 4px;
   --shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
   --shadow-hover: 0 8px 32px rgba(0, 0, 0, 0.6);
-  --nav-bg: rgba(13, 11, 14, 0.9);
+  --nav-bg: rgba(10, 14, 10, 0.9);
 }
 
-/* light romantic / dusty rose light mode */
+/* terminal cute light mode */
 [data-theme="light"] {
-  --pink-300: #d4a0b0;
-  --pink-400: #a3586e;
-  --pink-500: #8b3a5c;
-  --pink-600: #6e2848;
-  --bg: #f5f0ed;
-  --bg-raised: #faf7f5;
-  --bg-hover: #f0e8e4;
-  --border: #e0d4d0;
-  --border-hover: #c4a0a8;
-  --text: #2e2230;
-  --text-light: #6b5a68;
-  --text-heading: #6e2848;
-  --text-heading-alt: #8b3a5c;
-  --link: #8b3a5c;
-  --link-hover: #6e2848;
-  --tag-bg: rgba(163, 88, 110, 0.1);
-  --tag-text: #8b3a5c;
-  --tag-bg-hover: rgba(163, 88, 110, 0.2);
-  --tag-text-hover: #6e2848;
-  --code-bg: #1e1a22;
-  --code-text: #d4a0b0;
-  --code-inline-bg: rgba(163, 88, 110, 0.1);
-  --code-inline-text: #6e2848;
+  --bg: #f0f5f0;
+  --bg-raised: #f8faf8;
+  --bg-hover: #e8f0e8;
+  --border: #c8d8c8;
+  --border-hover: #a0c0a0;
+  --text: #1a2e1a;
+  --text-light: #4a6a4a;
+  --text-heading: #0a6e0a;
+  --text-heading-alt: #a0446a;
+  --link: #a0446a;
+  --link-hover: #802050;
+  --tag-bg: rgba(10, 110, 10, 0.1);
+  --tag-text: #0a6e0a;
+  --tag-bg-hover: rgba(10, 110, 10, 0.2);
+  --tag-text-hover: #1a2e1a;
+  --code-bg: #1a2e1a;
+  --code-text: #7fef7f;
+  --code-inline-bg: rgba(10, 110, 10, 0.1);
+  --code-inline-text: #0a6e0a;
   --shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
   --shadow-hover: 0 8px 28px rgba(0, 0, 0, 0.1);
-  --nav-bg: rgba(245, 240, 237, 0.9);
+  --nav-bg: rgba(240, 245, 240, 0.9);
+}
+
+/* blinking cursor animation */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
 *, *::before, *::after {
@@ -72,7 +70,7 @@ html {
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Fira Code', monospace;
   background: var(--bg);
   color: var(--text);
   line-height: 1.7;
@@ -81,7 +79,7 @@ body {
 }
 
 h1, h2, h3 {
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Fira Code', monospace;
   font-weight: 700;
   line-height: 1.3;
 }
@@ -97,7 +95,7 @@ a:hover {
 }
 
 code {
-  font-family: 'Courier New', monospace;
+  font-family: 'Fira Code', monospace;
   background: var(--code-inline-bg);
   color: var(--code-inline-text);
   padding: 2px 6px;
@@ -132,10 +130,10 @@ pre code {
 }
 
 blockquote {
-  border-left: 4px solid var(--pink-400);
+  border-left: 4px solid var(--text-heading);
   padding: 0.75rem 1.25rem;
   margin: 1.5rem 0;
-  background: rgba(196, 120, 138, 0.06);
+  background: rgba(127, 239, 127, 0.06);
   border-radius: 0 var(--radius) var(--radius) 0;
   font-style: italic;
   color: var(--text-light);

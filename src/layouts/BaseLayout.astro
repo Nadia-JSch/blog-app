@@ -22,13 +22,13 @@ const currentPath = Astro.url.pathname;
   <body>
     <nav class="nav">
       <div class="nav-inner">
-        <a href="/" class="logo">pg of code</a>
+        <a href="/" class="logo">pg of code<span class="cursor">_</span></a>
         <div class="nav-right">
           <div class="nav-links">
-            <a href="/til" class:list={[{ active: currentPath.startsWith('/til') }]}>Today I Learned</a>
-            <a href="/coding-notes" class:list={[{ active: currentPath.startsWith('/coding-notes') }]}>Coding Notes</a>
-            <a href="/thoughts" class:list={[{ active: currentPath.startsWith('/thoughts') }]}>Thoughts</a>
-            <a href="/experiments" class:list={[{ active: currentPath.startsWith('/experiments') }]}>Experiments</a>
+            <a href="/til" class:list={[{ active: currentPath.startsWith('/til') }]}>~/til</a>
+            <a href="/coding-notes" class:list={[{ active: currentPath.startsWith('/coding-notes') }]}>~/coding-notes</a>
+            <a href="/thoughts" class:list={[{ active: currentPath.startsWith('/thoughts') }]}>~/thoughts</a>
+            <a href="/experiments" class:list={[{ active: currentPath.startsWith('/experiments') }]}>~/experiments</a>
           </div>
           <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
             <span class="icon-sun">&#9788;</span>
@@ -43,7 +43,7 @@ const currentPath = Astro.url.pathname;
     </main>
 
     <footer class="footer">
-      <p>made by cats by cat</p>
+      <p>can't wait to live in the cloud</p>
     </footer>
 
     <script is:inline>
@@ -87,15 +87,21 @@ const currentPath = Astro.url.pathname;
   }
 
   .logo {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Fira Code', monospace;
     font-size: 1.4rem;
     font-weight: 700;
-    color: var(--pink-400);
+    color: var(--text-heading);
     letter-spacing: -0.02em;
   }
 
   .logo:hover {
-    color: var(--pink-300);
+    color: var(--text-heading);
+    opacity: 0.8;
+  }
+
+  .logo .cursor {
+    animation: blink 1s step-end infinite;
+    color: var(--text-heading);
   }
 
   .nav-right {
@@ -112,7 +118,7 @@ const currentPath = Astro.url.pathname;
   .theme-toggle {
     background: none;
     border: 1px solid var(--border);
-    border-radius: 8px;
+    border-radius: 4px;
     padding: 0.35rem 0.5rem;
     cursor: pointer;
     font-size: 1.1rem;
@@ -122,8 +128,8 @@ const currentPath = Astro.url.pathname;
   }
 
   .theme-toggle:hover {
-    border-color: var(--pink-400);
-    color: var(--pink-400);
+    border-color: var(--text-heading);
+    color: var(--text-heading);
   }
 
   :global([data-theme="dark"]) .icon-sun { display: inline; }
@@ -144,8 +150,8 @@ const currentPath = Astro.url.pathname;
 
   .nav-links a:hover,
   .nav-links a.active {
-    color: var(--pink-400);
-    border-bottom-color: var(--pink-400);
+    color: var(--text-heading);
+    border-bottom-color: var(--text-heading);
   }
 
   .main {

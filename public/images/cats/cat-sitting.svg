@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
+  <!-- chonky sitting cat -->
+  <ellipse cx="40" cy="52" rx="24" ry="20" fill="#c4a088" opacity="0.9"/>
+  <!-- head -->
+  <circle cx="40" cy="30" r="16" fill="#c4a088" opacity="0.9"/>
+  <!-- ears -->
+  <polygon points="28,20 24,8 34,18" fill="#c4a088" opacity="0.9"/>
+  <polygon points="52,20 56,8 46,18" fill="#c4a088" opacity="0.9"/>
+  <polygon points="29,19 26,11 33,18" fill="#e8bfa8" opacity="0.6"/>
+  <polygon points="51,19 54,11 47,18" fill="#e8bfa8" opacity="0.6"/>
+  <!-- eyes -->
+  <ellipse cx="34" cy="28" rx="2.5" ry="3" fill="#3d2a2a"/>
+  <ellipse cx="46" cy="28" rx="2.5" ry="3" fill="#3d2a2a"/>
+  <circle cx="33" cy="27" r="1" fill="white" opacity="0.7"/>
+  <circle cx="45" cy="27" r="1" fill="white" opacity="0.7"/>
+  <!-- nose + mouth -->
+  <ellipse cx="40" cy="33" rx="1.5" ry="1" fill="#d4868a"/>
+  <path d="M40 34 Q37 37 35 35" stroke="#8b6060" stroke-width="0.7" fill="none"/>
+  <path d="M40 34 Q43 37 45 35" stroke="#8b6060" stroke-width="0.7" fill="none"/>
+  <!-- whiskers -->
+  <line x1="22" y1="30" x2="32" y2="32" stroke="#8b6060" stroke-width="0.5" opacity="0.5"/>
+  <line x1="22" y1="34" x2="32" y2="34" stroke="#8b6060" stroke-width="0.5" opacity="0.5"/>
+  <line x1="58" y1="30" x2="48" y2="32" stroke="#8b6060" stroke-width="0.5" opacity="0.5"/>
+  <line x1="58" y1="34" x2="48" y2="34" stroke="#8b6060" stroke-width="0.5" opacity="0.5"/>
+  <!-- tail -->
+  <path d="M62 55 Q72 45 68 35" stroke="#c4a088" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.9"/>
+  <!-- paws -->
+  <ellipse cx="32" cy="70" rx="6" ry="4" fill="#c4a088" opacity="0.9"/>
+  <ellipse cx="48" cy="70" rx="6" ry="4" fill="#c4a088" opacity="0.9"/>
+</svg>

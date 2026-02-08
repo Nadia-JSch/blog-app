@@ -89,7 +89,7 @@ const formattedDate = new Date(frontmatter.date).toLocaleDateString('en-US', {
   .tag:hover {
     background: var(--tag-bg-hover);
     color: var(--tag-text-hover);
-    border-color: var(--pink-400);
+    border-color: var(--tag-text-hover);
   }
 
   .post-content {
@@ -98,7 +98,7 @@ const formattedDate = new Date(frontmatter.date).toLocaleDateString('en-US', {
 
   .post-content :global(h2) {
     font-size: 1.5rem;
-    color: var(--text-heading-alt);
+    color: var(--text-heading);
     margin: 2rem 0 0.75rem;
   }
 

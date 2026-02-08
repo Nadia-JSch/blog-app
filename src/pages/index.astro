@@ -3,60 +3,88 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout title="pg of code - Home">
+  <div class="hero-bg hero-bg--dark" aria-hidden="true"></div>
+  <div class="hero-bg hero-bg--light" aria-hidden="true"></div>
   <section class="hero">
-    <h1>Hey, Welcome In!</h1>
-    <img src="/images/ai-abstract.svg" alt="" class="hero-image hero-image--dark" />
-    <img src="/images/ai-abstract-light.svg" alt="" class="hero-image hero-image--light" />
+    <h1>Hey, you found me</h1>
     <p class="subtitle">
-      This is my little corner of the internet where I jot down things I learn
-      and notes from my coding adventures. Pull up a chair, grab your favorite
-      drink, and browse around.
+      > I'm Nadia. I write about code and the slow process of
+      figuring things out. Most of what's here are notes to my future self...
+      things I learned the long way round and don't want to forget. You're
+      welcome to look around.
     </p>
   </section>
 
   <section class="sections">
     <a href="/til" class="section-card">
-      <h2>Today I Learned</h2>
+      <h2>$ cat today-i-learned</h2>
       <p>Short, bite-sized things I pick up day to day &mdash; little discoveries, tips, and aha moments.</p>
     </a>
 
     <a href="/coding-notes" class="section-card">
-      <h2>Coding Notes</h2>
+      <h2>$ cat coding-notes</h2>
       <p>Longer write-ups, tutorials, and references I come back to when working on projects.</p>
     </a>
 
     <a href="/thoughts" class="section-card">
-      <h2>Thoughts</h2>
+      <h2>$ ls thoughts/</h2>
       <p>Reflections on tech, the industry, and what it's like to be a human learning alongside machines.</p>
     </a>
 
     <a href="/experiments" class="section-card">
-      <h2>Experiments</h2>
+      <h2>$ ls experiments/</h2>
       <p>Hands-on CSS experiments and visual demos. Learning by playing.</p>
     </a>
   </section>
+
+  <!-- background cats -->
+  <div class="bg-cats" aria-hidden="true">
+    <img src="/images/cats/cat-sitting.svg" alt="" class="bg-cat" style="top: 5%; left: 2%; width: 60px; transform: rotate(-8deg);" />
+    <img src="/images/cats/cat-loaf.svg" alt="" class="bg-cat" style="top: 12%; right: 3%; width: 70px; transform: rotate(5deg);" />
+    <img src="/images/cats/cat-sleep.svg" alt="" class="bg-cat" style="top: 35%; left: 1%; width: 65px; transform: rotate(-3deg);" />
+    <img src="/images/cats/cat-laptop.svg" alt="" class="bg-cat" style="top: 30%; right: 1%; width: 55px; transform: rotate(6deg);" />
+    <img src="/images/cats/cat-stretch.svg" alt="" class="bg-cat" style="top: 55%; left: 3%; width: 75px; transform: rotate(-5deg);" />
+    <img src="/images/cats/robot.svg" alt="" class="bg-cat" style="top: 58%; right: 2%; width: 45px; transform: rotate(10deg);" />
+    <img src="/images/cats/cat-sitting.svg" alt="" class="bg-cat" style="top: 78%; left: 1%; width: 50px; transform: scaleX(-1) rotate(4deg);" />
+    <img src="/images/cats/cat-loaf.svg" alt="" class="bg-cat" style="top: 82%; right: 4%; width: 60px; transform: rotate(-6deg);" />
+    <img src="/images/cats/cat-sleep.svg" alt="" class="bg-cat" style="top: 95%; left: 4%; width: 55px; transform: rotate(3deg);" />
+  </div>
 </BaseLayout>
 
 <style>
-  .hero-image {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-    margin-bottom: 1rem;
+  .hero-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 500px;
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+    pointer-events: none;
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
   }
 
-  :global([data-theme="dark"]) .hero-image--dark,
-  :global(:not([data-theme])) .hero-image--dark { display: block; }
-  :global([data-theme="dark"]) .hero-image--light,
-  :global(:not([data-theme])) .hero-image--light { display: none; }
-  :global([data-theme="light"]) .hero-image--dark { display: none; }
-  :global([data-theme="light"]) .hero-image--light { display: block; }
+  .hero-bg--dark {
+    background-image: url('/images/ai-abstract.svg');
+  }
+
+  .hero-bg--light {
+    background-image: url('/images/ai-abstract-light.svg');
+  }
+
+  :global([data-theme="dark"]) .hero-bg--dark,
+  :global(:not([data-theme])) .hero-bg--dark { display: block; }
+  :global([data-theme="dark"]) .hero-bg--light,
+  :global(:not([data-theme])) .hero-bg--light { display: none; }
+  :global([data-theme="light"]) .hero-bg--dark { display: none; }
+  :global([data-theme="light"]) .hero-bg--light { display: block; }
 
   .hero {
     text-align: center;
-    padding: 2rem 0 4rem;
+    padding: 2.5rem 0 3.5rem;
+    position: relative;
   }
 
   .hero h1 {
@@ -66,11 +94,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   .subtitle {
-    font-size: 1.15rem;
+    font-size: 1.05rem;
     color: var(--text-light);
     max-width: 520px;
     margin: 0 auto;
     line-height: 1.8;
+    text-align: left;
   }
 
   .sections {
@@ -83,8 +112,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     background: var(--bg-raised);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 2rem;
-    text-align: center;
+    padding: 1.4rem 1.6rem;
+    text-align: left;
     transition: all 0.25s ease;
     box-shadow: var(--shadow);
     color: inherit;
@@ -97,22 +126,45 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     background: var(--bg-hover);
   }
 
-  .emoji {
-    font-size: 2.5rem;
-    display: block;
-    margin-bottom: 0.75rem;
-  }
-
   .section-card h2 {
-    font-size: 1.4rem;
-    color: var(--text-heading-alt);
-    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+    color: var(--text-heading);
+    margin-bottom: 0.35rem;
+    font-weight: 500;
   }
 
   .section-card p {
-    font-size: 0.95rem;
+    font-size: 0.8rem;
     color: var(--text-light);
-    line-height: 1.6;
+    line-height: 1.5;
+  }
+
+  .bg-cats {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .bg-cat {
+    position: absolute;
+    opacity: 0.12;
+    transition: opacity 0.3s;
+    border: none !important;
+    border-radius: 0 !important;
+  }
+
+  :global([data-theme="light"]) .bg-cat {
+    opacity: 0.1;
+  }
+
+  @media (max-width: 768px) {
+    .bg-cats {
+      display: none;
+    }
   }
 
   @media (max-width: 768px) {

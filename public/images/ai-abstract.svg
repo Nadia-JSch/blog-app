@@ -1,16 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300">
   <defs>
     <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0d0b0e"/>
-      <stop offset="100%" stop-color="#1e1a22"/>
+      <stop offset="0%" stop-color="#0a0e0a"/>
+      <stop offset="100%" stop-color="#0f1a0f"/>
     </linearGradient>
     <linearGradient id="glow1" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#c4788a" stop-opacity="0.6"/>
-      <stop offset="100%" stop-color="#d4a0b0" stop-opacity="0.1"/>
+      <stop offset="0%" stop-color="#7fef7f" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#b8d4b8" stop-opacity="0.05"/>
     </linearGradient>
     <linearGradient id="glow2" x1="100%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#8b3a5c" stop-opacity="0.5"/>
-      <stop offset="100%" stop-color="#2a2230" stop-opacity="0.1"/>
+      <stop offset="0%" stop-color="#e8a0c0" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#1a2e1a" stop-opacity="0.05"/>
     </linearGradient>
     <filter id="blur1"><feGaussianBlur stdDeviation="30"/></filter>
     <filter id="blur2"><feGaussianBlur stdDeviation="18"/></filter>
@@ -23,56 +23,56 @@
   <!-- soft ambient glows -->
   <ellipse cx="200" cy="150" rx="250" ry="140" fill="url(#glow1)" filter="url(#blur1)"/>
   <ellipse cx="620" cy="130" rx="200" ry="120" fill="url(#glow2)" filter="url(#blur1)"/>
-  <ellipse cx="400" cy="200" rx="150" ry="80" fill="#c4788a" opacity="0.08" filter="url(#blur1)"/>
+  <ellipse cx="400" cy="200" rx="150" ry="80" fill="#7fef7f" opacity="0.06" filter="url(#blur1)"/>
 
   <!-- neural network nodes -->
   <g opacity="0.35" filter="url(#blur3)">
     <!-- connections -->
-    <line x1="150" y1="80" x2="300" y2="140" stroke="#d4a0b0" stroke-width="0.8"/>
-    <line x1="150" y1="80" x2="320" y2="60" stroke="#d4a0b0" stroke-width="0.5"/>
-    <line x1="300" y1="140" x2="450" y2="100" stroke="#c4788a" stroke-width="0.8"/>
-    <line x1="320" y1="60" x2="450" y2="100" stroke="#c4788a" stroke-width="0.6"/>
-    <line x1="450" y1="100" x2="580" y2="150" stroke="#d4a0b0" stroke-width="0.7"/>
-    <line x1="450" y1="100" x2="600" y2="70" stroke="#8b3a5c" stroke-width="0.5"/>
-    <line x1="580" y1="150" x2="680" y2="110" stroke="#d4a0b0" stroke-width="0.6"/>
-    <line x1="300" y1="140" x2="350" y2="220" stroke="#8b3a5c" stroke-width="0.5"/>
-    <line x1="350" y1="220" x2="500" y2="200" stroke="#c4788a" stroke-width="0.6"/>
-    <line x1="500" y1="200" x2="580" y2="150" stroke="#d4a0b0" stroke-width="0.5"/>
-    <line x1="600" y1="70" x2="680" y2="110" stroke="#c4788a" stroke-width="0.5"/>
-    <line x1="200" y1="200" x2="350" y2="220" stroke="#d4a0b0" stroke-width="0.4"/>
-    <line x1="150" y1="80" x2="200" y2="200" stroke="#8b3a5c" stroke-width="0.4"/>
+    <line x1="150" y1="80" x2="300" y2="140" stroke="#b8d4b8" stroke-width="0.8"/>
+    <line x1="150" y1="80" x2="320" y2="60" stroke="#b8d4b8" stroke-width="0.5"/>
+    <line x1="300" y1="140" x2="450" y2="100" stroke="#7fef7f" stroke-width="0.8"/>
+    <line x1="320" y1="60" x2="450" y2="100" stroke="#7fef7f" stroke-width="0.6"/>
+    <line x1="450" y1="100" x2="580" y2="150" stroke="#b8d4b8" stroke-width="0.7"/>
+    <line x1="450" y1="100" x2="600" y2="70" stroke="#e8a0c0" stroke-width="0.5"/>
+    <line x1="580" y1="150" x2="680" y2="110" stroke="#b8d4b8" stroke-width="0.6"/>
+    <line x1="300" y1="140" x2="350" y2="220" stroke="#e8a0c0" stroke-width="0.5"/>
+    <line x1="350" y1="220" x2="500" y2="200" stroke="#7fef7f" stroke-width="0.6"/>
+    <line x1="500" y1="200" x2="580" y2="150" stroke="#b8d4b8" stroke-width="0.5"/>
+    <line x1="600" y1="70" x2="680" y2="110" stroke="#7fef7f" stroke-width="0.5"/>
+    <line x1="200" y1="200" x2="350" y2="220" stroke="#b8d4b8" stroke-width="0.4"/>
+    <line x1="150" y1="80" x2="200" y2="200" stroke="#e8a0c0" stroke-width="0.4"/>
   </g>
 
   <!-- nodes -->
   <g opacity="0.5">
-    <circle cx="150" cy="80" r="4" fill="#d4a0b0"/>
-    <circle cx="300" cy="140" r="5" fill="#c4788a"/>
-    <circle cx="320" cy="60" r="3" fill="#d4a0b0"/>
-    <circle cx="450" cy="100" r="6" fill="#c4788a"/>
-    <circle cx="580" cy="150" r="4" fill="#d4a0b0"/>
-    <circle cx="600" cy="70" r="3" fill="#8b3a5c"/>
-    <circle cx="680" cy="110" r="4" fill="#d4a0b0"/>
-    <circle cx="350" cy="220" r="3.5" fill="#c4788a"/>
-    <circle cx="500" cy="200" r="3" fill="#d4a0b0"/>
-    <circle cx="200" cy="200" r="3" fill="#8b3a5c"/>
+    <circle cx="150" cy="80" r="4" fill="#b8d4b8"/>
+    <circle cx="300" cy="140" r="5" fill="#7fef7f"/>
+    <circle cx="320" cy="60" r="3" fill="#b8d4b8"/>
+    <circle cx="450" cy="100" r="6" fill="#7fef7f"/>
+    <circle cx="580" cy="150" r="4" fill="#b8d4b8"/>
+    <circle cx="600" cy="70" r="3" fill="#e8a0c0"/>
+    <circle cx="680" cy="110" r="4" fill="#b8d4b8"/>
+    <circle cx="350" cy="220" r="3.5" fill="#7fef7f"/>
+    <circle cx="500" cy="200" r="3" fill="#b8d4b8"/>
+    <circle cx="200" cy="200" r="3" fill="#e8a0c0"/>
   </g>
 
   <!-- floating particles -->
   <g opacity="0.3">
-    <circle cx="100" cy="40" r="1.5" fill="#d4a0b0"/>
-    <circle cx="250" cy="250" r="1" fill="#c4788a"/>
-    <circle cx="400" cy="30" r="1.5" fill="#8b3a5c"/>
-    <circle cx="550" cy="260" r="1" fill="#d4a0b0"/>
-    <circle cx="700" cy="40" r="1.5" fill="#c4788a"/>
-    <circle cx="720" cy="230" r="1" fill="#d4a0b0"/>
-    <circle cx="80" cy="180" r="1" fill="#c4788a"/>
-    <circle cx="480" cy="270" r="1.5" fill="#8b3a5c"/>
-    <circle cx="350" cy="15" r="1" fill="#d4a0b0"/>
-    <circle cx="630" cy="250" r="1" fill="#c4788a"/>
+    <circle cx="100" cy="40" r="1.5" fill="#b8d4b8"/>
+    <circle cx="250" cy="250" r="1" fill="#7fef7f"/>
+    <circle cx="400" cy="30" r="1.5" fill="#e8a0c0"/>
+    <circle cx="550" cy="260" r="1" fill="#b8d4b8"/>
+    <circle cx="700" cy="40" r="1.5" fill="#7fef7f"/>
+    <circle cx="720" cy="230" r="1" fill="#b8d4b8"/>
+    <circle cx="80" cy="180" r="1" fill="#7fef7f"/>
+    <circle cx="480" cy="270" r="1.5" fill="#e8a0c0"/>
+    <circle cx="350" cy="15" r="1" fill="#b8d4b8"/>
+    <circle cx="630" cy="250" r="1" fill="#7fef7f"/>
   </g>
 
   <!-- subtle circuit traces -->
-  <g opacity="0.12" stroke="#d4a0b0" stroke-width="0.5" fill="none">
+  <g opacity="0.12" stroke="#7fef7f" stroke-width="0.5" fill="none">
     <path d="M0 180 Q100 160 200 180 T400 170 T600 185 T800 175"/>
     <path d="M0 120 Q150 100 250 120 T500 110 T700 125 T800 115"/>
   </g>
