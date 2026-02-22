@@ -3,10 +3,8 @@ title: "How This Blog App Actually Works"
 date: "2026-02-08"
 description: "A personal walkthrough of how all the pieces of this Astro blog connect — written for myself to come back to."
 tags: ["astro"]
-draft: true
+draft: false
 ---
-
-Okay future me (or present me on a bad brain day) — here's how this blog app works. I built it with Claude but I want to actually understand what's going on, not just have working code I can't explain.
 
 ## What's in the project?
 
