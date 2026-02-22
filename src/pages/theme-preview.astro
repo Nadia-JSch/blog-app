@@ -1,0 +1,453 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Theme Preview - pg of code">
+  <header class="page-header">
+    <h1>Theme Preview</h1>
+    <p>Click a palette to preview it live across this page. Your current theme is not affected.</p>
+  </header>
+
+  <div class="palette-picker">
+    <button class="palette-btn active" data-palette="current">🌿 Current</button>
+    <button class="palette-btn" data-palette="ocean">🌊 Midnight Ocean</button>
+    <button class="palette-btn" data-palette="warm">🔥 Warm Terminal</button>
+    <button class="palette-btn" data-palette="violet">🔮 Soft Violet</button>
+  </div>
+
+  <div class="preview-grid">
+    <!-- Typography -->
+    <section class="preview-section">
+      <h2>Typography</h2>
+      <h1>Heading One</h1>
+      <h2>Heading Two</h2>
+      <h3>Heading Three</h3>
+      <p>Body text looks like this. It should be easy to read for long periods without eye strain. Here's a <a href="#">link to something</a> and some more text to fill out the paragraph so you can judge the line length and spacing.</p>
+      <p class="text-light-preview">Secondary text uses a lighter color for metadata, dates, and less important information.</p>
+    </section>
+
+    <!-- Cards -->
+    <section class="preview-section">
+      <h2>Post Cards</h2>
+      <div class="preview-card">
+        <div class="card-title">How I Built This Blog</div>
+        <div class="card-meta">
+          <span class="preview-tag">#astro</span>
+          <span class="preview-tag">#css</span>
+          <span class="card-date">Jan 15, 2026</span>
+        </div>
+        <p class="card-desc">A walkthrough of the tech choices and design process behind this site.</p>
+      </div>
+      <div class="preview-card">
+        <div class="card-title">Notes on TypeScript Generics</div>
+        <div class="card-meta">
+          <span class="preview-tag">#typescript</span>
+          <span class="card-date">Feb 3, 2026</span>
+        </div>
+        <p class="card-desc">Things I keep forgetting about generics, written down so I stop Googling them.</p>
+      </div>
+    </section>
+
+    <!-- UI Elements -->
+    <section class="preview-section">
+      <h2>UI Elements</h2>
+      <div class="ui-row">
+        <div class="preview-raised-box">Raised surface</div>
+        <div class="preview-subtle-box">Subtle surface</div>
+      </div>
+      <blockquote>This is a blockquote. It should stand out but not overpower the content around it.</blockquote>
+      <p>Inline <code>code looks like this</code> within a paragraph.</p>
+      <pre><code>// Code block
+const name = 'terminal-cute';
+console.log('Hello from ' + name);</code></pre>
+    </section>
+
+    <!-- Color Swatches -->
+    <section class="preview-section">
+      <h2>Palette Swatches</h2>
+      <div class="swatches">
+        <div class="swatch" style="background: var(--bg);"><span>bg</span></div>
+        <div class="swatch" style="background: var(--bg-raised);"><span>raised</span></div>
+        <div class="swatch" style="background: var(--bg-hover);"><span>hover</span></div>
+        <div class="swatch" style="background: var(--border);"><span>border</span></div>
+        <div class="swatch swatch-text" style="background: var(--text-heading);"><span>heading</span></div>
+        <div class="swatch swatch-text" style="background: var(--text);"><span>text</span></div>
+        <div class="swatch swatch-text" style="background: var(--text-light);"><span>light</span></div>
+        <div class="swatch swatch-text" style="background: var(--link);"><span>link</span></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="preview-mode-toggle">
+    <button class="mode-btn active" data-mode="dark">Dark</button>
+    <button class="mode-btn" data-mode="light">Light</button>
+  </div>
+</BaseLayout>
+
+<script is:inline>
+(function() {
+  const palettes = {
+    current: {
+      dark: {
+        '--bg': '#0a0e0a', '--bg-raised': '#0f1a0f', '--bg-subtle': '#111a11',
+        '--bg-hover': '#142014', '--border': '#243824', '--border-hover': '#2a4a2a',
+        '--text': '#c2d8c2', '--text-light': '#85a685',
+        '--text-heading': '#8ad68a', '--text-heading-alt': '#d4a0e0',
+        '--link': '#d4a0e0', '--link-hover': '#e0b8ec',
+        '--tag-bg': 'rgba(138, 214, 138, 0.1)', '--tag-text': '#8ad68a',
+        '--tag-bg-hover': 'rgba(138, 214, 138, 0.18)', '--tag-text-hover': '#c2d8c2',
+        '--code-bg': '#060a06', '--code-text': '#8ad68a',
+        '--code-inline-bg': 'rgba(138, 214, 138, 0.1)', '--code-inline-text': '#c2d8c2',
+        '--blockquote-bg': 'rgba(138, 214, 138, 0.06)',
+        '--nav-bg': 'rgba(10, 14, 10, 0.9)',
+      },
+      light: {
+        '--bg': '#f5f7f4', '--bg-raised': '#fbfbfa', '--bg-subtle': '#f0f2ee',
+        '--bg-hover': '#e8ece5', '--border': '#cdd1c8', '--border-hover': '#a8b2a0',
+        '--text': '#2a302c', '--text-light': '#4d5349',
+        '--text-heading': '#2d6e42', '--text-heading-alt': '#9a3d62',
+        '--link': '#9a3d62', '--link-hover': '#7c2e4e',
+        '--tag-bg': 'rgba(45, 110, 66, 0.08)', '--tag-text': '#2d6e42',
+        '--tag-bg-hover': 'rgba(45, 110, 66, 0.15)', '--tag-text-hover': '#2a302c',
+        '--code-bg': '#2a302c', '--code-text': '#a8d8b0',
+        '--code-inline-bg': 'rgba(45, 110, 66, 0.08)', '--code-inline-text': '#2d6e42',
+        '--blockquote-bg': 'rgba(45, 110, 66, 0.05)',
+        '--nav-bg': 'rgba(245, 247, 244, 0.9)',
+      }
+    },
+    ocean: {
+      dark: {
+        '--bg': '#0a0e14', '--bg-raised': '#0f1620', '--bg-subtle': '#111824',
+        '--bg-hover': '#141e2c', '--border': '#1e2e3e', '--border-hover': '#2a4058',
+        '--text': '#bfc9d4', '--text-light': '#7a8a9a',
+        '--text-heading': '#6ec8e6', '--text-heading-alt': '#e8887a',
+        '--link': '#e8887a', '--link-hover': '#f0a898',
+        '--tag-bg': 'rgba(110, 200, 230, 0.1)', '--tag-text': '#6ec8e6',
+        '--tag-bg-hover': 'rgba(110, 200, 230, 0.18)', '--tag-text-hover': '#bfc9d4',
+        '--code-bg': '#060a10', '--code-text': '#6ec8e6',
+        '--code-inline-bg': 'rgba(110, 200, 230, 0.1)', '--code-inline-text': '#bfc9d4',
+        '--blockquote-bg': 'rgba(110, 200, 230, 0.06)',
+        '--nav-bg': 'rgba(10, 14, 20, 0.9)',
+      },
+      light: {
+        '--bg': '#f4f6f8', '--bg-raised': '#fafbfc', '--bg-subtle': '#eef1f4',
+        '--bg-hover': '#e4e8ee', '--border': '#d0d6dc', '--border-hover': '#a8b4c0',
+        '--text': '#2c3340', '--text-light': '#5a6370',
+        '--text-heading': '#1a7a96', '--text-heading-alt': '#c0503e',
+        '--link': '#c0503e', '--link-hover': '#983828',
+        '--tag-bg': 'rgba(26, 122, 150, 0.08)', '--tag-text': '#1a7a96',
+        '--tag-bg-hover': 'rgba(26, 122, 150, 0.15)', '--tag-text-hover': '#2c3340',
+        '--code-bg': '#2c3340', '--code-text': '#7ad0e8',
+        '--code-inline-bg': 'rgba(26, 122, 150, 0.08)', '--code-inline-text': '#1a7a96',
+        '--blockquote-bg': 'rgba(26, 122, 150, 0.05)',
+        '--nav-bg': 'rgba(244, 246, 248, 0.9)',
+      }
+    },
+    warm: {
+      dark: {
+        '--bg': '#101010', '--bg-raised': '#181614', '--bg-subtle': '#141210',
+        '--bg-hover': '#1e1c18', '--border': '#2a2824', '--border-hover': '#3e3a34',
+        '--text': '#c8c2b8', '--text-light': '#8a8478',
+        '--text-heading': '#e0b060', '--text-heading-alt': '#d48a9a',
+        '--link': '#d48a9a', '--link-hover': '#e0a4b0',
+        '--tag-bg': 'rgba(224, 176, 96, 0.1)', '--tag-text': '#e0b060',
+        '--tag-bg-hover': 'rgba(224, 176, 96, 0.18)', '--tag-text-hover': '#c8c2b8',
+        '--code-bg': '#0a0a08', '--code-text': '#e0b060',
+        '--code-inline-bg': 'rgba(224, 176, 96, 0.1)', '--code-inline-text': '#c8c2b8',
+        '--blockquote-bg': 'rgba(224, 176, 96, 0.06)',
+        '--nav-bg': 'rgba(16, 16, 16, 0.9)',
+      },
+      light: {
+        '--bg': '#f7f5f2', '--bg-raised': '#fcfbf9', '--bg-subtle': '#f2f0ec',
+        '--bg-hover': '#eae6e0', '--border': '#d6d2cc', '--border-hover': '#b8b2a8',
+        '--text': '#32302c', '--text-light': '#5c5850',
+        '--text-heading': '#946820', '--text-heading-alt': '#a04058',
+        '--link': '#a04058', '--link-hover': '#802840',
+        '--tag-bg': 'rgba(148, 104, 32, 0.08)', '--tag-text': '#946820',
+        '--tag-bg-hover': 'rgba(148, 104, 32, 0.15)', '--tag-text-hover': '#32302c',
+        '--code-bg': '#32302c', '--code-text': '#d8c490',
+        '--code-inline-bg': 'rgba(148, 104, 32, 0.08)', '--code-inline-text': '#946820',
+        '--blockquote-bg': 'rgba(148, 104, 32, 0.05)',
+        '--nav-bg': 'rgba(247, 245, 242, 0.9)',
+      }
+    },
+    violet: {
+      dark: {
+        '--bg': '#100e14', '--bg-raised': '#16141c', '--bg-subtle': '#131118',
+        '--bg-hover': '#1c1824', '--border': '#24202e', '--border-hover': '#342e42',
+        '--text': '#c4bfd0', '--text-light': '#888096',
+        '--text-heading': '#b498d8', '--text-heading-alt': '#6ac4b0',
+        '--link': '#6ac4b0', '--link-hover': '#88d4c4',
+        '--tag-bg': 'rgba(180, 152, 216, 0.1)', '--tag-text': '#b498d8',
+        '--tag-bg-hover': 'rgba(180, 152, 216, 0.18)', '--tag-text-hover': '#c4bfd0',
+        '--code-bg': '#0a0810', '--code-text': '#b498d8',
+        '--code-inline-bg': 'rgba(180, 152, 216, 0.1)', '--code-inline-text': '#c4bfd0',
+        '--blockquote-bg': 'rgba(180, 152, 216, 0.06)',
+        '--nav-bg': 'rgba(16, 14, 20, 0.9)',
+      },
+      light: {
+        '--bg': '#f6f5f8', '--bg-raised': '#fbfafc', '--bg-subtle': '#f0eff4',
+        '--bg-hover': '#e8e6ee', '--border': '#d2d0d8', '--border-hover': '#b0acc0',
+        '--text': '#2e2a36', '--text-light': '#5c5668',
+        '--text-heading': '#6a4a96', '--text-heading-alt': '#2a8a76',
+        '--link': '#2a8a76', '--link-hover': '#1c6e5e',
+        '--tag-bg': 'rgba(106, 74, 150, 0.08)', '--tag-text': '#6a4a96',
+        '--tag-bg-hover': 'rgba(106, 74, 150, 0.15)', '--tag-text-hover': '#2e2a36',
+        '--code-bg': '#2e2a36', '--code-text': '#c0a8e0',
+        '--code-inline-bg': 'rgba(106, 74, 150, 0.08)', '--code-inline-text': '#6a4a96',
+        '--blockquote-bg': 'rgba(106, 74, 150, 0.05)',
+        '--nav-bg': 'rgba(246, 245, 248, 0.9)',
+      }
+    }
+  };
+
+  var currentPalette = 'current';
+  var currentMode = 'dark';
+
+  function applyPalette(name, mode) {
+    var vars = palettes[name][mode];
+    var root = document.documentElement;
+    for (var key in vars) {
+      root.style.setProperty(key, vars[key]);
+    }
+    currentPalette = name;
+    currentMode = mode;
+
+    document.querySelectorAll('.palette-btn').forEach(function(b) {
+      b.classList.toggle('active', b.dataset.palette === name);
+    });
+    document.querySelectorAll('.mode-btn').forEach(function(b) {
+      b.classList.toggle('active', b.dataset.mode === mode);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var saved = document.documentElement.getAttribute('data-theme') || 'dark';
+    currentMode = saved;
+    document.querySelectorAll('.mode-btn').forEach(function(b) {
+      b.classList.toggle('active', b.dataset.mode === currentMode);
+    });
+
+    document.querySelectorAll('.palette-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        applyPalette(btn.dataset.palette, currentMode);
+      });
+    });
+
+    document.querySelectorAll('.mode-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        applyPalette(currentPalette, btn.dataset.mode);
+      });
+    });
+  });
+})();
+</script>
+
+<style>
+  .palette-picker {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+
+  .palette-btn {
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-family: 'Space Grotesk', sans-serif;
+    transition: all 0.2s;
+  }
+
+  .palette-btn:hover {
+    border-color: var(--border-hover);
+    background: var(--bg-hover);
+  }
+
+  .palette-btn.active {
+    border-color: var(--text-heading);
+    color: var(--text-heading);
+    background: var(--bg-hover);
+  }
+
+  .preview-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .preview-section h2 {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-light);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .preview-section h1 {
+    font-size: 1.8rem;
+    color: var(--text-heading);
+    margin-bottom: 0.25rem;
+    letter-spacing: -0.03em;
+  }
+
+  .preview-section h2 + h2 {
+    border-bottom: none;
+    text-transform: none;
+    letter-spacing: -0.01em;
+    font-size: 1.3rem;
+    color: var(--text-heading);
+    padding-bottom: 0;
+    margin-bottom: 0.25rem;
+  }
+
+  .preview-section h3 {
+    font-size: 1.1rem;
+    color: var(--text-heading);
+    margin-bottom: 0.75rem;
+  }
+
+  .preview-section p {
+    margin-bottom: 0.75rem;
+    line-height: 1.7;
+  }
+
+  .text-light-preview {
+    color: var(--text-light);
+  }
+
+  .preview-card {
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 0;
+  }
+
+  .card-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text-heading);
+    margin-bottom: 0.3rem;
+  }
+
+  .card-meta {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .preview-tag {
+    font-size: 0.78rem;
+    color: var(--tag-text);
+  }
+
+  .card-date {
+    font-size: 0.82rem;
+    color: var(--text-light);
+  }
+
+  .card-desc {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    line-height: 1.6;
+  }
+
+  .ui-row {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .preview-raised-box,
+  .preview-subtle-box {
+    padding: 1rem 1.25rem;
+    border-radius: var(--radius);
+    font-size: 0.85rem;
+    border: 1px solid var(--border);
+    flex: 1;
+  }
+
+  .preview-raised-box {
+    background: var(--bg-raised);
+    color: var(--text);
+  }
+
+  .preview-subtle-box {
+    background: var(--bg-hover);
+    color: var(--text);
+  }
+
+  .swatches {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .swatch {
+    width: 72px;
+    height: 56px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: flex-end;
+    padding: 4px 6px;
+  }
+
+  .swatch span {
+    font-size: 0.65rem;
+    color: var(--text-light);
+    font-family: 'Fira Code', monospace;
+  }
+
+  .swatch-text span {
+    color: var(--bg);
+  }
+
+  .preview-mode-toggle {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    padding: 1.5rem 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .mode-btn {
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.4rem 1.25rem;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-family: 'Space Grotesk', sans-serif;
+    transition: all 0.2s;
+  }
+
+  .mode-btn:hover {
+    border-color: var(--border-hover);
+  }
+
+  .mode-btn.active {
+    border-color: var(--text-heading);
+    color: var(--text-heading);
+  }
+
+  @media (max-width: 500px) {
+    .swatches {
+      gap: 0.35rem;
+    }
+    .swatch {
+      width: 60px;
+      height: 48px;
+    }
+    .ui-row {
+      flex-direction: column;
+    }
+  }
+</style>

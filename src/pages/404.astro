@@ -1,0 +1,143 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="404 - pg of code">
+  <div class="terminal">
+    <div class="terminal-header">
+      <span class="dot dot-red"></span>
+      <span class="dot dot-yellow"></span>
+      <span class="dot dot-green"></span>
+      <span class="terminal-title">bash — 80x24</span>
+    </div>
+    <div class="terminal-body">
+      <p class="line"><span class="prompt">$</span> cd /page-you-wanted</p>
+      <p class="line error">bash: cd: /page-you-wanted: No such file or directory</p>
+      <p class="line"><span class="prompt">$</span> find / -name "page" 2>/dev/null</p>
+      <p class="line dim">(nothing found)</p>
+      <p class="line"><span class="prompt">$</span> cat /var/log/excuse.txt</p>
+      <p class="line" id="excuse"></p>
+      <p class="line"><span class="prompt">$</span> echo "try going home instead"</p>
+      <p class="line"><a href="/" class="home-link">→ take me home</a></p>
+      <p class="line blink-line"><span class="prompt">$</span> <span class="cursor-block">▊</span></p>
+    </div>
+  </div>
+
+  <pre class="ascii-cat" aria-hidden="true">
+{`    /\\_/\\
+   ( o.o )
+    > ^ <
+   /|   |\\
+  (_|   |_)
+     " "
+  404 cat is
+  also lost`}
+  </pre>
+</BaseLayout>
+
+<script is:inline>
+(function() {
+  var excuses = [
+    "the page was reassigned to /dev/null during a refactor",
+    "a mass of cats sat on the keyboard and deleted it",
+    "this page left to find itself. we respect that",
+    "404: page not found. have you tried turning it off and on?",
+    "the page exists in a branch that was never merged",
+    "this is what happens when you deploy on a Friday",
+    "the intern deleted prod again. classic.",
+    "ERROR: page.find() returned undefined. shocked pikachu face",
+  ];
+  var el = document.getElementById('excuse');
+  if (el) {
+    var excuse = excuses[Math.floor(Math.random() * excuses.length)];
+    el.textContent = excuse;
+  }
+})();
+</script>
+
+<style>
+  .terminal {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow);
+  }
+
+  .terminal-header {
+    background: var(--bg-raised);
+    padding: 0.6rem 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  .dot-red { background: #e55; }
+  .dot-yellow { background: #eb5; }
+  .dot-green { background: #5b5; }
+
+  .terminal-title {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.7rem;
+    color: var(--text-light);
+    margin-left: 0.5rem;
+  }
+
+  .terminal-body {
+    padding: 1.25rem;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.85rem;
+    line-height: 1.9;
+  }
+
+  .prompt {
+    color: var(--text-heading);
+    margin-right: 0.5rem;
+  }
+
+  .error {
+    color: #e55;
+  }
+
+  .dim {
+    color: var(--text-light);
+    font-style: italic;
+  }
+
+  .home-link {
+    color: var(--link);
+    font-weight: 600;
+  }
+
+  .home-link:hover {
+    color: var(--link-hover);
+  }
+
+  .cursor-block {
+    animation: blink 1s step-end infinite;
+    color: var(--text-heading);
+  }
+
+  .blink-line {
+    margin-top: 0.5rem;
+  }
+
+  .ascii-cat {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.8rem;
+    color: var(--text-light);
+    text-align: center;
+    line-height: 1.4;
+    opacity: 0.5;
+    padding: 1rem 0 2rem;
+    background: none !important;
+    border: none !important;
+  }
+</style>
