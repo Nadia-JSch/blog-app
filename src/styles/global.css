@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
 
 /* terminal cute dark mode */
 :root {
@@ -21,7 +21,7 @@
   --code-text: #7fef7f;
   --code-inline-bg: rgba(127, 239, 127, 0.1);
   --code-inline-text: #b8d4b8;
-  --radius: 4px;
+  --radius: 8px;
   --shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
   --shadow-hover: 0 8px 32px rgba(0, 0, 0, 0.6);
   --nav-bg: rgba(10, 14, 10, 0.9);
@@ -29,28 +29,28 @@
 
 /* terminal cute light mode */
 [data-theme="light"] {
-  --bg: #f0f5f0;
-  --bg-raised: #f8faf8;
-  --bg-hover: #e8f0e8;
-  --border: #c8d8c8;
-  --border-hover: #a0c0a0;
-  --text: #1a2e1a;
-  --text-light: #4a6a4a;
-  --text-heading: #0a6e0a;
+  --bg: #f6f7f5;
+  --bg-raised: #fbfbfa;
+  --bg-hover: #eef0ec;
+  --border: #d4d6d0;
+  --border-hover: #b0b8a8;
+  --text: #2e3330;
+  --text-light: #5c635a;
+  --text-heading: #4a7c59;
   --text-heading-alt: #a0446a;
   --link: #a0446a;
   --link-hover: #802050;
-  --tag-bg: rgba(10, 110, 10, 0.1);
-  --tag-text: #0a6e0a;
-  --tag-bg-hover: rgba(10, 110, 10, 0.2);
-  --tag-text-hover: #1a2e1a;
-  --code-bg: #1a2e1a;
-  --code-text: #7fef7f;
-  --code-inline-bg: rgba(10, 110, 10, 0.1);
-  --code-inline-text: #0a6e0a;
+  --tag-bg: rgba(74, 124, 89, 0.1);
+  --tag-text: #4a7c59;
+  --tag-bg-hover: rgba(74, 124, 89, 0.18);
+  --tag-text-hover: #2e3330;
+  --code-bg: #2e3330;
+  --code-text: #a8d8b0;
+  --code-inline-bg: rgba(74, 124, 89, 0.1);
+  --code-inline-text: #3d6b4a;
   --shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
   --shadow-hover: 0 8px 28px rgba(0, 0, 0, 0.1);
-  --nav-bg: rgba(240, 245, 240, 0.9);
+  --nav-bg: rgba(246, 247, 245, 0.9);
 }
 
 /* blinking cursor animation */
@@ -70,7 +70,7 @@ html {
 }
 
 body {
-  font-family: 'Fira Code', monospace;
+  font-family: 'Inter', sans-serif;
   background: var(--bg);
   color: var(--text);
   line-height: 1.7;
@@ -79,7 +79,7 @@ body {
 }
 
 h1, h2, h3 {
-  font-family: 'Fira Code', monospace;
+  font-family: 'Inter', sans-serif;
   font-weight: 700;
   line-height: 1.3;
 }

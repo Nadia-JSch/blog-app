@@ -1,36 +1,46 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 60">
-  <!-- cat stretching / long cat — refined proportions -->
-  <!-- body -->
-  <ellipse cx="52" cy="38" rx="30" ry="13" fill="#f0d0b0" opacity="0.9"/>
-  <!-- smooth connection between body and butt -->
-  <ellipse cx="70" cy="35" rx="12" ry="11" fill="#f0d0b0" opacity="0.9"/>
-  <!-- head low, stretching -->
-  <circle cx="22" cy="36" r="12" fill="#f0d0b0" opacity="0.9"/>
-  <!-- neck bridge -->
-  <ellipse cx="32" cy="37" rx="8" ry="10" fill="#f0d0b0" opacity="0.9"/>
-  <!-- ears -->
-  <polygon points="15,28 10,16 19,26" fill="#f0d0b0" opacity="0.9"/>
-  <polygon points="29,28 34,16 25,26" fill="#f0d0b0" opacity="0.9"/>
+  <!-- cat stretching -->
+  <g opacity="0.9">
+    <!-- body -->
+    <ellipse cx="52" cy="38" rx="30" ry="13" fill="#f0d0b0"/>
+    <!-- butt connection -->
+    <ellipse cx="70" cy="35" rx="12" ry="11" fill="#f0d0b0"/>
+    <!-- head -->
+    <circle cx="22" cy="36" r="12" fill="#f0d0b0"/>
+    <!-- neck bridge -->
+    <ellipse cx="32" cy="37" rx="8" ry="10" fill="#f0d0b0"/>
+    <!-- ears -->
+    <polygon points="15,28 10,16 19,26" fill="#f0d0b0"/>
+    <polygon points="29,28 34,16 25,26" fill="#f0d0b0"/>
+    <!-- butt up -->
+    <ellipse cx="80" cy="30" rx="12" ry="14" fill="#f0d0b0"/>
+    <!-- front paws -->
+    <ellipse cx="10" cy="48" rx="5" ry="3" fill="#f0d0b0"/>
+    <ellipse cx="22" cy="48" rx="5" ry="3" fill="#f0d0b0"/>
+    <!-- front legs -->
+    <rect x="8" y="42" width="4" height="6" rx="2" fill="#f0d0b0"/>
+    <rect x="20" y="42" width="4" height="6" rx="2" fill="#f0d0b0"/>
+    <!-- back legs -->
+    <rect x="76" y="40" width="4" height="8" rx="2" fill="#f0d0b0"/>
+    <ellipse cx="78" cy="48" rx="4" ry="2.5" fill="#f0d0b0"/>
+    <rect x="84" y="40" width="4" height="8" rx="2" fill="#f0d0b0"/>
+    <ellipse cx="86" cy="48" rx="4" ry="2.5" fill="#f0d0b0"/>
+    <!-- tail -->
+    <path d="M90 28 Q96 14 88 8" stroke="#f0d0b0" stroke-width="5" fill="none" stroke-linecap="round"/>
+  </g>
+  <!-- inner ears -->
   <polygon points="16,27 12,19 18,26" fill="#e0b898" opacity="0.5"/>
   <polygon points="28,27 32,19 26,26" fill="#e0b898" opacity="0.5"/>
+  <!-- belly patch -->
+  <ellipse cx="50" cy="40" rx="14" ry="6" fill="#f5e0cc" opacity="0.4"/>
   <!-- happy closed eyes -->
   <path d="M16 35 Q19 32 22 35" stroke="#3d2a2a" stroke-width="1.2" fill="none" stroke-linecap="round"/>
   <path d="M24 35 Q27 32 30 35" stroke="#3d2a2a" stroke-width="1.2" fill="none" stroke-linecap="round"/>
   <!-- nose -->
   <ellipse cx="22" cy="39" rx="1.2" ry="0.8" fill="#d4868a"/>
-  <!-- front paws stretched out -->
-  <ellipse cx="10" cy="48" rx="5" ry="3" fill="#f0d0b0" opacity="0.9"/>
-  <ellipse cx="22" cy="48" rx="5" ry="3" fill="#f0d0b0" opacity="0.9"/>
-  <!-- front legs -->
-  <rect x="8" y="42" width="4" height="6" rx="2" fill="#f0d0b0" opacity="0.9"/>
-  <rect x="20" y="42" width="4" height="6" rx="2" fill="#f0d0b0" opacity="0.9"/>
-  <!-- butt up -->
-  <ellipse cx="80" cy="30" rx="12" ry="14" fill="#f0d0b0" opacity="0.9"/>
-  <!-- back legs -->
-  <rect x="76" y="40" width="4" height="8" rx="2" fill="#f0d0b0" opacity="0.9"/>
-  <ellipse cx="78" cy="48" rx="4" ry="2.5" fill="#f0d0b0" opacity="0.9"/>
-  <rect x="84" y="40" width="4" height="8" rx="2" fill="#f0d0b0" opacity="0.9"/>
-  <ellipse cx="86" cy="48" rx="4" ry="2.5" fill="#f0d0b0" opacity="0.9"/>
-  <!-- tail up happy -->
-  <path d="M90 28 Q96 14 88 8" stroke="#f0d0b0" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.9"/>
+  <!-- toe beans -->
+  <circle cx="9" cy="49" r="0.8" fill="#d4868a" opacity="0.3"/>
+  <circle cx="11" cy="49" r="0.8" fill="#d4868a" opacity="0.3"/>
+  <circle cx="21" cy="49" r="0.8" fill="#d4868a" opacity="0.3"/>
+  <circle cx="23" cy="49" r="0.8" fill="#d4868a" opacity="0.3"/>
 </svg>

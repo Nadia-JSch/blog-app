@@ -3,7 +3,7 @@ title: "Scared of AI, Still Learning to Code"
 date: "2026-02-08"
 description: "On the strange feeling of improving a skill that machines are getting better at every day."
 tags: ["ai"]
-
+draft: true
 ---
 
 I'll be honest — I think about this a lot.

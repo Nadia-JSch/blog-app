@@ -12,20 +12,27 @@ const sorted = posts.sort(
 <BaseLayout title="Experiments - pg of code">
   <header class="page-header">
     <h1>Experiments</h1>
-    <p>Hands-on CSS experiments and visual demos. Learning by playing.</p>
+    <p>Might be some nonsense here.</p>
   </header>
 
-  <div class="post-list">
-    {sorted.map((post) => (
-      <PostCard
-        title={post.data.title}
-        date={post.data.date}
-        description={post.data.description}
-        url={`/experiments/${post.id}`}
-        tags={post.data.tags}
-      />
-    ))}
-  </div>
+  {sorted.length > 0 ? (
+    <div class="post-list">
+      {sorted.map((post) => (
+        <PostCard
+          title={post.data.title}
+          date={post.data.date}
+          description={post.data.description}
+          url={`/experiments/${post.id}`}
+          tags={post.data.tags}
+        />
+      ))}
+    </div>
+  ) : (
+    <div class="empty-state">
+      <img src="/images/cats/pixel-cats-2.jpg" alt="Pixel art cats" class="empty-img" />
+      <p>Nothing here yet... the cats are keeping this spot warm.</p>
+    </div>
+  )}
 </BaseLayout>
 
 <style>
@@ -48,5 +55,23 @@ const sorted = posts.sort(
     display: flex;
     flex-direction: column;
     gap: 0;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 2rem 0;
+  }
+
+  .empty-img {
+    max-width: 280px;
+    border-radius: var(--radius);
+    opacity: 0.85;
+    margin-bottom: 1.5rem;
+  }
+
+  .empty-state p {
+    color: var(--text-light);
+    font-size: 0.95rem;
+    font-style: italic;
   }
 </style>

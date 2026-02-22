@@ -9,78 +9,47 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <h1>Hey, you found me</h1>
     <p class="subtitle">
       > I'm Nadia. I write about code and the slow process of
-      figuring things out. Most of what's here are notes to my future self...
-      things I learned the long way round and don't want to forget. You're
-      welcome to look around.
+      figuring things out. Most of what's here are notes to my future self.
+      You're welcome to look around.
     </p>
   </section>
 
   <section class="sections">
     <a href="/til" class="section-card">
       <h2>$ cat today-i-learned</h2>
-      <p>Short, bite-sized things I pick up day to day &mdash; little discoveries, tips, and aha moments.</p>
+      <p>Things I pick up day to day.</p>
     </a>
 
     <a href="/coding-notes" class="section-card">
       <h2>$ cat coding-notes</h2>
-      <p>Longer write-ups, tutorials, and references I come back to when working on projects.</p>
+      <p>References to come back to.</p>
     </a>
 
     <a href="/thoughts" class="section-card">
       <h2>$ ls thoughts/</h2>
-      <p>Reflections on tech, the industry, and what it's like to be a human learning alongside machines.</p>
+      <p>Reflections on tech and maybe other things.</p>
     </a>
 
     <a href="/experiments" class="section-card">
       <h2>$ ls experiments/</h2>
-      <p>Hands-on CSS experiments and visual demos. Learning by playing.</p>
+      <p>Might be some nonsense here.</p>
     </a>
   </section>
 
-  <!-- background cats -->
+  <!-- background pixel cats -->
   <div class="bg-cats" aria-hidden="true">
-    <img src="/images/cats/cat-sitting.svg" alt="" class="bg-cat" style="top: 5%; left: 2%; width: 60px; transform: rotate(-8deg);" />
-    <img src="/images/cats/cat-loaf.svg" alt="" class="bg-cat" style="top: 12%; right: 3%; width: 70px; transform: rotate(5deg);" />
-    <img src="/images/cats/cat-sleep.svg" alt="" class="bg-cat" style="top: 35%; left: 1%; width: 65px; transform: rotate(-3deg);" />
-    <img src="/images/cats/cat-laptop.svg" alt="" class="bg-cat" style="top: 30%; right: 1%; width: 55px; transform: rotate(6deg);" />
-    <img src="/images/cats/cat-stretch.svg" alt="" class="bg-cat" style="top: 55%; left: 3%; width: 75px; transform: rotate(-5deg);" />
-    <img src="/images/cats/robot.svg" alt="" class="bg-cat" style="top: 58%; right: 2%; width: 45px; transform: rotate(10deg);" />
-    <img src="/images/cats/cat-sitting.svg" alt="" class="bg-cat" style="top: 78%; left: 1%; width: 50px; transform: scaleX(-1) rotate(4deg);" />
-    <img src="/images/cats/cat-loaf.svg" alt="" class="bg-cat" style="top: 82%; right: 4%; width: 60px; transform: rotate(-6deg);" />
-    <img src="/images/cats/cat-sleep.svg" alt="" class="bg-cat" style="top: 95%; left: 4%; width: 55px; transform: rotate(3deg);" />
+    <img src="/images/cats/pixel-cat-1.png" alt="" class="bg-cat" style="top: 5%; left: 2%; width: 70px; transform: rotate(-5deg);" />
+    <img src="/images/cats/pixel-cat-3.png" alt="" class="bg-cat" style="top: 10%; right: 3%; width: 55px; transform: rotate(4deg);" />
+    <img src="/images/cats/pixel-cat-2.png" alt="" class="bg-cat" style="top: 35%; left: 1%; width: 60px; transform: rotate(-3deg);" />
+    <img src="/images/cats/pixel-cat-4.png" alt="" class="bg-cat" style="top: 30%; right: 2%; width: 55px; transform: rotate(6deg);" />
+    <img src="/images/cats/pixel-cat-5.png" alt="" class="bg-cat" style="top: 55%; left: 3%; width: 70px; transform: rotate(-4deg);" />
+    <img src="/images/cats/pixel-cat-6.png" alt="" class="bg-cat" style="top: 58%; right: 2%; width: 55px; transform: rotate(8deg);" />
+    <img src="/images/cats/pixel-cat-1.png" alt="" class="bg-cat" style="top: 78%; left: 1%; width: 60px; transform: scaleX(-1) rotate(3deg);" />
+    <img src="/images/cats/pixel-cat-3.png" alt="" class="bg-cat" style="top: 82%; right: 4%; width: 50px; transform: rotate(-5deg);" />
   </div>
 </BaseLayout>
 
 <style>
-  .hero-bg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 500px;
-    background-size: cover;
-    background-position: center;
-    z-index: -1;
-    pointer-events: none;
-    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
-    mask-image: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
-  }
-
-  .hero-bg--dark {
-    background-image: url('/images/ai-abstract.svg');
-  }
-
-  .hero-bg--light {
-    background-image: url('/images/ai-abstract-light.svg');
-  }
-
-  :global([data-theme="dark"]) .hero-bg--dark,
-  :global(:not([data-theme])) .hero-bg--dark { display: block; }
-  :global([data-theme="dark"]) .hero-bg--light,
-  :global(:not([data-theme])) .hero-bg--light { display: none; }
-  :global([data-theme="light"]) .hero-bg--dark { display: none; }
-  :global([data-theme="light"]) .hero-bg--light { display: block; }
-
   .hero {
     text-align: center;
     padding: 2.5rem 0 3.5rem;
@@ -127,6 +96,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   .section-card h2 {
+    font-family: 'Fira Code', monospace;
     font-size: 0.95rem;
     color: var(--text-heading);
     margin-bottom: 0.35rem;
@@ -159,6 +129,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   :global([data-theme="light"]) .bg-cat {
     opacity: 0.1;
+  }
+
+  :global([data-theme="dark"]) .bg-cats,
+  :global(:not([data-theme])) .bg-cats {
+    display: none;
   }
 
   @media (max-width: 768px) {
