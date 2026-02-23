@@ -3,7 +3,7 @@ title: "How This Blog App Actually Works"
 date: "2026-02-08"
 description: "A personal walkthrough of how all the pieces of this Astro blog connect — written for myself to come back to."
 tags: ["astro"]
-draft: false
+draft: true
 ---
 
 ## What's in the project?
