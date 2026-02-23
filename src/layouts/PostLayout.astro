@@ -1,5 +1,12 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import TableOfContents from '../components/TableOfContents.astro';
+
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
 
 interface Props {
   frontmatter: {
@@ -10,9 +17,10 @@ interface Props {
     image?: string;
     section?: string;
   };
+  headings?: Heading[];
 }
 
-const { frontmatter } = Astro.props;
+const { frontmatter, headings = [] } = Astro.props;
 const formattedDate = new Date(frontmatter.date).toLocaleDateString('en-US', {
   year: 'numeric',
   month: 'long',
@@ -30,37 +38,64 @@ const sectionLabel = sectionLabels[section] || '';
 ---
 
 <BaseLayout title={frontmatter.title} description={frontmatter.description}>
-  {sectionLabel && (
-    <a href={`/${section}`} class="back-link">&larr; {sectionLabel}</a>
-  )}
-  <article class="post">
-    {frontmatter.image && (
-      <img src={frontmatter.image} alt="" class="hero-image" />
-    )}
-    <header class="post-header">
-      <h1>{frontmatter.title}</h1>
-      <time datetime={frontmatter.date}>{formattedDate}</time>
-      {frontmatter.tags && (
-        <div class="tags">
-          {frontmatter.tags.map((tag: string) => (
-            <a href={`/tags/${tag}`} class="tag">{tag}</a>
-          ))}
-        </div>
-      )}
-    </header>
-    <div class="post-content">
-      <slot />
-    </div>
-    <hr />
-    <footer class="post-footer">
+  <div class="post-wrapper">
+    <div class="post-main">
       {sectionLabel && (
-        <a href={`/${section}`} class="back-link">&larr; Back to {sectionLabel}</a>
+        <a href={`/${section}`} class="back-link">&larr; {sectionLabel}</a>
       )}
-    </footer>
-  </article>
+      <article class="post">
+        {frontmatter.image && (
+          <img src={frontmatter.image} alt="" class="hero-image" />
+        )}
+        <header class="post-header">
+          <h1>{frontmatter.title}</h1>
+          <time datetime={frontmatter.date}>{formattedDate}</time>
+          {frontmatter.tags && (
+            <div class="tags">
+              {frontmatter.tags.map((tag: string) => (
+                <a href={`/tags/${tag}`} class="tag">{tag}</a>
+              ))}
+            </div>
+          )}
+        </header>
+        <div class="post-content">
+          <slot />
+        </div>
+        <hr />
+        <footer class="post-footer">
+          {sectionLabel && (
+            <a href={`/${section}`} class="back-link">&larr; Back to {sectionLabel}</a>
+          )}
+        </footer>
+      </article>
+    </div>
+    {headings.length > 0 && (
+      <aside class="toc-sidebar">
+        <TableOfContents headings={headings} />
+      </aside>
+    )}
+  </div>
 </BaseLayout>
 
 <style>
+  .post-wrapper {
+    position: relative;
+  }
+
+  .toc-sidebar {
+    display: none;
+  }
+
+  @media (min-width: 1200px) {
+    .toc-sidebar {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: calc(100% + 2rem);
+      width: 200px;
+    }
+  }
+
   .back-link {
     display: inline-block;
     font-size: 0.85rem;
@@ -131,6 +166,13 @@ const sectionLabel = sectionLabels[section] || '';
   .post-content {
     font-size: 1rem;
     line-height: 1.8;
+  }
+
+  .post-content :global(h1) {
+    font-size: 1.5rem;
+    color: var(--text-heading);
+    margin: 2.5rem 0 0.75rem;
+    letter-spacing: -0.02em;
   }
 
   .post-content :global(h2) {

@@ -5,8 +5,6 @@ description: "An overview of JavaScript's primitive and non-primitive data types
 tags: ["javascript"]
 ---
 
-# JavaScript
-
 JavaScript enables behavior creating complete and interactive web experience.
 
 ## Data Types

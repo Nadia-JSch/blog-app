@@ -6,8 +6,6 @@ tags: ["javascript"]
 draft: true
 ---
 
-# Functions
-
 Functions can take in input, do operations on input, and return a result.
 
 A function needs to be declared using the `function` keyword and called or invocated using the function name:

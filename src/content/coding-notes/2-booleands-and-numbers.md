@@ -5,8 +5,6 @@ description: "Arithmetic operators, type coercion, comparison and logical operat
 tags: ["javascript"]
 ---
 
-# Booleans and Numbers
-
 ## Supported bases
 
 JavaScript supports the standard decimal system of base 10, and also numbers with different bases, like:
