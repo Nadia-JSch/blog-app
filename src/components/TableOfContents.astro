@@ -16,13 +16,15 @@ const tocHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3);
 {tocHeadings.length > 0 && (
   <nav class="toc" aria-label="Table of contents">
     <p class="toc-title">On this page</p>
-    <ul>
-      {tocHeadings.map((heading) => (
-        <li class:list={[`depth-${heading.depth}`]}>
-          <a href={`#${heading.slug}`}>{heading.text}</a>
-        </li>
-      ))}
-    </ul>
+    <div class="toc-list">
+      <ul>
+        {tocHeadings.map((heading) => (
+          <li class:list={[`depth-${heading.depth}`]}>
+            <a href={`#${heading.slug}`}>{heading.text}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
   </nav>
 )}
 
@@ -39,6 +41,13 @@ const tocHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3);
     font-size: 0.72rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
+  }
+
+  .toc-list {
+    max-height: calc(100vh - 10rem);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
   }
 
   ul {
@@ -66,8 +75,39 @@ const tocHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3);
     margin-left: -1px;
   }
 
-  a:hover {
+  a:hover,
+  :global(a.toc-active) {
     color: var(--text-heading);
     border-left-color: var(--text-heading);
   }
 </style>
+
+<script>
+  function initTocHighlight() {
+    const tocLinks = document.querySelectorAll('.toc a');
+    if (!tocLinks.length) return;
+
+    const headings = Array.from(tocLinks).map((link) => {
+      const id = link.getAttribute('href')?.slice(1);
+      return id ? document.getElementById(id) : null;
+    }).filter(Boolean) as HTMLElement[];
+
+    function update() {
+      let activeIndex = 0;
+      for (let i = 0; i < headings.length; i++) {
+        if (headings[i].getBoundingClientRect().top <= 100) {
+          activeIndex = i;
+        }
+      }
+      tocLinks.forEach((link, i) => {
+        link.classList.toggle('toc-active', i === activeIndex);
+      });
+    }
+
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+  }
+
+  initTocHighlight();
+  document.addEventListener('astro:after-swap', initTocHighlight);
+</script>

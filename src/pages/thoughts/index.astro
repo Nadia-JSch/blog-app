@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PostCard from '../../components/PostCard.astro';
+import Pagination from '../../components/Pagination.astro';
 
 const posts = await getCollection('thoughts', (p) => !p.data.draft);
 const sorted = posts.sort(
@@ -26,5 +27,6 @@ const sorted = posts.sort(
       />
     ))}
   </div>
-</BaseLayout>
 
+  <Pagination />
+</BaseLayout>

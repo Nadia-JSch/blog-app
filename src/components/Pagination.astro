@@ -1,0 +1,147 @@
+---
+interface Props {
+  postsPerPage?: number;
+}
+
+const { postsPerPage = 6 } = Astro.props;
+---
+
+<div class="pagination-wrapper" data-per-page={postsPerPage}>
+  <nav class="pagination" aria-label="Pagination" style="display:none;">
+    <a class="page-link prev" href="#" aria-label="Previous page">&larr; prev</a>
+    <div class="page-numbers"></div>
+    <a class="page-link next" href="#" aria-label="Next page">next &rarr;</a>
+  </nav>
+</div>
+
+<script>
+  function initPagination() {
+    const wrapper = document.querySelector('.pagination-wrapper');
+    if (!wrapper) return;
+
+    const perPage = Number(wrapper.getAttribute('data-per-page')) || 6;
+    const postList = document.querySelector('.post-list');
+    if (!postList) return;
+
+    const allPosts = Array.from(postList.children) as HTMLElement[];
+    const nav = wrapper.querySelector('.pagination') as HTMLElement;
+    const numbersContainer = wrapper.querySelector('.page-numbers')!;
+    const prevLink = wrapper.querySelector('.prev') as HTMLAnchorElement;
+    const nextLink = wrapper.querySelector('.next') as HTMLAnchorElement;
+
+    let currentPage = 1;
+
+    function getVisiblePosts() {
+      return allPosts.filter((p) => !p.hasAttribute('data-filtered-out'));
+    }
+
+    function render() {
+      const visible = getVisiblePosts();
+      const totalPages = Math.ceil(visible.length / perPage);
+      currentPage = Math.min(currentPage, Math.max(1, totalPages));
+
+      if (totalPages <= 1) {
+        nav.style.display = 'none';
+        visible.forEach((p) => p.style.display = '');
+        return;
+      }
+
+      nav.style.display = '';
+
+      visible.forEach((post, i) => {
+        const page = Math.floor(i / perPage) + 1;
+        post.style.display = page === currentPage ? '' : 'none';
+      });
+
+      numbersContainer.innerHTML = '';
+      for (let p = 1; p <= totalPages; p++) {
+        const link = document.createElement('a');
+        link.href = '#';
+        link.textContent = String(p);
+        link.className = 'page-link' + (p === currentPage ? ' active' : '');
+        if (p === currentPage) link.setAttribute('aria-current', 'page');
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          currentPage = p;
+          render();
+          postList.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+        numbersContainer.appendChild(link);
+      }
+
+      prevLink.classList.toggle('disabled', currentPage === 1);
+      nextLink.classList.toggle('disabled', currentPage === totalPages);
+    }
+
+    prevLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (currentPage > 1) { currentPage--; render(); postList.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+
+    nextLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      const visible = getVisiblePosts();
+      const totalPages = Math.ceil(visible.length / perPage);
+      if (currentPage < totalPages) { currentPage++; render(); postList.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+
+    document.addEventListener('filter-changed', () => {
+      currentPage = 1;
+      render();
+    });
+
+    render();
+  }
+
+  initPagination();
+  document.addEventListener('astro:after-swap', initPagination);
+</script>
+
+<style>
+  .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 3rem;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.85rem;
+  }
+
+  .page-numbers {
+    display: flex;
+    gap: 0.25rem;
+  }
+
+  :global(.page-link) {
+    color: var(--text-light);
+    padding: 0.35rem 0.65rem;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: all 0.2s;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  :global(.page-link:hover:not(.disabled):not(.active)) {
+    color: var(--text-heading);
+    border-color: var(--border);
+    background: var(--bg-hover);
+  }
+
+  :global(.page-link.active) {
+    color: var(--text-heading);
+    border-color: var(--text-heading);
+    background: var(--bg-hover);
+  }
+
+  :global(.page-link.disabled) {
+    opacity: 0.3;
+    cursor: default;
+    pointer-events: none;
+  }
+
+  .prev, .next {
+    font-size: 0.8rem;
+  }
+</style>

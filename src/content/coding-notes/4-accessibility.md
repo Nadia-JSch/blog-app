@@ -10,7 +10,7 @@ ARIA attributes describe what is happening on web pages in a way that makes the 
 
 In this way, ARIA roles improve the user experience for everyone.
 
-Accessibility checkers: https://www.freecodecamp.org/learn/responsive-web-design-v9/lecture-importance-of-accessibility-and-good-html-structure/what-are-some-common-accessibility-auditing-tools
+Accessibility checkers: [Common Accessibility Auditing Tools](https://www.freecodecamp.org/learn/responsive-web-design-v9/lecture-importance-of-accessibility-and-good-html-structure/what-are-some-common-accessibility-auditing-tools)
 
 ## Use Semantic HTML
 
@@ -416,5 +416,5 @@ Use the CSS `outline` property to define a clear border that's high contrast of 
 ## Resources
 
 - Common Accessibility Tools: Google Lighthouse, Wave, IBM Equal Accessibility Checker, and axe DevTools are some of the common accessibility tools used to audit the accessibility of a website.
-- Accessibility review: https://www.freecodecamp.org/learn/responsive-web-design-v9/review-html-accessibility/review-html-accessibility
-- HTML review: https://www.freecodecamp.org/learn/responsive-web-design-v9/review-html/review-html
+- [Accessibility Review](https://www.freecodecamp.org/learn/responsive-web-design-v9/review-html-accessibility/review-html-accessibility)
+- [HTML Review](https://www.freecodecamp.org/learn/responsive-web-design-v9/review-html/review-html)

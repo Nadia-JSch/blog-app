@@ -2,11 +2,14 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PostCard from '../../components/PostCard.astro';
+import Pagination from '../../components/Pagination.astro';
 
 const posts = await getCollection('coding-notes', (p) => !p.data.draft);
 const sorted = posts.sort(
   (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
 );
+
+const allTags = [...new Set(sorted.flatMap((p) => p.data.tags ?? []))].sort();
 ---
 
 <BaseLayout title="Coding Notes - pg of code">
@@ -15,16 +18,103 @@ const sorted = posts.sort(
     <p>References to come back to when working on projects.</p>
   </header>
 
-  <div class="post-list">
-    {sorted.map((post) => (
-      <PostCard
-        title={post.data.title}
-        date={post.data.date}
-        description={post.data.description}
-        url={`/coding-notes/${post.id}`}
-        tags={post.data.tags}
-      />
+  <div class="tag-filters" id="tag-filters">
+    <button class="filter-btn active" data-tag="all">all</button>
+    {allTags.map((tag) => (
+      <button class="filter-btn" data-tag={tag}>{tag}</button>
     ))}
   </div>
+
+  <div class="post-list">
+    {sorted.map((post) => (
+      <div data-tags={JSON.stringify(post.data.tags ?? [])}>
+        <PostCard
+          title={post.data.title}
+          date={post.data.date}
+          description={post.data.description}
+          url={`/coding-notes/${post.id}`}
+          tags={post.data.tags}
+        />
+      </div>
+    ))}
+  </div>
+
+  <Pagination />
 </BaseLayout>
 
+<script>
+  function initFilters() {
+    const filters = document.getElementById('tag-filters');
+    const postList = document.querySelector('.post-list');
+    if (!filters || !postList) return;
+
+    const buttons = filters.querySelectorAll('.filter-btn');
+    const posts = Array.from(postList.children) as HTMLElement[];
+
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const tag = btn.getAttribute('data-tag');
+
+        buttons.forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        posts.forEach((post) => {
+          if (tag === 'all') {
+            post.removeAttribute('data-filtered-out');
+          } else {
+            const tags = JSON.parse(post.getAttribute('data-tags') || '[]');
+            if (tags.includes(tag)) {
+              post.removeAttribute('data-filtered-out');
+            } else {
+              post.setAttribute('data-filtered-out', '');
+              post.style.display = 'none';
+            }
+          }
+        });
+
+        document.dispatchEvent(new CustomEvent('filter-changed'));
+      });
+    });
+  }
+
+  initFilters();
+  document.addEventListener('astro:after-swap', initFilters);
+</script>
+
+<style>
+  .tag-filters {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .tag-filters::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filter-btn {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.78rem;
+    padding: 0.3rem 0.85rem;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: none;
+    color: var(--text-light);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .filter-btn:hover {
+    border-color: var(--text-heading);
+    color: var(--text-heading);
+  }
+
+  .filter-btn.active {
+    background: var(--tag-bg);
+    border-color: var(--tag-text);
+    color: var(--tag-text);
+  }
+</style>
