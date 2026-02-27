@@ -536,6 +536,19 @@ console.log(`It's a ${weather} day!`); // "It's a sunny day!"
 
 If you're dealing with complex conditions and multiple statements, rather use if-else as nesting ternaries can become unreadable.
 
+If within a function you can use the `return` keyword. Note how you can also
+- return `undefined`
+- use the logical operator `&&` in a ternary operator
+
+```js
+function getLoanMessage(annualIncome, creditScore) {
+  return annualIncome >= minIncomeForDuplex &&
+         creditScore >= minCreditScoreForDuplex
+    ? "You qualify for a duplex, condo, and car loan."
+    : undefined;
+}
+```
+
 ## Binary logical operators
 
 Evaluate two expression and return a result based on their truthiness. 

@@ -83,6 +83,34 @@ const sum = function (num1, num2) {
 console.log(sum(3, 4)); //7
 ```
 
+## Function expression
+
+Function Expressions are functions that you assign to variables or use in an expression context, like this function defined inside a method parameter.
+
+```js
+setTimeout(function () {
+  console.log("Hi");
+}, 1000);
+```
+
+By assigning a function to a variable, you can use the function in any part of your code where the variable is accessible.
+
+```js
+const multiplyNumbers = function(firstNumber, secondNumber) {
+  return firstNumber * secondNumber;
+};
+
+console.log(multiplyNumbers(4, 5)); // Output: 20
+```
+
+Most function expressions are anonymous, but not all. For example, this function expression has a name.
+
+```js
+const greet = function sayHello() {
+  console.log("Hello");
+};
+```
+
 ## Arrow functions
 
 An arrow function is like an anonymous function without the `function` keyword and with the arrow (=>) between the parameter and function body
@@ -92,6 +120,8 @@ const greetings = (name) => {
     console.log("Hello, " + name + "!");
 };
 ```
+
+All arrow functions are function expressions.
 
 ### Parameter parentheses syntax
 
@@ -192,3 +222,7 @@ function demo() {
   console.log(b); // ReferenceError
 }
 ```
+
+## Revision
+
+https://www.freecodecamp.org/learn/javascript-v9/review-javascript-functions/review-javascript-functions
