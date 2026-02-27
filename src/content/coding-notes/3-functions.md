@@ -3,7 +3,7 @@ title: "JavaScript 3: Functions and Scope"
 date: "2026-02-22"
 description: "Declaring and calling functions, parameters and return values, arrow functions, anonymous functions, and how programming scope works in JavaScript."
 tags: ["javascript"]
-draft: true
+draft: false
 ---
 
 Functions can take in input, do operations on input, and return a result.
