@@ -52,15 +52,21 @@ const currentPath = Astro.url.pathname;
     </main>
 
     <footer class="footer">
-      <nav class="footer-nav">
-        <a href="/til">~/til</a>
-        <a href="/coding-notes">~/coding-notes</a>
-        <a href="/thoughts">~/thoughts</a>
-        <a href="/experiments">~/experiments</a>
-      </nav>
-      <p>can't wait to live in the cloud<span class="footer-cursor">_</span></p>
-      <a href="https://x.com/pgofcode" target="_blank" rel="noopener noreferrer" class="social-link">𝕏 @pgofcode</a>
-      <a href="#" class="back-to-top" aria-label="Back to top">&uarr; top</a>
+      <div class="footer-inner">
+        <div class="footer-copy">
+          <p class="footer-line">can't wait to live in the cloud<span class="footer-cursor">_</span></p>
+          <a href="https://x.com/pgofcode" target="_blank" rel="noopener noreferrer" class="social-link">𝕏 @pgofcode</a>
+        </div>
+        <div class="footer-links">
+          <nav class="footer-nav">
+            <a href="/til">~/til</a>
+            <a href="/coding-notes">~/coding-notes</a>
+            <a href="/thoughts">~/thoughts</a>
+            <a href="/experiments">~/experiments</a>
+          </nav>
+          <a href="#" class="back-to-top" aria-label="Back to top">&uarr; top</a>
+        </div>
+      </div>
     </footer>
 
     <script is:inline>
@@ -282,27 +288,54 @@ const currentPath = Astro.url.pathname;
   }
 
   .footer {
-    text-align: center;
-    padding: 2.5rem 1.5rem 3rem;
+    padding: 2.75rem 1.5rem 3rem;
     color: var(--text-light);
     font-size: 0.85rem;
     border-top: 1px solid var(--border);
+    background: linear-gradient(180deg, transparent, var(--bg-soft));
+  }
+
+  .footer-inner {
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    gap: 2rem;
+  }
+
+  .footer-copy {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+    max-width: 28rem;
+  }
+
+  .footer-line {
+    font-size: 0.82rem;
+    color: var(--text-light);
+  }
+
+  .footer-links {
+    display: flex;
     align-items: center;
     gap: 1rem;
-    background: linear-gradient(180deg, transparent, var(--bg-soft));
+    flex-wrap: wrap;
+    justify-content: flex-end;
   }
 
   .footer-nav {
     display: flex;
-    gap: 1.5rem;
+    gap: 1.2rem;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-end;
   }
 
   .footer-nav a {
-    font-size: 0.82rem;
+    font-size: 0.8rem;
+    font-family: 'Fira Code', monospace;
     color: var(--text-light);
     transition: color 0.2s;
   }
@@ -312,10 +345,11 @@ const currentPath = Astro.url.pathname;
   }
 
   .back-to-top {
-    font-size: 0.78rem;
+    font-size: 0.75rem;
+    font-family: 'Fira Code', monospace;
     color: var(--text-light);
     border: 1px solid var(--border);
-    padding: 0.45rem 0.9rem;
+    padding: 0.42rem 0.78rem;
     border-radius: 999px;
     transition: all 0.2s;
     background: var(--bg-soft);
@@ -327,7 +361,7 @@ const currentPath = Astro.url.pathname;
   }
 
   .social-link {
-    font-size: 0.82rem;
+    font-size: 0.8rem;
     color: var(--text-light);
     transition: color 0.2s;
   }
@@ -378,6 +412,37 @@ const currentPath = Astro.url.pathname;
 
     :global(.DocSearch-Button-Keys) {
       display: none !important;
+    }
+
+    .footer-inner {
+      flex-direction: column;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .footer-links {
+      justify-content: flex-start;
+    }
+
+    .footer-nav {
+      justify-content: flex-start;
+      gap: 0.9rem;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .footer-inner {
+      grid-template-columns: 1fr;
+      align-items: start;
+    }
+
+    .footer-links {
+      justify-content: flex-start;
+    }
+
+    .footer-nav {
+      justify-content: flex-start;
     }
   }
 

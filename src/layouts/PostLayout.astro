@@ -116,18 +116,19 @@ const sectionLabel = sectionLabels[section] || '';
   @media (min-width: 1280px) {
     .post-shell {
       display: grid;
-      grid-template-columns: minmax(0, 800px) 250px;
+      grid-template-columns: minmax(0, 880px) 190px;
       justify-content: center;
-      gap: 5.75rem;
+      gap: 7rem;
       align-items: start;
     }
 
     .toc-sidebar {
       position: sticky;
-      top: 6rem;
+      top: 10rem;
       max-height: calc(100vh - 6.5rem);
       overflow: auto;
-      padding-left: 0.75rem;
+      justify-self: end;
+      width: 190px;
     }
   }
 
@@ -187,14 +188,12 @@ const sectionLabel = sectionLabels[section] || '';
   }
 
   .post-header {
-    border: 1px solid rgba(224, 176, 96, 0.1);
-    border-radius: calc(var(--radius) + 4px);
-    padding: 2rem 2rem 1.7rem;
-    background: rgba(14, 14, 16, 0.72);
-    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(224, 176, 96, 0.12);
+    padding: 0 0 1.35rem;
+    background: none;
     box-shadow: none;
     margin-bottom: 2.25rem;
-    max-width: 69ch;
+    max-width: 74ch;
   }
 
   .post-body {
@@ -212,8 +211,7 @@ const sectionLabel = sectionLabels[section] || '';
   }
 
   :global([data-theme="light"]) .post-header {
-    background: rgba(255, 251, 245, 0.72);
-    border-color: rgba(148, 104, 32, 0.12);
+    border-color: rgba(148, 104, 32, 0.14);
   }
 
   .post-kicker {
@@ -226,20 +224,20 @@ const sectionLabel = sectionLabels[section] || '';
   }
 
   .post-header h1 {
-    font-size: clamp(2.1rem, 4vw, 3.2rem);
+    font-size: clamp(2rem, 3.6vw, 2.8rem);
     color: var(--text-heading);
-    margin-bottom: 0.85rem;
+    margin-bottom: 0.7rem;
     letter-spacing: -0.05em;
-    max-width: 15ch;
+    max-width: 18ch;
     line-height: 1.05;
   }
 
   .post-dek {
-    max-width: 52ch;
-    font-size: 1.06rem;
-    line-height: 1.72;
+    max-width: 58ch;
+    font-size: 1.02rem;
+    line-height: 1.7;
     color: var(--text);
-    margin-bottom: 1.1rem;
+    margin-bottom: 0.9rem;
   }
 
   .post-meta {
@@ -281,7 +279,7 @@ const sectionLabel = sectionLabels[section] || '';
   .post-content {
     font-size: 1.05rem;
     line-height: 1.9;
-    max-width: 72ch;
+    max-width: 78ch;
     color: var(--text);
   }
 
@@ -334,7 +332,7 @@ const sectionLabel = sectionLabels[section] || '';
 
   @media (max-width: 720px) {
     .post-header {
-      padding: 1.35rem 1.25rem 1.2rem;
+      padding: 0 0 1rem;
       margin-bottom: 1.75rem;
     }
 
