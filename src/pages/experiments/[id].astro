@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import PostLayout from '../../layouts/PostLayout.astro';
+import ExperimentPlayground from '../../components/ExperimentPlayground.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('experiments', (p) => !p.data.draft);
@@ -15,5 +16,6 @@ const { Content, headings } = await render(post);
 ---
 
 <PostLayout frontmatter={post.data} headings={headings}>
+  <ExperimentPlayground demo={post.data.demo} />
   <Content />
 </PostLayout>

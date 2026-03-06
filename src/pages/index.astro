@@ -204,16 +204,6 @@ const sectionLabels: Record<string, string> = {
 
   .hero-copy {
     padding: 0.5rem 0 0;
-    position: relative;
-  }
-
-  .hero-copy::before {
-    content: '';
-    position: absolute;
-    inset: -1.5rem -1rem -1rem -1rem;
-    background: radial-gradient(circle at top left, rgba(15, 15, 16, 0.78), rgba(15, 15, 16, 0.28) 55%, transparent 85%);
-    pointer-events: none;
-    z-index: -1;
   }
 
   .hero-copy h1 {
@@ -266,16 +256,6 @@ const sectionLabels: Record<string, string> = {
 
   .hero-panel {
     padding-top: 0.85rem;
-    position: relative;
-  }
-
-  .hero-panel::before {
-    content: '';
-    position: absolute;
-    inset: -0.75rem -0.75rem -0.75rem -1rem;
-    background: linear-gradient(180deg, rgba(15, 15, 16, 0.48), transparent 65%);
-    pointer-events: none;
-    z-index: -1;
   }
 
   .panel-label {
@@ -458,14 +438,6 @@ const sectionLabels: Record<string, string> = {
       linear-gradient(180deg, transparent 0, rgba(0, 0, 0, 0.16) 6rem, rgba(0, 0, 0, 0.45) 12rem, rgba(0, 0, 0, 0.55) 100%),
       radial-gradient(circle at 28% 22%, transparent 0, transparent 9rem, rgba(0, 0, 0, 0.1) 16rem, rgba(0, 0, 0, 0.35) 28rem),
       radial-gradient(circle at 72% 24%, transparent 0, transparent 7rem, rgba(0, 0, 0, 0.08) 14rem, rgba(0, 0, 0, 0.28) 26rem);
-  }
-
-  :global([data-theme="light"]) .hero-copy::before {
-    background: radial-gradient(circle at top left, rgba(245, 240, 232, 0.72), rgba(245, 240, 232, 0.2) 52%, transparent 84%);
-  }
-
-  :global([data-theme="light"]) .hero-panel::before {
-    background: linear-gradient(180deg, rgba(245, 240, 232, 0.42), transparent 65%);
   }
 
   :global([data-theme="light"]) .section-card {

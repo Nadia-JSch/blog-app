@@ -190,27 +190,20 @@ li {
 /* shared listing page styles */
 .page-header {
   margin-bottom: 2.5rem;
-  padding: 2.25rem;
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  background:
-    var(--surface-glow),
-    var(--surface-panel),
-    var(--bg-raised);
-  box-shadow: var(--shadow);
+  padding-bottom: 0.9rem;
 }
 
 .page-header h1 {
-  font-size: clamp(2.4rem, 4.5vw, 3.4rem);
+  font-size: clamp(2rem, 3.6vw, 2.6rem);
   color: var(--text-heading);
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.45rem;
   letter-spacing: -0.03em;
   max-width: 12ch;
 }
 
 .page-header p {
   color: var(--text-light);
-  font-size: 1.02rem;
+  font-size: 0.94rem;
   line-height: 1.6;
   max-width: 44rem;
 }
@@ -274,7 +267,7 @@ hr {
 
 @media (max-width: 720px) {
   .page-header {
-    padding: 1.5rem;
+    padding-bottom: 1rem;
     margin-bottom: 1.75rem;
   }
 

@@ -1,0 +1,152 @@
+---
+interface Props {
+  demo?: string;
+}
+
+const { demo } = Astro.props;
+---
+
+{demo === 'css-hover-lab' && (
+  <section class="playground" aria-label="CSS hover playground">
+    <div class="playground-header">
+      <p class="playground-label">Live demo</p>
+      <p class="playground-note">A small set of hover states to test what feels calm and what feels too loud.</p>
+    </div>
+
+    <div class="demo-grid">
+      <button class="demo-button demo-button-primary">Primary button</button>
+      <button class="demo-button">Quiet button</button>
+      <a href="#" class="demo-card">
+        <span class="demo-card-kicker">Card hover</span>
+        <strong>Soft lift with a border shift</strong>
+        <span>Trying to make interaction visible without making the card jump around.</span>
+      </a>
+      <a href="#" class="demo-card demo-card-glow">
+        <span class="demo-card-kicker">Glow test</span>
+        <strong>More obvious emphasis</strong>
+        <span>This version pushes the glow further and starts to feel a little louder.</span>
+      </a>
+    </div>
+  </section>
+)}
+
+<style>
+  .playground {
+    margin: 0 0 2.25rem;
+    padding: 1.3rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg-subtle);
+  }
+
+  .playground-header {
+    margin-bottom: 1rem;
+  }
+
+  .playground-label {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.76rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-heading);
+    margin-bottom: 0.35rem;
+  }
+
+  .playground-note {
+    color: var(--text-light);
+    font-size: 0.92rem;
+    line-height: 1.6;
+    max-width: 56ch;
+  }
+
+  .demo-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .demo-button,
+  .demo-card {
+    min-height: 3.3rem;
+  }
+
+  .demo-button {
+    appearance: none;
+    border: 1px solid var(--border);
+    background: var(--bg-raised);
+    color: var(--text);
+    border-radius: 999px;
+    padding: 0.85rem 1rem;
+    font: inherit;
+    text-align: left;
+    transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+    cursor: pointer;
+  }
+
+  .demo-button:hover,
+  .demo-button:focus-visible {
+    transform: translateY(-1px);
+    border-color: var(--border-hover);
+    background: var(--bg-hover);
+  }
+
+  .demo-button-primary {
+    background: var(--text-heading);
+    color: #18120a;
+    border-color: transparent;
+  }
+
+  .demo-button-primary:hover,
+  .demo-button-primary:focus-visible {
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+    color: #18120a;
+  }
+
+  .demo-card {
+    display: grid;
+    gap: 0.35rem;
+    padding: 1rem;
+    border: 1px solid rgba(224, 176, 96, 0.12);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.02);
+    color: inherit;
+    text-decoration: none;
+    transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+  }
+
+  .demo-card:hover,
+  .demo-card:focus-visible {
+    transform: translateY(-2px);
+    border-color: rgba(224, 176, 96, 0.28);
+    background: rgba(255, 255, 255, 0.03);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+  }
+
+  .demo-card-glow:hover,
+  .demo-card-glow:focus-visible {
+    box-shadow: 0 0 0 1px rgba(224, 176, 96, 0.16), 0 14px 34px rgba(224, 176, 96, 0.12);
+  }
+
+  .demo-card-kicker {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.72rem;
+    color: var(--text-light);
+  }
+
+  .demo-card strong {
+    color: var(--text-heading);
+    font-size: 0.98rem;
+  }
+
+  .demo-card span:last-child {
+    color: var(--text-light);
+    font-size: 0.88rem;
+    line-height: 1.55;
+  }
+
+  @media (max-width: 720px) {
+    .demo-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

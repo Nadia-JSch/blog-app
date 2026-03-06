@@ -28,7 +28,9 @@ const thoughts = defineCollection({
 
 const experiments = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/experiments' }),
-  schema: postSchema,
+  schema: postSchema.extend({
+    demo: z.string().optional(),
+  }),
 });
 
 export const collections = { til, 'coding-notes': codingNotes, thoughts, experiments };
