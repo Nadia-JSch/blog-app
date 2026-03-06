@@ -30,17 +30,19 @@ const tocHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3);
 
 <style>
   .toc {
-    font-size: 0.78rem;
-    line-height: 1.5;
+    font-size: 0.76rem;
+    line-height: 1.45;
+    padding-top: 0.15rem;
+    border-left: 1px solid rgba(224, 176, 96, 0.12);
   }
 
   .toc-title {
     font-weight: 600;
     color: var(--text-heading);
-    margin-bottom: 0.75rem;
-    font-size: 0.72rem;
+    margin-bottom: 1rem;
+    font-size: 0.74rem;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.1em;
   }
 
   .toc-list {
@@ -54,7 +56,8 @@ const tocHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3);
     list-style: none;
     padding: 0;
     margin: 0;
-    border-left: 1px solid var(--border);
+    display: grid;
+    gap: 0.15rem;
   }
 
   li {
@@ -62,23 +65,63 @@ const tocHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3);
   }
 
   li.depth-3 {
-    padding-left: 0.75rem;
+    padding-left: 0.7rem;
   }
 
   a {
     display: block;
-    padding: 0.25rem 0 0.25rem 0.75rem;
+    padding: 0.28rem 0;
     color: var(--text-light);
     text-decoration: none;
-    transition: color 0.2s, border-color 0.2s;
-    border-left: 2px solid transparent;
-    margin-left: -1px;
+    transition: color 0.2s, transform 0.2s;
   }
 
   a:hover,
   :global(a.toc-active) {
     color: var(--text-heading);
-    border-left-color: var(--text-heading);
+    transform: translateX(2px);
+  }
+
+  :global(a.toc-active) {
+    font-weight: 600;
+  }
+
+  @media (max-width: 1379px) {
+    .toc {
+      padding: 0.9rem 1rem;
+      border: 1px solid rgba(224, 176, 96, 0.1);
+      border-radius: var(--radius-sm);
+      background: rgba(18, 18, 20, 0.28);
+    }
+
+    .toc-list {
+      max-height: none;
+    }
+
+    a {
+      margin-left: 0;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .toc {
+      padding: 0.85rem;
+    }
+
+    a {
+      padding-block: 0.28rem;
+    }
+  }
+
+  :global([data-theme="light"]) .toc {
+    border-left-color: rgba(148, 104, 32, 0.14);
+  }
+
+  @media (max-width: 1379px) {
+    :global([data-theme="light"]) .toc {
+      border-color: rgba(148, 104, 32, 0.12);
+      background: rgba(255, 251, 245, 0.42);
+    }
   }
 </style>
 

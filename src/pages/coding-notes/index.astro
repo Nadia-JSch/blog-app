@@ -14,6 +14,7 @@ const allTags = [...new Set(sorted.flatMap((p) => p.data.tags ?? []))].sort();
 
 <BaseLayout title="Coding Notes - pg of code">
   <header class="page-header">
+    <p class="eyebrow">working reference</p>
     <h1>Coding Notes</h1>
     <p>References to come back to when working on projects.</p>
   </header>
@@ -86,6 +87,10 @@ const allTags = [...new Set(sorted.flatMap((p) => p.data.tags ?? []))].sort();
     display: flex;
     gap: 0.5rem;
     margin-bottom: 1.5rem;
+    padding: 0.4rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--bg-raised);
     overflow-x: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -98,18 +103,19 @@ const allTags = [...new Set(sorted.flatMap((p) => p.data.tags ?? []))].sort();
   .filter-btn {
     font-family: 'Fira Code', monospace;
     font-size: 0.78rem;
-    padding: 0.3rem 0.85rem;
+    padding: 0.45rem 0.85rem;
     border-radius: 999px;
-    border: 1px solid var(--border);
-    background: none;
+    border: 1px solid transparent;
+    background: transparent;
     color: var(--text-light);
     cursor: pointer;
     transition: all 0.2s;
   }
 
   .filter-btn:hover {
-    border-color: var(--text-heading);
+    border-color: var(--border-hover);
     color: var(--text-heading);
+    background: var(--bg-soft);
   }
 
   .filter-btn.active {

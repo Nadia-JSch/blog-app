@@ -1,61 +1,68 @@
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
-/* warm terminal dark mode */
 :root {
-  --bg: #101010;
-  --bg-raised: #181614;
-  --bg-subtle: #141210;
-  --bg-hover: #1e1c18;
-  --border: #2a2824;
-  --border-hover: #3e3a34;
-  --text: #c8c2b8;
-  --text-light: #8a8478;
-  --text-heading: #e0b060;
-  --text-heading-alt: #d48a9a;
-  --link: #d48a9a;
-  --link-hover: #e0a4b0;
-  --tag-bg: rgba(224, 176, 96, 0.1);
-  --tag-text: #e0b060;
-  --tag-bg-hover: rgba(224, 176, 96, 0.18);
+  --bg: #0f0f10;
+  --bg-raised: rgba(28, 25, 22, 0.82);
+  --bg-subtle: rgba(22, 19, 17, 0.68);
+  --bg-hover: rgba(38, 34, 30, 0.92);
+  --bg-soft: rgba(255, 248, 236, 0.03);
+  --border: rgba(224, 176, 96, 0.14);
+  --border-strong: rgba(224, 176, 96, 0.28);
+  --border-hover: rgba(224, 176, 96, 0.38);
+  --text: #d4cec5;
+  --text-light: #968e82;
+  --text-heading: #efbb67;
+  --text-heading-alt: #df8da0;
+  --link: #e39aac;
+  --link-hover: #f2b0bf;
+  --tag-bg: rgba(239, 187, 103, 0.11);
+  --tag-text: #efbb67;
+  --tag-bg-hover: rgba(239, 187, 103, 0.2);
   --tag-text-hover: #c8c2b8;
   --code-bg: #0a0a08;
-  --code-text: #e0b060;
-  --code-inline-bg: rgba(224, 176, 96, 0.1);
+  --code-text: #efbb67;
+  --code-inline-bg: rgba(239, 187, 103, 0.1);
   --code-inline-text: #c8c2b8;
-  --blockquote-bg: rgba(224, 176, 96, 0.03);
-  --radius: 8px;
-  --shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
-  --shadow-hover: 0 8px 32px rgba(0, 0, 0, 0.6);
-  --nav-bg: rgba(16, 16, 16, 0.9);
-  --star-color: rgba(224, 176, 96, 0.35);
+  --blockquote-bg: rgba(239, 187, 103, 0.05);
+  --radius: 18px;
+  --radius-sm: 10px;
+  --shadow: 0 18px 48px rgba(0, 0, 0, 0.34);
+  --shadow-hover: 0 24px 60px rgba(0, 0, 0, 0.42);
+  --nav-bg: rgba(15, 15, 16, 0.72);
+  --surface-glow: radial-gradient(circle at top, rgba(239, 187, 103, 0.14), transparent 45%);
+  --surface-panel: linear-gradient(180deg, rgba(255, 248, 236, 0.03), rgba(255, 248, 236, 0));
+  --star-color: rgba(239, 187, 103, 0.28);
 }
 
-/* warm terminal light mode */
 [data-theme="light"] {
-  --bg: #f7f5f2;
-  --bg-raised: #fcfbf9;
-  --bg-subtle: #f2f0ec;
-  --bg-hover: #eae6e0;
-  --border: #d6d2cc;
-  --border-hover: #b8b2a8;
-  --text: #32302c;
-  --text-light: #5c5850;
-  --text-heading: #946820;
-  --text-heading-alt: #a04058;
-  --link: #a04058;
-  --link-hover: #802840;
-  --tag-bg: rgba(148, 104, 32, 0.08);
-  --tag-text: #946820;
-  --tag-bg-hover: rgba(148, 104, 32, 0.15);
-  --tag-text-hover: #32302c;
+  --bg: #f5f0e8;
+  --bg-raised: rgba(255, 252, 246, 0.88);
+  --bg-subtle: rgba(249, 242, 233, 0.78);
+  --bg-hover: rgba(244, 235, 223, 0.96);
+  --bg-soft: rgba(148, 104, 32, 0.04);
+  --border: rgba(148, 104, 32, 0.14);
+  --border-strong: rgba(148, 104, 32, 0.24);
+  --border-hover: rgba(148, 104, 32, 0.36);
+  --text: #302c28;
+  --text-light: #625b53;
+  --text-heading: #8b6324;
+  --text-heading-alt: #9f495f;
+  --link: #9f495f;
+  --link-hover: #7f354a;
+  --tag-bg: rgba(139, 99, 36, 0.09);
+  --tag-text: #8b6324;
+  --tag-bg-hover: rgba(139, 99, 36, 0.15);
+  --tag-text-hover: #302c28;
   --code-bg: #32302c;
   --code-text: #d8c490;
-  --code-inline-bg: rgba(148, 104, 32, 0.08);
-  --code-inline-text: #946820;
-  --blockquote-bg: rgba(148, 104, 32, 0.03);
-  --shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-  --shadow-hover: 0 8px 28px rgba(0, 0, 0, 0.1);
-  --nav-bg: rgba(247, 245, 242, 0.9);
+  --code-inline-bg: rgba(139, 99, 36, 0.08);
+  --code-inline-text: #8b6324;
+  --blockquote-bg: rgba(139, 99, 36, 0.05);
+  --shadow: 0 18px 42px rgba(95, 74, 41, 0.08);
+  --shadow-hover: 0 24px 54px rgba(95, 74, 41, 0.14);
+  --nav-bg: rgba(245, 240, 232, 0.72);
+  --surface-glow: radial-gradient(circle at top, rgba(139, 99, 36, 0.12), transparent 48%);
+  --surface-panel: linear-gradient(180deg, rgba(255, 255, 255, 0.56), rgba(255, 255, 255, 0));
   --star-color: rgba(148, 104, 32, 0.06);
 }
 
@@ -74,35 +81,7 @@
 html {
   scroll-behavior: smooth;
   background-color: var(--bg);
-  background-image:
-    radial-gradient(circle at 30px 80px, var(--star-color) 1px, transparent 1px),
-    radial-gradient(circle at 120px 40px, var(--star-color) 1px, transparent 1px),
-    radial-gradient(circle at 200px 150px, var(--star-color) 1px, transparent 1px),
-    radial-gradient(circle at 350px 20px, var(--star-color) 1.5px, transparent 1.5px),
-    radial-gradient(circle at 480px 200px, var(--star-color) 1px, transparent 1px),
-    radial-gradient(circle at 600px 90px, var(--star-color) 1px, transparent 1px),
-    radial-gradient(circle at 750px 300px, var(--star-color) 1.5px, transparent 1.5px),
-    radial-gradient(circle at 900px 60px, var(--star-color) 1px, transparent 1px),
-    radial-gradient(circle at 1050px 250px, var(--star-color) 1px, transparent 1px),
-    radial-gradient(circle at 1200px 120px, var(--star-color) 1.5px, transparent 1.5px),
-    radial-gradient(circle at 80px 350px, var(--star-color) 1px, transparent 1px),
-    radial-gradient(circle at 250px 420px, var(--star-color) 2px, transparent 2px),
-    radial-gradient(circle at 430px 380px, var(--star-color) 1px, transparent 1px),
-    radial-gradient(circle at 580px 500px, var(--star-color) 1px, transparent 1px),
-    radial-gradient(circle at 700px 450px, var(--star-color) 1.5px, transparent 1.5px),
-    radial-gradient(circle at 850px 520px, var(--star-color) 1px, transparent 1px),
-    radial-gradient(circle at 1000px 400px, var(--star-color) 2px, transparent 2px),
-    radial-gradient(circle at 1150px 480px, var(--star-color) 1px, transparent 1px),
-    radial-gradient(circle at 60px 600px, var(--star-color) 1px, transparent 1px),
-    radial-gradient(circle at 320px 650px, var(--star-color) 1.5px, transparent 1.5px),
-    radial-gradient(circle at 500px 720px, var(--star-color) 1px, transparent 1px),
-    radial-gradient(circle at 670px 680px, var(--star-color) 2px, transparent 2px),
-    radial-gradient(circle at 950px 620px, var(--star-color) 1px, transparent 1px),
-    radial-gradient(circle at 140px 850px, var(--star-color) 1px, transparent 1px),
-    radial-gradient(circle at 400px 900px, var(--star-color) 1.5px, transparent 1.5px),
-    radial-gradient(circle at 780px 820px, var(--star-color) 1px, transparent 1px);
-  background-size: 1300px 950px;
-  background-repeat: repeat;
+  overflow-x: clip;
 }
 
 body {
@@ -111,12 +90,31 @@ body {
   line-height: 1.7;
   min-height: 100vh;
   transition: background-color 0.3s, color 0.3s;
+  background:
+    radial-gradient(circle at top left, rgba(239, 187, 103, 0.08), transparent 24rem),
+    radial-gradient(circle at top right, rgba(223, 141, 160, 0.07), transparent 20rem),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 16rem);
+  position: relative;
+  overflow-x: clip;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.014) 1px, transparent 1px);
+  background-size: 36px 36px;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.8), transparent 82%);
+  opacity: 0.26;
 }
 
 h1, h2, h3 {
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 700;
-  line-height: 1.3;
+  line-height: 1.15;
 }
 
 a {
@@ -144,6 +142,8 @@ pre {
   overflow-x: auto;
   margin: 1.5rem 0;
   border: 1px solid var(--border);
+  background: var(--code-bg);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
 }
 
 pre code {
@@ -166,8 +166,8 @@ pre code {
 
 blockquote {
   border-left: 4px solid var(--text-heading);
-  padding: 0.75rem 1.25rem;
-  margin: 1.5rem 0;
+  padding: 1rem 1.25rem;
+  margin: 2rem 0;
   background: var(--blockquote-bg);
   border-radius: 0 var(--radius) var(--radius) 0;
   font-style: italic;
@@ -189,26 +189,36 @@ li {
 
 /* shared listing page styles */
 .page-header {
-  margin-bottom: 3rem;
+  margin-bottom: 2.5rem;
+  padding: 2.25rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background:
+    var(--surface-glow),
+    var(--surface-panel),
+    var(--bg-raised);
+  box-shadow: var(--shadow);
 }
 
 .page-header h1 {
-  font-size: 2.4rem;
+  font-size: clamp(2.4rem, 4.5vw, 3.4rem);
   color: var(--text-heading);
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.8rem;
   letter-spacing: -0.03em;
+  max-width: 12ch;
 }
 
 .page-header p {
   color: var(--text-light);
-  font-size: 1.1rem;
+  font-size: 1.02rem;
   line-height: 1.6;
+  max-width: 44rem;
 }
 
 .post-list {
   display: flex;
   flex-direction: column;
-  gap: 0;
+  gap: 1rem;
 }
 
 /* focus-visible accessibility */
@@ -232,7 +242,7 @@ button:focus-visible {
 }
 
 .fade-in {
-  animation: fadeInUp 0.4s ease-out both;
+  animation: fadeInUp 0.45s ease-out both;
 }
 
 /* section dividers */
@@ -240,4 +250,39 @@ hr {
   border: none;
   border-top: 1px solid var(--border);
   margin: 2rem 0;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text-light);
+  margin-bottom: 1rem;
+}
+
+.eyebrow::before {
+  content: '';
+  width: 1.5rem;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
+}
+
+@media (max-width: 720px) {
+  .page-header {
+    padding: 1.5rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .page-header h1 {
+    max-width: none;
+  }
+
+  body::before {
+    opacity: 0.18;
+  }
 }

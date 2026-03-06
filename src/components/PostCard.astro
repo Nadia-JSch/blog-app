@@ -16,8 +16,7 @@ const formattedDate = new Date(date).toLocaleDateString('en-US', {
 ---
 
 <a href={url} class="card">
-  <div class="card-row-1">
-    <h3>{title}</h3>
+  <div class="card-meta">
     <div class="card-row-1-right">
       {tags && (
         <div class="card-tags">
@@ -28,6 +27,10 @@ const formattedDate = new Date(date).toLocaleDateString('en-US', {
       )}
       <time datetime={date}>{formattedDate}</time>
     </div>
+    <span class="card-arrow" aria-hidden="true">&rarr;</span>
+  </div>
+  <div class="card-row-1">
+    <h3>{title}</h3>
   </div>
   {description && <p class="card-row-2">{description}</p>}
 </a>
@@ -35,35 +38,43 @@ const formattedDate = new Date(date).toLocaleDateString('en-US', {
 <style>
   .card {
     display: block;
-    border-bottom: 1px solid var(--border);
-    padding: 1rem 0;
-    transition: background 0.2s;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.15rem 1.2rem 1.2rem;
+    transition: transform 0.2s, background 0.2s, border-color 0.2s, box-shadow 0.2s;
     color: inherit;
     text-decoration: none;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.025), transparent),
+      var(--bg-raised);
+    box-shadow: var(--shadow);
   }
 
   .card:hover {
     background: var(--bg-hover);
-    padding-left: 0.75rem;
-    margin-left: -0.75rem;
-    padding-right: 0.75rem;
-    margin-right: -0.75rem;
-    border-radius: 6px;
+    transform: translateY(-2px);
+    border-color: var(--border-hover);
+    box-shadow: var(--shadow-hover);
+  }
+
+  .card-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.85rem;
   }
 
   .card-row-1 {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 1rem;
+    margin-bottom: 0.35rem;
   }
 
   .card-row-1 h3 {
-    font-size: 1.05rem;
+    font-size: 1.2rem;
     font-weight: 600;
     color: var(--text-heading);
     margin: 0;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.02em;
   }
 
   .card-row-1-right {
@@ -76,12 +87,17 @@ const formattedDate = new Date(date).toLocaleDateString('en-US', {
   .card-tags {
     display: flex;
     gap: 0.4rem;
+    flex-wrap: wrap;
   }
 
   .tag {
-    font-size: 0.78rem;
+    font-size: 0.72rem;
     color: var(--tag-text);
-    opacity: 0.8;
+    opacity: 0.9;
+    background: var(--tag-bg);
+    border: 1px solid transparent;
+    border-radius: 999px;
+    padding: 0.2rem 0.55rem;
   }
 
   .tag::before {
@@ -89,18 +105,43 @@ const formattedDate = new Date(date).toLocaleDateString('en-US', {
   }
 
   .card-row-1-right time {
-    font-size: 0.82rem;
+    font-size: 0.74rem;
+    font-family: 'Fira Code', monospace;
     color: var(--text-light);
     white-space: nowrap;
   }
 
+  .card-arrow {
+    color: var(--text-light);
+    transition: transform 0.2s, color 0.2s;
+  }
+
+  .card:hover .card-arrow {
+    color: var(--text-heading);
+    transform: translateX(4px);
+  }
+
   .card-row-2 {
-    font-size: 0.9rem;
+    font-size: 0.94rem;
     color: var(--text-light);
     line-height: 1.6;
-    margin-top: 0.35rem;
     overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  @media (max-width: 640px) {
+    .card {
+      padding: 1rem;
+    }
+
+    .card-meta {
+      align-items: flex-start;
+    }
+
+    .card-row-1 h3 {
+      font-size: 1.05rem;
+    }
   }
 </style>
