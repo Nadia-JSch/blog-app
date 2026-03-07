@@ -1,0 +1,33 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostCard from '../../components/PostCard.astro';
+import Pagination from '../../components/Pagination.astro';
+
+const posts = await getCollection('ai-taught-me', (p) => !p.data.draft);
+const sorted = posts.sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+---
+
+<BaseLayout title="AI Taught Me - pg of code">
+  <header class="page-header">
+    <p class="eyebrow">ai-generated lessons</p>
+    <h1>AI Taught Me</h1>
+    <p>Lessons generated with AI on things I'm learning.</p>
+  </header>
+
+  <div class="post-list">
+    {sorted.map((post) => (
+      <PostCard
+        title={post.data.title}
+        date={post.data.date}
+        description={post.data.description}
+        url={`/ai-taught-me/${post.id}`}
+        tags={post.data.tags}
+      />
+    ))}
+  </div>
+
+  <Pagination />
+</BaseLayout>

@@ -33,4 +33,9 @@ const experiments = defineCollection({
   }),
 });
 
-export const collections = { til, 'coding-notes': codingNotes, thoughts, experiments };
+const aiTaughtMe = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/ai-taught-me' }),
+  schema: postSchema,
+});
+
+export const collections = { til, 'coding-notes': codingNotes, thoughts, experiments, 'ai-taught-me': aiTaughtMe };
