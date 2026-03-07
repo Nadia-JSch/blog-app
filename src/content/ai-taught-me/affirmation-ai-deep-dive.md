@@ -21,9 +21,9 @@ Here's what happens when you open it:
 
 **Daily ritual card** — The hero of the page. Every day surfaces a new affirmation (a hype-up for your mindset) paired with a matching tech lesson — things like `console.table()` for debugging, CSS `minmax()` for responsive layouts, or `git switch` for cleaner branch flow. The pairing is deterministic: the same date always produces the same affirmation, so everyone using the app sees the same "daily drop."
 
-**AI remix** — Hit the "AI remix" button and the app sends your current theme and topic to a Gemini-powered backend, which generates a fresh affirmation and lesson in the same structure. The static content swaps out for the AI version without a page reload.
+**AI remix** — Hit the "AI remix" button and the app sends your current theme and topic to an AI-powered backend, which generates a fresh affirmation and lesson in the same structure. The static content swaps out for the AI version without a page reload.
 
-**Revision flashcards** — "Draw a card" calls a second backend route that reads one of your own Markdown notes from disk, passes it to Gemini, and gets back a flashcard: a question, an answer, an optional code snippet, and a memorable tip. Your notes become study material automatically.
+**Revision flashcards** — "Draw a card" calls a second backend route that reads one of your own Markdown notes from disk, passes it to an AI model, and gets back a flashcard: a question, an answer, an optional code snippet, and a memorable tip. Your notes become study material automatically.
 
 **Win journal** — A local-only text area where you log what you shipped, figured out, or handled well that day. Nothing leaves the browser. Entries persist in `localStorage` so they're still there tomorrow.
 
@@ -106,7 +106,7 @@ const [journalText, setJournalText] = useState("");                     // texta
 const [entries, setEntries] = useState<JournalEntry[]>([]);             // saved wins
 const [claimedDay, setClaimedDay] = useState("");                       // which day was claimed
 const [generated, setGenerated] = useState<GeneratedContent | null>(null); // AI remix result
-const [revision, setRevision] = useState<RevisionNote | null>(null);   // flashcard from Gemini
+const [revision, setRevision] = useState<RevisionNote | null>(null);   // flashcard from AI
 ```
 
 **Why `null` instead of `{}`?** Using `null` as the initial value for `generated` and `revision` is intentional. The UI checks `if (generated)` — a null means "no AI content yet, show the static data." An empty object `{}` would be truthy and break that logic.
@@ -164,17 +164,19 @@ useEffect(() => {
 
 ---
 
-## 5. The Node server: `server/gemini-server.mjs`
+## 5. The API backend
 
-So far everything has been pure frontend. Now for the part that makes the AI features work: a tiny Node server that lives alongside the React app.
+So far everything has been pure frontend. Now for the part that makes the AI features work: a backend that handles the AI calls.
 
-This is a minimal HTTP server using only Node's built-in `node:http` module — no Express. It handles two routes.
+In local development this is `server/gemini-server.mjs` — a minimal Node HTTP server with no framework. In production (deployed on Cloudflare Pages) it's `functions/api/generate-daily.ts` and `functions/api/revision-note.ts` — Cloudflare Functions that run at the edge. Both expose the same two routes and do the same job; they just run in different environments.
+
+The production version uses **Groq** (`llama-3.3-70b-versatile`) via Groq's API, which is OpenAI-compatible — meaning the request format looks exactly like the OpenAI API you may have seen in tutorials.
 
 ### Why a server at all?
 
-Your `GEMINI_API_KEY` must never be in the browser. If you called Gemini from React directly, anyone who opened DevTools → Network tab could see your key in the request headers and use it to run up your bill. The server keeps the key in `process.env` (loaded from `.env` via `dotenv`) and acts as a middleman — the browser talks to your server, your server talks to Gemini, and the key never leaves your machine.
+Your AI API key must never be in the browser. If you called Groq (or any AI provider) from React directly, anyone who opened DevTools → Network tab could see your key in the request headers and use it on your account. The server keeps the key in an environment variable and acts as a middleman — the browser talks to your server, your server talks to Groq, and the key never leaves the server.
 
-Vite's dev config proxies any request starting with `/api` to this server, so from the browser's perspective it's all the same origin. You write `fetch("/api/generate-daily")` in React and it just works.
+In production, Cloudflare Pages handles the routing automatically: any file in `functions/api/` becomes a live `/api/` endpoint. In local dev, Vite's config proxies `/api` requests to the Node server. Either way, you write `fetch("/api/generate-daily")` in React and it just works.
 
 ### What is a route?
 
@@ -187,7 +189,7 @@ A **route** is a URL + HTTP method pair that a server listens for and responds t
 
 **GET** is for fetching something. **POST** is for sending data and getting something back. (The other two you'll hear about — PUT and DELETE — are for updating and removing things. Together these four cover what's called **CRUD**: Create, Read, Update, Delete.)
 
-This server only has GET and POST because it's read-only — it doesn't store anything, it just talks to Gemini and returns a result.
+This backend only has GET and POST because it's read-only — it doesn't store anything, it just talks to Groq and returns a result.
 
 ### Route 1: `POST /api/generate-daily`
 
@@ -210,7 +212,7 @@ This looks complicated, but it's because HTTP requests arrive as a **stream** �
 
 This is exactly what Express's `req.body` does for you automatically behind the scenes — here you're doing it manually because the server uses no framework.
 
-The server then builds a prompt string with those values and calls Gemini's REST API directly using `fetch`. The prompt explicitly tells Gemini what JSON shape to return, which the server then forwards to the browser.
+The server then builds a prompt string with those values and calls Groq's API using `fetch`. The prompt explicitly tells the model what JSON shape to return, which the server forwards to the browser.
 
 ### Route 2: `GET /api/revision-note`
 
@@ -225,11 +227,11 @@ const pickRandomNote = async () => {
 
 `readdir` lists all files in the notes directory (this is a filesystem operation — reading from disk, not a database). The `.filter` keeps only `.md` files. `Math.floor(Math.random() * files.length)` is the standard way to pick a random array index — `Math.random()` returns `0` to `<1`, multiplied by the length gives `0` to `<length`, and `Math.floor` rounds it down to a valid integer index.
 
-The full text of that note is then sent to Gemini as context, and the model picks one concept from it to turn into a flashcard question and answer.
+The full text of that note is then sent to Groq as context, and the model picks one concept from it to turn into a flashcard question and answer.
 
 ### How the AI integration works: prompting for structured data
 
-This is the core of what makes the AI features reliable. You can't just ask Gemini "make me a flashcard" and hope the response is in a format your code can use. Instead, the prompt is very explicit:
+This is the core of what makes the AI features reliable. You can't just ask an AI model "make me a flashcard" and hope the response is in a format your code can use. Instead, the prompt is very explicit:
 
 ```js
 const buildRevisionPrompt = (noteContent, noteFilename) => `...
@@ -249,18 +251,18 @@ Rules:
 
 By telling the model exactly what shape to return and giving it rules to follow, you get consistent, parseable output instead of a paragraph of free text. This technique — structuring your prompt to constrain the output — is called **prompt engineering**, and it's how you make AI usable inside real applications.
 
-### Parsing Gemini's response
+### Parsing the AI response
+
+Groq uses the OpenAI-compatible chat completions format, so the response looks like this:
 
 ```js
-const parseJsonResponse = async (response) => {
-  const data = await response.json();
-  const text = data.candidates?.[0]?.content?.parts?.map((part) => part.text || "").join("") || "";
-  const match = text.match(/\{[\s\S]*\}/);
-  return JSON.parse(match[0]);
-};
+const data = await response.json();
+const text = data.choices?.[0]?.message?.content ?? "";
+const match = text.match(/\{[\s\S]*\}/);
+return JSON.parse(match[0]);
 ```
 
-Gemini wraps its response in a deeply nested structure: `candidates[0].content.parts[0].text`. The optional chaining (`?.`) on each level means "if this level doesn't exist, return undefined rather than crashing." The regex `/\{[\s\S]*\}/` then extracts the first `{...}` block from the text — this is defensive parsing in case Gemini adds explanation text before or after the JSON (which it sometimes does even when you ask it not to).
+The model's reply lives at `choices[0].message.content` — a single string. The regex `/\{[\s\S]*\}/` extracts the first `{...}` block from it, which is defensive parsing in case the model adds explanation text before or after the JSON (which it sometimes does even when you ask it not to). `JSON.parse` then turns that string into a JavaScript object the frontend can use.
 
 ---
 
@@ -272,10 +274,10 @@ When your app calls an API, it has to wait for the response. That could take 1 s
 
 In JavaScript, `async/await` is how you write that clearly. `async` on a function means it can contain `await` expressions. `await` means "pause here until this promise resolves, then continue." While it's paused, the browser is still responsive — the rest of the UI doesn't freeze.
 
-Both API calls follow the same structure. Here's `generateWithGemini`:
+Both API calls follow the same structure. Here's `generateWithAI`:
 
 ```ts
-const generateWithGemini = async () => {
+const generateWithAI = async () => {
   setIsGenerating(true);        // show loading state
   setGenerationError("");       // clear any previous error
 
