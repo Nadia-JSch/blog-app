@@ -6,11 +6,13 @@ const collections = await Promise.all([
   getCollection('til', (p) => !p.data.draft),
   getCollection('coding-notes', (p) => !p.data.draft),
   getCollection('thoughts', (p) => !p.data.draft),
+  getCollection('ai-taught-me', (p) => !p.data.draft),
+  getCollection('experiments', (p) => !p.data.draft),
 ]);
 
 const latestPosts = collections
   .flatMap((posts, index) => {
-    const section = ['til', 'coding-notes', 'thoughts'][index];
+    const section = ['til', 'coding-notes', 'thoughts', 'ai-taught-me', 'experiments'][index];
     return posts.map((post) => ({
       title: post.data.title,
       description: post.data.description,
@@ -26,6 +28,8 @@ const sectionLabels: Record<string, string> = {
   'til': 'Today I Learned',
   'coding-notes': 'Coding Notes',
   'thoughts': 'Thoughts',
+  'ai-taught-me': 'AI Taught Me',
+  'experiments': 'Experiments',
 };
 ---
 
