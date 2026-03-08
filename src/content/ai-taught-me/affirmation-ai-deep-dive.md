@@ -11,7 +11,13 @@ tags: ["react", "vite", "ai"]
 
 # How That Tech Girl Actually Works: A Code Walkthrough
 
-This post walks through a real React + Vite PWA called That Tech Girl — a daily affirmation app for women in tech. We'll go file-by-file through the codebase and, along the way, pull out the broader programming concepts that apply far beyond this project.
+This post walks through a real React + Vite PWA called [That Tech Girl](https://that-tech-girl-app.pages.dev/) — a daily affirmation app for women in tech. It's meant to be over-the-top but the vibe still needs some work to be humorous and ironically girly.
+
+![Hero section](/images/that-tech-girl-v1.png)
+
+We'll go file-by-file through the codebase and, along the way, pull out the broader programming concepts that apply far beyond this project.
+
+> **Reading this with just basic JS knowledge?** Good — that's exactly who this is for. This article assumes you know variables, functions, arrays, and objects. Everything else (React, TypeScript, APIs, async) gets explained as we go. If something still doesn't click, that's okay — bookmark it and come back after you've tinkered with the code.
 
 **What we'll cover:**
 
@@ -32,15 +38,25 @@ Each section starts with the actual code, then zooms out to the pattern it illus
 
 Here's what happens when you open it:
 
-**Daily ritual card** — The hero of the page. Every day surfaces a new affirmation paired with a matching tech lesson. The pairing is deterministic: the same date always produces the same affirmation.
+**Daily ritual card** — Every day surfaces a new affirmation paired with a matching tech lesson. The pairing is deterministic: the same date always produces the same affirmation.
+
+![Daily ritual](/images/that-tech-girl-todays-ritual.png)
 
 **AI remix** — Hit the button and the app sends your current theme and topic to an AI-powered backend, which generates a fresh affirmation and lesson.
 
+![Daily ritual](/images/ai-remix.png)
+
 **Revision flashcards** — "Draw a card" calls a backend route that picks one of your bundled Markdown notes, passes it to an AI model, and gets back a flashcard.
+
+![Draw a card](/images/draw-a-card.png)
 
 **Win journal** — A local-only text area where you log what you shipped. Nothing leaves the browser. Entries persist in `localStorage`.
 
+![Win journal](/images/log-a-win.png)
+
 **Themes** — Five palettes you can switch between at any time. Your choice is saved.
+
+![Themes](/images/themes.png)
 
 Now let's look at how all of that is actually built — and why those choices matter beyond this one app.
 
@@ -49,6 +65,12 @@ Now let's look at how all of that is actually built — and why those choices ma
 ## 1. Data: where the content lives
 
 Open `src/data/content.ts`. Everything static — affirmations, lessons, themes — is defined here as plain TypeScript arrays and objects. No database, no API call, just JavaScript data.
+
+### Wait — what's TypeScript?
+
+You'll notice the files end in `.ts` and `.tsx` instead of `.js`. That's **TypeScript** — it's JavaScript with one addition: you can describe the *shape* of your data. The code still runs as JavaScript in the browser (TypeScript gets converted), but while you're writing it, your editor can warn you about mistakes.
+
+Think of it like spell-check for your code. You don't *have* to use it, but it catches typos and wrong assumptions before your users do.
 
 ### Types first
 
@@ -71,6 +93,15 @@ export type Lesson = {
 };
 ```
 
+**Breaking down the syntax:**
+
+- `export` — makes this available to other files (without it, only this file could use it)
+- `type Affirmation = { ... }` — defines a shape. It's saying "anything called an Affirmation must have these exact fields"
+- `topic: Topic` — the `topic` field must be a `Topic` type (defined elsewhere)
+- `snippet?: string` — the `?` means this field is optional — an object can leave it out without TypeScript complaining
+
+If you've used objects in JavaScript, you already understand the concept. TypeScript just makes the rules explicit.
+
 ### Why types matter (beyond this app)
 
 These `type` declarations are TypeScript telling your editor "here's the exact shape of this data." If you later try to write `affirmation.mantrea` (a typo), TypeScript flags it immediately.
@@ -85,11 +116,15 @@ The `lessonId` on an affirmation works like a link between two tables — exactl
 
 This is a **foreign key** pattern, one of the most fundamental concepts in data modelling. Whether you're working with SQL, a NoSQL database, or just JavaScript objects, the idea is the same: connect related data by ID rather than duplicating it.
 
+**In plain terms:** instead of copying the entire lesson into every affirmation (which means updating it in multiple places if it changes), each affirmation just stores a lesson's `id` — like writing down a phone number instead of carrying the person around with you. When you need the full lesson, you look it up by that ID.
+
 ---
 
 ## 2. The daily algorithm: `src/lib/daily.ts`
 
 The most interesting 14 lines in the project. This is what makes the "daily drop" work — same affirmation for everyone on the same day, no database required.
+
+Before we look at the code — here's what this file does in plain English: given today's date, it picks one affirmation and one lesson from the lists, and it picks the *same* ones every time for a given date. Tomorrow it picks different ones. No randomness, no database, just math.
 
 ```ts
 const hashDay = (date: Date) => {
@@ -105,6 +140,16 @@ export const getDailyPair = (date = new Date()) => {
   return { affirmation, lesson, dayKey: date.toISOString().slice(0, 10) };
 };
 ```
+
+**Line by line for the curious:**
+
+1. `const hashDay = (date: Date) =>` — this creates a function called `hashDay` that takes a date. The `: Date` part is TypeScript saying "this must be a Date object"
+2. `date.toISOString().slice(0, 10)` — converts the date to a string like `"2026-03-08"` and takes just the date part (ignoring the time)
+3. `.split("")` — turns `"2026-03-08"` into an array of individual characters: `["2", "0", "2", "6", "-", "0", "3", "-", "0", "8"]`
+4. `.reduce((acc, char) => acc + char.charCodeAt(0), 0)` — loops through each character, gets its number code (A=65, B=66, etc.), and adds them all up into one number
+5. `affirmations[hash % affirmations.length]` — uses that number to pick an item from the array (the `%` ensures the number is never bigger than the array — explained below)
+6. `lessons.find((entry) => entry.id === affirmation.lessonId)` — searches the lessons array for the one whose `id` matches what the affirmation points to
+7. `?? lessons[0]` — if no match is found, use the first lesson as a backup
 
 ### Determinism: why it matters
 
@@ -152,6 +197,10 @@ This is **defensive programming** — writing code that handles unexpected situa
 
 The whole app lives in one component — no Redux, no Zustand, just React's built-in `useState`. Each piece of state is one thing the UI needs to remember:
 
+> **What's a component?** In React, a component is a reusable piece of UI — like a building block. It's just a JavaScript function that returns HTML-like code (called JSX). Your entire app can be one component, or hundreds of small ones nested together. `App.tsx` is the main one that wraps everything.
+>
+> **What are Redux and Zustand?** They're external libraries for managing state in bigger apps. This app doesn't need them — React's built-in `useState` is enough. Think of it like this: you don't need a filing cabinet for three sticky notes.
+
 ```ts
 const [theme, setTheme] = useState<ThemeKey>("coquette-compiler");
 const [darkMode, setDarkMode] = useState(false);
@@ -162,9 +211,35 @@ const [generated, setGenerated] = useState<GeneratedContent | null>(null);
 const [revision, setRevision] = useState<RevisionNote | null>(null);
 ```
 
+### But first — what are hooks?
+
+**Hooks** are special functions in React that start with the word `use` (like `useState`, `useMemo`, `useEffect`). They let you "hook into" React's features from inside a component.
+
+Before hooks existed, you had to write components as JavaScript classes with methods like `componentDidMount` and `this.setState`. Hooks replaced all of that with simple function calls. Think of them as tools in a toolbox — each hook does one specific job:
+
+- **`useState`** — remembers a value between renders (like a variable that survives a page refresh)
+- **`useMemo`** — caches an expensive calculation so it doesn't re-run unnecessarily
+- **`useEffect`** — runs code when something changes (like fetching data when a page loads)
+
+You'll see all three in this app.
+
 ### What state actually is
 
+Imagine a light switch. It's either on or off — that's its **state**. In a web app, state is any value that can change over time and affects what the user sees. The current theme, the text someone typed into a box, a list of saved journal entries — all state.
+
+In plain JavaScript, if you change a variable, nothing happens on screen. You'd have to manually find the HTML element and update it. React's `useState` hook solves this — it connects your data to the UI so changes show up automatically.
+
 Every `useState` returns two things: the current value and a function to update it. When you call the setter, React re-renders the component with the new value.
+
+```ts
+// Example:
+const [darkMode, setDarkMode] = useState(false);
+// darkMode = false          (the current value)
+// setDarkMode = a function  (call it to change the value)
+
+setDarkMode(true);
+// Now darkMode = true, and React updates the screen automatically
+```
 
 This is the core of **reactive programming** — a paradigm where the UI automatically updates when data changes. React pioneered this for the web, but the same pattern exists in:
 
@@ -185,6 +260,8 @@ This is a common pattern called the **Maybe pattern** or **Optional type**:
 - `{}` = "this exists and is empty"
 
 In TypeScript, `null` is falsy, `{}` is truthy. In languages like Rust, this is explicit with `Option<T>`. In Haskell, it's `Maybe a`. The idea: distinguish between "nothing" and "something (even if empty)."
+
+**What does "falsy" and "truthy" mean?** In JavaScript, some values are treated as `false` when used in an `if` statement — these are called "falsy." The main ones are: `false`, `0`, `""` (empty string), `null`, `undefined`, and `NaN`. Everything else is "truthy" — including empty objects `{}` and empty arrays `[]`. So `if (generated)` only runs its code when `generated` is *not* `null`.
 
 ### Derived values — computing instead of storing
 
@@ -231,6 +308,14 @@ The trade-off: simpler (no backend needed for basic features), works offline, pr
 - Synchronous (blocks the main thread for large reads/writes)
 
 For a personal daily ritual app, this is fine. For something with user accounts and multi-device sync, you'd reach for IndexedDB, or a sync solution like Firebase, Supabase, or ElectricSQL.
+
+### What is useEffect?
+
+`useEffect` is a hook that lets you run code *in response to something happening*. "When the page first loads, do this." "When the theme changes, do that." Without `useEffect`, your code would run on every single render — even when nothing relevant changed.
+
+Think of it like setting up a notification: "Hey React, when [this thing] changes, run [this code] for me."
+
+The second argument (the array in square brackets) is the list of things to watch. An empty array `[]` means "only run once, when the component first appears."
 
 ### Three `useEffect` hooks
 
@@ -291,6 +376,10 @@ The lesson: sometimes the simplest solution (CSS variables) beats the most compl
 
 Everything above is pure frontend. Now for the part that powers the AI features.
 
+> **Frontend vs backend — what's the difference?** The **frontend** is everything that runs in the user's browser — the buttons, the text, the animations. The **backend** is code that runs on a server somewhere else. The user never sees backend code directly. The frontend talks to the backend by sending requests over the internet (like texting someone a question and waiting for a reply).
+>
+> **What's an API?** API stands for "Application Programming Interface" — it's a way for two programs to talk to each other. When your React app sends a request to `/api/generate-daily`, it's using an API. The backend receives that request, does its work (like calling an AI model), and sends a response back.
+
 The app has two backend files in `functions/api/` — these are **Cloudflare Functions**, which means they're deployed automatically alongside your static site on Cloudflare Pages. Any file in `functions/api/` becomes a live API endpoint at the matching URL, no server configuration needed.
 
 - `functions/api/generate-daily.ts` → handles `POST /api/generate-daily`
@@ -334,6 +423,8 @@ A **route** is a URL + HTTP method combination that your backend listens for:
 **GET** = fetch something. **POST** = send data, get something back.
 
 (You'll also hear about **PUT** for updating and **DELETE** for removing. These four together are called **CRUD** — Create, Read, Update, Delete — the four basic operations of any data system.)
+
+**Think of routes like doors into a building.** Each door has an address (the URL) and a purpose (the method). When your app's frontend needs something from the backend, it knocks on the right door. The backend checks which door was knocked on and responds accordingly.
 
 ### Route 1: `POST /api/generate-daily`
 
@@ -407,6 +498,16 @@ When your app calls an API, it has to wait — maybe 1 second, maybe 3. **Asynch
 
 In JavaScript, `async/await` is how you write that clearly. Mark a function `async`, then use `await` in front of anything that takes time.
 
+**A real-world analogy:** Imagine ordering food at a restaurant. **Synchronous** would be standing at the counter, frozen, unable to do anything until your food arrives. **Asynchronous** is sitting down, chatting with friends, checking your phone — and when the waiter brings your food, you eat. `await` is like glancing up when the waiter arrives: "Okay, the thing I was waiting for is here, now I can continue."
+
+```js
+// Without async — everything freezes while waiting
+const data = getSomethingSlow();  // ❌ browser hangs
+
+// With async — life goes on while waiting
+const data = await getSomethingSlow();  // ✅ browser stays responsive
+```
+
 Here's the full pattern from the AI remix button:
 
 ```ts
@@ -447,6 +548,8 @@ const generateWithGemini = async () => {
 - **`finally`** — always runs, whether it succeeded or failed. This is critical: without it, a network error would leave `isGenerating` stuck as `true` and the button disabled forever.
 
 This pattern is everywhere in async programming. The web is asynchronous by nature — network calls, file reads, timers, user input all happen independently of your code's execution. Understanding `async/await` and `try/catch/finally` is fundamental to modern JavaScript.
+
+> **If this feels like a lot:** `try/catch` is one of those things that feels unnecessary until you need it. When everything works, it does nothing. But when a network request fails (and they *will* fail — slow connections, server outages, typos in URLs), your app won't just crash with a white screen. It catches the error and shows the user a message instead. That's the whole point.
 
 ---
 
