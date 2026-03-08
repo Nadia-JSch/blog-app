@@ -5,11 +5,19 @@ description: "A file-by-file deep dive into the React + Vite PWA you vibe-coded"
 tags: ["react", "vite", "ai"]
 ---
 
+*Disclosure: This blog post was written by an AI, with human guidance on structure and tone.*
+
+---
+
 # How That Tech Girl Actually Works: A Code Walkthrough
 
 You vibe-coded this app in an afternoon. It works, it's cute, it has little sparkles. And now you have no idea how it actually works.
 
 That's fine. That's what this is for.
+
+But while we're at it — let's zoom out. Each section of this app touches on concepts you'll see everywhere in software: data structures, determinism, state management, security, and architecture patterns used by apps you use daily.
+
+Let's go.
 
 ---
 
@@ -19,17 +27,17 @@ That's fine. That's what this is for.
 
 Here's what happens when you open it:
 
-**Daily ritual card** — The hero of the page. Every day surfaces a new affirmation (a hype-up for your mindset) paired with a matching tech lesson — things like `console.table()` for debugging, CSS `minmax()` for responsive layouts, or `git switch` for cleaner branch flow. The pairing is deterministic: the same date always produces the same affirmation, so everyone using the app sees the same "daily drop."
+**Daily ritual card** — The hero of the page. Every day surfaces a new affirmation paired with a matching tech lesson. The pairing is deterministic: the same date always produces the same affirmation.
 
-**AI remix** — Hit the "AI remix" button and the app sends your current theme and topic to an AI-powered backend, which generates a completely fresh affirmation and lesson. The static content swaps out for the AI version without a page reload.
+**AI remix** — Hit the button and the app sends your current theme and topic to an AI-powered backend, which generates a fresh affirmation and lesson.
 
-**Revision flashcards** — "Draw a card" calls a backend route that picks one of your bundled Markdown notes, passes it to an AI model, and gets back a flashcard: a question, an answer, an optional code snippet, and a memorable tip. Your own notes become study material.
+**Revision flashcards** — "Draw a card" calls a backend route that picks one of your bundled Markdown notes, passes it to an AI model, and gets back a flashcard.
 
-**Win journal** — A local-only text area where you log what you shipped, figured out, or handled well that day. Nothing leaves the browser. Entries persist in `localStorage` so they're still there tomorrow.
+**Win journal** — A local-only text area where you log what you shipped. Nothing leaves the browser. Entries persist in `localStorage`.
 
-**Themes** — Five palettes (Clean Girl Coder, Strawberry Syntax, Coquette Compiler, Ballet Backend, Midnight Coder) you can switch between at any time. Your choice is saved so the app remembers it on your next visit.
+**Themes** — Five palettes you can switch between at any time. Your choice is saved.
 
-Now let's look at how all of that is actually built.
+Now let's look at how all of that is actually built — and why those choices matter beyond this one app.
 
 ---
 
@@ -58,9 +66,19 @@ export type Lesson = {
 };
 ```
 
-These `type` declarations are TypeScript telling your editor "here's the exact shape of this data." If you later try to write `affirmation.mantrea` (a typo), TypeScript flags it immediately — before you even run the app. That's the main benefit: catching mistakes at write-time, not at runtime when a user sees a broken screen.
+### Why types matter (beyond this app)
+
+These `type` declarations are TypeScript telling your editor "here's the exact shape of this data." If you later try to write `affirmation.mantrea` (a typo), TypeScript flags it immediately.
+
+This is **type safety** — one of the most impactful advances in modern software engineering. Languages like Rust have made it famous, but TypeScript brought it to the JavaScript ecosystem. The idea: catch mistakes at write-time, not at runtime when a user sees a broken screen.
+
+The same principle applies everywhere: databases have schemas, API responses have shapes, forms have validation. TypeScript just makes that checking happen in your editor, before you ever deploy.
+
+### Data relationships
 
 The `lessonId` on an affirmation works like a link between two tables — exactly like a database join, but entirely in memory. Each affirmation points to exactly one lesson by ID.
+
+This is a **foreign key** pattern, one of the most fundamental concepts in data modelling. Whether you're working with SQL, a NoSQL database, or just JavaScript objects, the idea is the same: connect related data by ID rather than duplicating it.
 
 ---
 
@@ -83,17 +101,45 @@ export const getDailyPair = (date = new Date()) => {
 };
 ```
 
-**What `hashDay` does:** it turns a date string like `"2026-03-08"` into a plain number by summing the ASCII value of each character (`charCodeAt`). The same date always gives the same number — that's the whole trick. No randomness, no server, no database entry per day.
+### Determinism: why it matters
 
-> **New concept: Determinism.** A function is "deterministic" when the same input always produces the same output. `hashDay("2026-03-08")` will return the exact same number every single time you call it, on any computer, for any user. This is the opposite of `Math.random()`. By using the date as input, you get a schedule that feels curated but requires zero maintenance.
+**What `hashDay` does:** it turns a date string like `"2026-03-08"` into a plain number by summing the ASCII value of each character.
+
+> **New concept: Determinism.** A function is "deterministic" when the same input always produces the same output. `hashDay("2026-03-08")` will return the exact same number every single time you call it, on any computer, for any user. This is the opposite of `Math.random()`.
+
+Determinism is foundational to software:
+
+- **Caching** — If you know the same input always gives the same output, you can cache the result forever. Every CDN, every API, every database uses this.
+- **Testing** — If a function is deterministic, you can write a test that checks: given input X, expect output Y. Every time. No flaky tests.
+- **Reproducibility** — When something breaks, being able to replay the exact same conditions is debugging 101. Determinism gives you that.
+- **Distributed systems** — Two servers processing the same request should produce the same result. That's how Bitcoin, blockchain, and consensus algorithms work.
+
+By using the date as input, you get a schedule that feels curated but requires zero maintenance. No database, no cron job, no deployment on new content.
+
+### The modulo operator
 
 **What `% affirmations.length` does:** the modulo (`%`) operator gives you the remainder after division. It's perfect for wrapping a big number into a small array index.
 
-> **Mental model: the clock.** A 12-hour clock shows 1:00 after 13 hours, not 13:00 — the numbers wrap around. Modulo does the same thing: `847 % 5 = 2`, `848 % 5 = 3`, `852 % 5 = 2` (back again). The hash number might be 847, but there are only 5 affirmations, so you end up at index 2.
+> **Mental model: the clock.** A 12-hour clock shows 1:00 after 13 hours, not 13:00 — the numbers wrap around. Modulo does the same thing: `847 % 5 = 2`, `848 % 5 = 3`, `852 % 5 = 2` (back again).
 
-**What `?? lessons[0]` does:** the `??` is called the nullish coalescing operator. If `find()` returns `undefined` (because the `lessonId` didn't match anything), use `lessons[0]` as a fallback. Think of it as: "use this value, or if it's null/undefined, use that instead."
+This pattern is everywhere:
 
-**`useMemo(() => getDailyPair(), [])` in App.tsx** — wrapping the call in `useMemo` with an empty `[]` dependency array means this runs exactly once when the component first loads and never again. Without it, React would recalculate the daily pair on every re-render. Not a big deal for something this lightweight, but it's good habit: if data doesn't change, don't recompute it.
+- **Round-robin load balancing** — Distribute requests across servers: `serverIndex = requestId % serverCount`
+- **Pagination** — Wrap around to page 1 when you hit the end: `page = (currentPage + 1) % totalPages`
+- **Color cycling** — Cycle through a palette: `color = palette[i % palette.length]`
+- **Game development** — Wrap player positions: `x = (x + velocity) % screenWidth`
+
+### Nullish coalescing
+
+**What `?? lessons[0]` does:** the `??` is called the nullish coalescing operator. If `find()` returns `undefined`, use `lessons[0]` as a fallback.
+
+This is **defensive programming** — writing code that handles unexpected situations gracefully instead of crashing. It's the same idea as:
+
+- Default parameters in functions
+- Fallback values for API responses
+- "Contact support" messages when data is missing
+
+`useMemo(() => getDailyPair(), [])` — wrapping the call in `useMemo` with an empty `[]` dependency array means this runs exactly once when the component first loads and never again.
 
 ---
 
@@ -111,22 +157,45 @@ const [generated, setGenerated] = useState<GeneratedContent | null>(null);
 const [revision, setRevision] = useState<RevisionNote | null>(null);
 ```
 
-Every `useState` returns two things: the current value and a function to update it. When you call the setter (`setTheme`, `setDarkMode`, etc.), React re-renders the component with the new value. That's all React state is — variables that trigger a re-render when they change.
+### What state actually is
 
-**Why `null` instead of `{}`?** The initial value for `generated` and `revision` is `null`, not an empty object. That's intentional. The UI checks `if (generated)` to decide whether to show AI content or static content. `null` is falsy (the check fails, show static). An empty object `{}` is truthy (the check passes, show broken AI content). `null` is the correct way to say "this doesn't exist yet."
+Every `useState` returns two things: the current value and a function to update it. When you call the setter, React re-renders the component with the new value.
+
+This is the core of **reactive programming** — a paradigm where the UI automatically updates when data changes. React pioneered this for the web, but the same pattern exists in:
+
+- **Vue** — reactive data bindings
+- **Svelte** — compiler-based reactivity
+- **Flutter** — setState that rebuilds widgets
+- **Elm** — The Elm Architecture that inspired Redux
+
+The mental model: state is the source of truth, UI is a reflection of that state. When state changes, UI re-renders.
+
+### Why `null` instead of `{}`?
+
+The initial value for `generated` and `revision` is `null`, not an empty object. That's intentional. The UI checks `if (generated)` to decide whether to show AI content or static content.
+
+This is a common pattern called the **Maybe pattern** or **Optional type**:
+
+- `null` = "this doesn't exist yet"
+- `{}` = "this exists and is empty"
+
+In TypeScript, `null` is falsy, `{}` is truthy. In languages like Rust, this is explicit with `Option<T>`. In Haskell, it's `Maybe a`. The idea: distinguish between "nothing" and "something (even if empty)."
 
 ### Derived values — computing instead of storing
-
-Instead of adding more `useState` for every display value, the app computes them on the fly:
 
 ```ts
 const displayAffirmation = generated?.affirmation ?? dailyPair.affirmation.text;
 const displayMantra = generated?.mantra ?? dailyPair.affirmation.mantra;
 ```
 
-`generated?.affirmation` uses optional chaining — if `generated` is `null`, this safely returns `undefined` instead of crashing. Then `??` picks the static fallback. Read it as: "show the AI version if it exists, otherwise show the curated version."
+`generated?.affirmation` uses optional chaining — if `generated` is `null`, this safely returns `undefined`. Then `??` picks the static fallback.
 
-This is cheaper than storing `displayAffirmation` in its own `useState`. If you did that, you'd have to remember to update it every time `generated` or `dailyPair` changed. Computing it inline means it's always correct by definition — one less thing to keep in sync.
+This is **computed state** vs **stored state**:
+
+- **Stored state** — something that changes over time and needs to be remembered (user input, API responses)
+- **Derived state** — something that can be calculated from other state (this display value)
+
+The rule: if you can derive it, derive it. One less thing to keep in sync.
 
 ---
 
@@ -136,9 +205,27 @@ The journal and preferences need to survive a page refresh without a database. T
 
 ### What is localStorage?
 
-`localStorage` is a tiny key-value store built into every browser. Think of it as a sticky note your browser keeps for each website. You save with `setItem("key", value)` and read back with `getItem("key")`. Values persist even after the tab is closed — until the user clears their browser data.
+`localStorage` is a tiny key-value store built into every browser. Think of it as a sticky note your browser keeps for each website. You save with `setItem("key", value)` and read back with `getItem("key")`.
 
-It has real limitations: it only stores strings (so objects need `JSON.stringify`/`JSON.parse`), it's limited to ~5MB, and it's completely local — if the user switches browsers, it's gone. That's exactly the trade-off the app tells you about: *"Local-first. Your notes stay in this browser."* For a personal daily ritual, that's fine.
+### Local-first architecture
+
+This app uses a **local-first** approach — data lives on the device first, optionally syncs later. This is a growing trend:
+
+- **Notion** — Works offline, syncs when online
+- **Obsidian** — Local Markdown files, no cloud required
+- **Progressive Web Apps** — Service workers cache everything
+- **Linear** — Local-first, then cloud sync
+
+The trade-off: simpler (no backend needed for basic features), works offline, privacy-friendly. But: data lives on one device, harder to share across devices without sync infrastructure.
+
+`localStorage` specifically has limitations:
+
+- Only stores strings (objects need `JSON.stringify`/`JSON.parse`)
+- Limited to ~5MB
+- Completely local — if the user switches browsers, it's gone
+- Synchronous (blocks the main thread for large reads/writes)
+
+For a personal daily ritual app, this is fine. For something with user accounts and multi-device sync, you'd reach for IndexedDB, or a sync solution like Firebase, Supabase, or ElectricSQL.
 
 ### Three `useEffect` hooks
 
@@ -152,7 +239,7 @@ useEffect(() => {
 }, []);
 ```
 
-**On theme or dark mode change** — the `[theme, darkMode]` dependency array means "re-run whenever either of these changes." This saves the new values and applies the CSS classes to `document.body`:
+**On theme or dark mode change** — the `[theme, darkMode]` dependency array means "re-run whenever either of these changes." This saves the new values and applies CSS classes to `document.body`:
 
 ```ts
 useEffect(() => {
@@ -162,7 +249,36 @@ useEffect(() => {
 }, [theme, darkMode]);
 ```
 
-`filter(Boolean)` removes falsy values — when `darkMode` is false, the empty string `""` gets filtered out so `body.className` doesn't get a stray space. The theme system works by swapping a CSS class on `body` — all the colour variables are scoped to class names like `body.theme-coquette` in `styles.css`.
+`filter(Boolean)` removes falsy values — when `darkMode` is false, the empty string gets filtered out.
+
+### Why CSS classes for theming?
+
+The theme system works by swapping a CSS class on `body` — all the colour variables are scoped to class names like `body.theme-coquette`.
+
+This is **CSS custom properties** (variables), one of the most powerful features of modern CSS:
+
+```css
+:root {
+  --accent: #ff4db8;
+}
+
+body.theme-midnight {
+  --accent: #d400ff;
+}
+
+button {
+  background: var(--accent);
+}
+```
+
+One CSS rule, multiple themes. No JavaScript library needed. Compare this to older approaches:
+
+- **2010**: jQuery plugins that manipulated individual style properties
+- **2015**: CSS-in-JS libraries (Styled Components, Emotion)
+- **2020**: Tailwind with CSS variables for theming
+- **Now**: Native CSS custom properties, framework-agnostic
+
+The lesson: sometimes the simplest solution (CSS variables) beats the most complex library.
 
 ---
 
@@ -175,22 +291,44 @@ The app has two backend files in `functions/api/` — these are **Cloudflare Fun
 - `functions/api/generate-daily.ts` → handles `POST /api/generate-daily`
 - `functions/api/revision-note.ts` → handles `GET /api/revision-note`
 
-Both call **Groq** — a fast AI inference service running Meta's Llama model — using a key stored in an environment variable.
+Both call **Groq** — a fast AI inference service running Meta's Llama model.
 
 ### Why not just call the AI from React?
 
-Your `GROQ_API_KEY` must never be in the browser. If you called Groq directly from React, anyone who opened DevTools → Network tab could see your key in the request headers and use it on your account. The backend function is the middleman: the browser asks your function, your function asks Groq, the key never leaves the server.
+Your `GROQ_API_KEY` must never be in the browser. If you called Groq directly from React, anyone who opened DevTools → Network tab could see your key in the request headers and use it on your account.
+
+This is **security by default**: anything that must stay secret lives on the server. The backend function is the middleman: the browser asks your function, your function asks Groq, the key never leaves the server.
+
+This pattern is universal:
+
+- **API keys** — Never in frontend code
+- **Database credentials** — Environment variables on the server only
+- **OAuth secrets** — Exchanged on the backend, tokens passed to frontend
+- **Payment processing** — Stripe/PayPal keys stay server-side
+
+The frontend is always visible to the user. The backend is your trusted environment.
+
+### Serverless functions
+
+Cloudflare Functions are **serverless** — you write code, deploy, and don't think about servers. This is a massive shift in how we build:
+
+- **Traditional server** — You provision a machine, keep it running, handle scaling
+- **Serverless** — You write a function, it runs when called, scales automatically, you pay per request
+
+Same idea as AWS Lambda, Vercel API Routes, Netlify Functions. The backend is now code, not infrastructure.
 
 ### What is a route?
 
-A **route** is a URL + HTTP method combination that your backend listens for. Think of it as a menu of things your server can do:
+A **route** is a URL + HTTP method combination that your backend listens for:
 
 | Method | URL | What it means |
 |--------|-----|---------------|
 | `GET` | `/api/revision-note` | "Give me a flashcard" |
 | `POST` | `/api/generate-daily` | "Generate content, here's the data you need" |
 
-**GET** = fetch something. **POST** = send data, get something back. (You'll also hear about **PUT** for updating and **DELETE** for removing. These four together are called **CRUD** — Create, Read, Update, Delete — the four basic operations of any data system.)
+**GET** = fetch something. **POST** = send data, get something back.
+
+(You'll also hear about **PUT** for updating and **DELETE** for removing. These four together are called **CRUD** — Create, Read, Update, Delete — the four basic operations of any data system.)
 
 ### Route 1: `POST /api/generate-daily`
 
@@ -200,7 +338,7 @@ The browser sends a POST request with a JSON body:
 { "theme": "coquette-compiler", "topic": "confidence", "experienceLevel": "early-career" }
 ```
 
-The Cloudflare Function reads it with `request.json()` — one line, no manual parsing needed:
+The Cloudflare Function reads it with `request.json()`:
 
 ```ts
 const payload = await request.json().catch(() => ({}));
@@ -211,11 +349,11 @@ const body = {
 };
 ```
 
-The `.catch(() => ({}))` means: if the request body is malformed JSON, use an empty object and fall through to the defaults. Then the function calls Groq's API using `fetch`.
+The `.catch(() => ({}))` means: if the request body is malformed JSON, use an empty object and fall through to the defaults. This is **defensive input handling** — never trust that the client sent what you expect.
 
 ### Route 2: `GET /api/revision-note`
 
-Instead of reading files from disk (which doesn't work in serverless environments), this route uses a pre-bundled JSON file — `notes/notes.json` — that was generated from your Markdown notes at build time:
+Instead of reading files from disk (which doesn't work in serverless environments), this route uses a pre-bundled JSON file:
 
 ```ts
 import notesList from "../../notes/notes.json";
@@ -223,11 +361,11 @@ import notesList from "../../notes/notes.json";
 const chosen = notes[Math.floor(Math.random() * notes.length)];
 ```
 
-`Math.floor(Math.random() * notes.length)` is the standard pattern for a random array index. `Math.random()` gives a decimal between 0 and 1. Multiply by the array length to get a decimal in range. `Math.floor` rounds down to a whole number. Result: a valid random index every time.
+`Math.floor(Math.random() * notes.length)` is the standard pattern for a random array index.
 
-### How to make AI output reliable: structured prompting
+### Structured prompting
 
-You can't just ask an AI model "make me a flashcard" and pipe the response into your UI. The model might return a paragraph, a list, a haiku — you have no idea. The trick is to be extremely explicit about the shape you want:
+You can't just ask an AI model "make me a flashcard" and pipe the response into your UI. The model might return a paragraph, a list, a haiku. The trick is to be extremely explicit:
 
 ```ts
 const buildRevisionPrompt = (noteContent: string, noteFilename: string) => `
@@ -250,18 +388,9 @@ Rules:
 `;
 ```
 
-Telling the model exactly what to return — and adding `response_format: { type: "json_object" }` to the API request — locks the output to valid JSON. This technique is called **prompt engineering**: structuring your instructions to constrain what the model produces, so your code can reliably consume it.
+This is **prompt engineering**: structuring your instructions to constrain what the model produces, so your code can reliably consume it.
 
-### Parsing the response
-
-Groq uses the same API format as OpenAI (they're compatible), so the response has this shape:
-
-```ts
-const data = await response.json();
-const content = JSON.parse(data.choices[0].message.content);
-```
-
-`choices[0].message.content` is where the model's reply lives — a JSON string. `JSON.parse` turns it into a JavaScript object. Since we used `response_format: { type: "json_object" }`, the response is guaranteed to be valid JSON — no regex fallback needed.
+With `response_format: { type: "json_object" }`, the response is guaranteed to be valid JSON. This technique is essential when building AI-powered features — your code needs to know what to expect.
 
 ---
 
@@ -271,7 +400,7 @@ const content = JSON.parse(data.choices[0].message.content);
 
 When your app calls an API, it has to wait — maybe 1 second, maybe 3. **Asynchronous** code means: "start this thing, and when it finishes, continue — but don't freeze everything in the meantime."
 
-In JavaScript, `async/await` is how you write that clearly. Mark a function `async`, then use `await` in front of anything that takes time (like a `fetch` call). While the `await` is waiting, the browser stays responsive. The rest of the UI doesn't freeze.
+In JavaScript, `async/await` is how you write that clearly. Mark a function `async`, then use `await` in front of anything that takes time.
 
 Here's the full pattern from the AI remix button:
 
@@ -306,29 +435,34 @@ const generateWithGemini = async () => {
 };
 ```
 
-The `try/catch/finally` structure is the standard way to handle async operations that might fail:
+### The try/catch/finally pattern
 
 - **`try`** — attempt the thing. Any error inside jumps straight to `catch`.
 - **`catch`** — handle the failure. Here it saves the error message to state so the UI can show it.
 - **`finally`** — always runs, whether it succeeded or failed. This is critical: without it, a network error would leave `isGenerating` stuck as `true` and the button disabled forever.
 
-**`"content" in data`** is TypeScript type narrowing. The response is typed as a union: it's either `{ content: ... }` or `{ error: string }`. Checking which key exists tells TypeScript which type it's dealing with in each branch — so it won't complain about accessing `.content` or `.error`.
+This pattern is everywhere in async programming. The web is asynchronous by nature — network calls, file reads, timers, user input all happen independently of your code's execution. Understanding `async/await` and `try/catch/finally` is fundamental to modern JavaScript.
 
 ---
 
 ## 7. Small details worth knowing
 
-**`renderInlineMarkdown`** in `App.tsx` is a tiny hand-rolled parser. It splits text on `**...**` patterns and wraps matches in `<strong>`. This is why AI-generated bullets can include bold text without pulling in a full Markdown library. Sometimes one focused 10-line function beats adding a dependency.
+**`renderInlineMarkdown`** in `App.tsx` is a tiny hand-rolled parser. It splits text on `**...**` patterns and wraps matches in `<strong>`. This is why AI-generated bullets can include bold text without pulling in a full Markdown library.
 
-**`formatDate`** appends `T00:00:00` before parsing: `new Date("2026-03-08T00:00:00")`. Without the time, `new Date("2026-03-08")` is interpreted as UTC midnight — which displays as the previous day for anyone in a timezone behind UTC. Always add a local time when constructing dates from date strings.
+Sometimes one focused 10-line function beats adding a dependency. This is the **primitive obsession** anti-pattern in reverse: don't reach for a library when a simple function solves the problem.
 
-**`aria-hidden="true"`** on decorative elements (the sparkle divs, bow characters) tells screen readers to ignore them. They're visual flourishes, not information. Small accessibility detail, but it's what separates "it looks right" from "it works for everyone."
+**`formatDate`** appends `T00:00:00` before parsing. Without the time, `new Date("2026-03-08")` is interpreted as UTC midnight — which displays as the previous day for anyone in a timezone behind UTC. Always add a local time when constructing dates from date strings.
+
+**`aria-hidden="true"`** on decorative elements tells screen readers to ignore them. Accessibility isn't a feature — it's a requirement. Small details like this separate "it looks right" from "it works for everyone."
 
 ---
 
 ## What to try next
 
 - **Add your own notes:** drop a `.md` file into the `notes/` folder, rebuild the notes JSON, and click "Draw a card" — your notes become flashcard material automatically.
+
 - **Tweak the daily algorithm:** open `src/lib/daily.ts` and change the `hashDay` formula. Try multiplying the sum by a prime number and see how the daily rotation shifts.
-- **Add a new theme:** add a key to the `themes` object in `content.ts`, add matching CSS variables scoped to a new body class in `styles.css`, and it appears in the settings panel immediately — `themeOrder` is built from `Object.keys(themes)` so there's nothing else to wire up.
+
+- **Add a new theme:** add a key to the `themes` object in `content.ts`, add matching CSS variables scoped to a new body class in `styles.css`, and it appears in the settings panel immediately.
+
 - **Cache the AI result:** save `generated` to `localStorage` under a key that includes `dailyPair.dayKey`. On mount, check if a cached result exists for today before hitting the API. One change, zero unnecessary API calls.
