@@ -87,7 +87,14 @@ export const getDailyPair = (date = new Date()) => {
 
 **What `hashDay` does:** it converts a date string like `"2026-03-07"` into a number by summing the ASCII code of each character (`charCodeAt`). The same date always produces the same number — that's why everyone sees the same daily drop.
 
-**What `% affirmations.length` does:** the modulo operator wraps a big number back into a valid array index. If the hash is `847` and there are `5` affirmations, `847 % 5 = 2`, so you get index 2. The number cycles through all possible indices as the date changes.
+> **Mental Model: Determinism.** In programming, "deterministic" means that if you give a function the same input, you are guaranteed the exact same output every single time. This is the opposite of `Math.random()`. By using the date as the "seed," we create a predictable schedule without needing a database.
+
+**What `% affirmations.length` does:** the modulo operator wraps a big number back into a valid array index. 
+
+> **Mental Model: The Clock.** Think of Modulo (`%`) like a clock. If you add 13 hours to 1:00, you don't get 14:00 (on a 12-hour clock); you get 2:00. The numbers "wrap around." 
+> *   `847 % 5 = 2`
+> *   `848 % 5 = 3`
+> *   `852 % 5 = 2` (it's back!)
 
 **What `?? lessons[0]` does:** the nullish coalescing operator. If `find()` returns `undefined` (the lessonId didn't match anything), fall back to the first lesson. It's a safety net.
 
