@@ -11,13 +11,18 @@ tags: ["react", "vite", "ai"]
 
 # How That Tech Girl Actually Works: A Code Walkthrough
 
-You vibe-coded this app in an afternoon. It works, it's cute, it has little sparkles. And now you have no idea how it actually works.
+This post walks through a real React + Vite PWA called That Tech Girl — a daily affirmation app for women in tech. We'll go file-by-file through the codebase and, along the way, pull out the broader programming concepts that apply far beyond this project.
 
-That's fine. That's what this is for.
+**What we'll cover:**
 
-But while we're at it — let's zoom out. Each section of this app touches on concepts you'll see everywhere in software: data structures, determinism, state management, security, and architecture patterns used by apps you use daily.
+- How the app generates a new affirmation every day without a database (and what determinism teaches us about caching and testing)
+- Managing state with React hooks — and the difference between stored and derived state
+- Persisting data locally with `localStorage` and the rise of local-first architecture
+- Building an API backend with serverless functions — and why secrets never belong in frontend code
+- Calling AI APIs asynchronously with proper error handling
+- Theming with CSS custom properties — the simplest approach that works
 
-Let's go.
+Each section starts with the actual code, then zooms out to the pattern it illustrates. Whether you're building your own project or just curious how these pieces fit together, there's something here.
 
 ---
 
