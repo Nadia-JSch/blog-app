@@ -3,7 +3,6 @@ title: "JavaScript 4: Arrays and Array Methods"
 date: "2026-02-22"
 description: "Creating and manipulating arrays in JavaScript"
 tags: ["javascript"]
-draft: true
 ---
 
 Arrays are versatile and useful for data storage inside programs.
@@ -240,7 +239,9 @@ console.log(charArray); // ["o", "l", "l", "e", "h"]
 
 ### Using `join()`
 
-Convert the reversed array into a string to get the original string in reverse. The `join()` method accepts a separator as an argument (empty string means no separator) and returns a new string by concatenating the elements in the array.
+Convert the reversed array into a string to get the original string in reverse. 
+
+The `join()` method accepts a separator as an argument (empty string means no separator) and returns a new string by concatenating the elements in the array.
 
 ```js
 let reverseArray =  ["o", "l", "l", "e", "h"];
@@ -259,3 +260,187 @@ let reversed = str.split("").reverse().join("");
 
 console.log(reversed);
 ```
+
+## The `indexOf()` method for arrays
+
+With arrays, the `indexOf()` method returns the index of the first match, otherwise returns `-1` if the array does not contain the searched-for value. A second, optional, argument can be passed of which index to start searching from. 
+
+Basic syntax:
+
+```js
+array.indexOf(element, fromIndex);
+```
+
+```js
+let fruits = ["apple", "banana", "orange", "banana"];
+let index = fruits.indexOf("banana"); 
+
+console.log(index); // 1
+```
+
+## The `splice()` method for arrays
+
+Use the versatile `splice()` method to add and remove elements from the middle of the array and more. The `splice()` method mutates the original array so create a copy of the original if needed. Features of the `splice()` method:
+
+- Returns an array of the removed elements.
+- Basic syntax with the second argument for number of items to remove being optional. If not provided, all items to the end of the array will be removed.
+- You can use `splice()` to simultaneously add and remove items.
+- The `splice()` method is less efficient for large arrays as items may need to be shifted. freeCodeCamp recommends using methods that add and remove elements to the beginning and end of large arrays, like push(), pop(), unshift(), and shift().
+
+```js
+array.splice(startIndex, [numItemsToRemove], [itemToAdd1], [itemToAdd2]);
+```
+
+### Use `splice()` to remove elements from the middle of an array
+
+For example,
+
+```js
+let fruits = ["apple", "banana", "orange", "mango", "kiwi"];
+let removed = fruits.splice(2, 2);
+
+console.log(fruits); // ["apple", "banana", "kiwi"]
+console.log(removed); // ["orange", "mango"]
+```
+
+### Use `splice()` to add elements to the middle of an array 
+
+In the example, the second argument for number of elements to remove is `0` and the elements to add to the first index of the array onwards are given.
+
+```js
+let colors = ["red", "green", "blue"];
+colors.splice(1, 0, "yellow", "purple");
+
+console.log(colors); // ["red", "yellow", "purple", "green", "blue"]
+```
+
+### Use `splice()` to simultaneously add and remove items
+
+For example, remove `2` and `3` and add `6`, `7`, and `8`:
+
+```js
+let numbers = [1, 2, 3, 4, 5];
+numbers.splice(1, 2, 6, 7, 8);
+
+console.log(numbers); // [1, 6, 7, 8, 4, 5]
+```
+
+### Use the spread operator (`...`) to copy items of an original array
+
+The spread operator makes a 'shallow' copy of elements. 
+
+```js
+let original = [1, 2, 3, 4, 5];
+let copy = [...original];
+
+copy.splice(2, 1, 6);
+
+console.log(original); // [1, 2, 3, 4, 5]
+console.log(copy); // [1, 2, 6, 4, 5]
+```
+
+### Use `splice()` and `indexOf()` to remove a single element from and array
+
+Removing a single element from an array when it's index is known is a common use case for `splice()`.
+
+Use `indexOf()` to find the index of the element `orange` in the array – it returns index `1`. We added a condition to check if there is a match before removing the element `orange` using `splice()`:
+
+```js
+let fruits = ["apple", "banana", "orange", "mango"];
+let indexToRemove = fruits.indexOf("orange");
+
+if (indexToRemove !== -1) {
+    fruits.splice(indexToRemove, 1);
+}
+
+console.log(fruits); // ["apple", "banana", "mango"]
+```
+
+### Use the `splice()` method to remove all elements of an array
+
+For example:
+
+```js
+let array = [1, 2, 3, 4, 5];
+array.splice(0);
+
+console.log(array); // []
+```
+
+## Use `includes()` to check if an array contains a certain value
+
+The method is useful if you don't need to know the index of the value and saves you from searching through an array using more complex loops and conditionals.
+
+The `includes()` method takes a case-sensitive argument and returns a boolean value of `true` or `false`. 
+
+```js
+let fruits = ["apple", "banana", "orange", "mango"];
+console.log(fruits.includes("banana")); // true
+console.log(fruits.includes("grape")); // false
+```
+
+A second optional argument specifying the index to start the search from can be used. In the example, `30` appears twice so the first `console.log()` returns `true`.
+
+```js
+let numbers = [10, 20, 30, 40, 50, 30, 60];
+console.log(numbers.includes(30, 3)); // true
+console.log(numbers.includes(30, 4)); // true
+```
+
+The `includes()` method uses the strict equality operator to find a match and considers the string `"2"` different from the number `2`.
+
+```js
+let mixedArray = [1, "2", 3, "4", 5];
+console.log(mixedArray.includes(2)); // false
+console.log(mixedArray.includes("2")); // true
+```
+
+## Shallow array copies
+
+Arrays are 'deeper' if they nest another array within them, and 'shallow' if the array consists of primitive elements. 
+
+Making a copy of a shallow array means that the new copy is completely separate from the original array. There are three common methods for creating a shallow copy outlined below: `concat()`, `splice()`, and the spread operator `...`. The spread operator seems the most straightforward to me, followed by `splice()`.
+
+Making a copy of a deep array means the new copy is still linked to the original array through the nested array. If you change something in the shared inner array, you'll see the change in the copy and the original. 
+
+Shallow copies are helpful for modifying the top-level structure of an array without modifying the original or inner array. You create new arrays that can be manipulated independently of the original array.
+
+### Use the `concat()` method to create a shallow array copy 
+
+Merge an empty array with an original array using `concat()` to create a shallow copy of an array. The new and original arrays will have the same elements but are different array objects, which is why the strict equality operator `===` returns `false`.
+
+```js
+const originalArray = [1, 2, 3];
+const copyArray = [].concat(originalArray);
+
+console.log(copyArray); // [1, 2, 3]
+console.log(copyArray === originalArray); // false, same elements but a different array
+```
+
+### Use the `slice()` methods to create a shallow array copy
+
+The `slice()` operator returns a shallow copy of an array when called without arguments. The copy contains the same elements but is a different array object.
+
+```js
+const originalArray = [1, 2, 3];
+const copyArray = originalArray.slice();
+
+console.log(copyArray); // [1, 2, 3]
+console.log(copyArray === originalArray); // false
+```
+
+### Use the spread operator `...` to create a shallow array copy
+
+The spread operator was introduced in ES6 and is a concise way to create shallow array copies. 
+
+```js
+const originalArray = [1, 2, 3];
+const copyArray = [...originalArray];
+
+console.log(copyArray); // [1, 2, 3]
+console.log(copyArray === originalArray); //false
+```
+
+## Array review 
+
+[Review JS arrays on freeCodeCamp](https://www.freecodecamp.org/learn/javascript-v9/review-javascript-arrays/review-javascript-arrays)
