@@ -1,0 +1,192 @@
+<svg width="1600" height="2200" viewBox="0 0 1600 2200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="800" y1="0" x2="800" y2="2200" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#110F0E"/>
+      <stop offset="1" stop-color="#070707"/>
+    </linearGradient>
+    <radialGradient id="glowA" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1140 260) rotate(128.945) scale(524.833 542.419)">
+      <stop stop-color="#C29A57" stop-opacity="0.42"/>
+      <stop offset="1" stop-color="#C29A57" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(280 1640) rotate(28.274) scale(601.714 392.062)">
+      <stop stop-color="#8D6A33" stop-opacity="0.32"/>
+      <stop offset="1" stop-color="#8D6A33" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="cardGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(0 0) scale(1)">
+      <stop stop-color="#F2D19A" stop-opacity="0.14"/>
+      <stop offset="1" stop-color="#F2D19A" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#171311" stop-opacity="0.92"/>
+      <stop offset="1" stop-color="#100D0C" stop-opacity="0.98"/>
+    </linearGradient>
+    <filter id="blur16" x="-120" y="-120" width="1840" height="2440" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="24"/>
+    </filter>
+    <filter id="soft" x="-10" y="-10" width="1620" height="2220" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="1.5"/>
+    </filter>
+    <style>
+      .title { font: 700 86px "Helvetica Neue", Arial, sans-serif; fill: #F0C06B; letter-spacing: -2px; }
+      .subtitle { font: 400 28px "Helvetica Neue", Arial, sans-serif; fill: #D8CCB6; opacity: 0.92; }
+      .eyebrow { font: 600 18px "Courier New", monospace; fill: #9C907E; letter-spacing: 4px; text-transform: uppercase; }
+      .h2 { font: 700 30px "Helvetica Neue", Arial, sans-serif; fill: #F0C06B; letter-spacing: -0.5px; }
+      .body { font: 400 22px "Helvetica Neue", Arial, sans-serif; fill: #D8CCB6; opacity: 0.9; }
+      .small { font: 400 18px "Helvetica Neue", Arial, sans-serif; fill: #B4A691; opacity: 0.86; }
+      .mono { font: 600 18px "Courier New", monospace; fill: #C29A57; letter-spacing: 1.5px; }
+      .label { font: 600 16px "Courier New", monospace; fill: #8F826F; letter-spacing: 2px; text-transform: uppercase; }
+      .chip { font: 600 16px "Courier New", monospace; fill: #120F0C; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="2200" fill="url(#bg)"/>
+  <rect width="1600" height="2200" fill="url(#glowA)"/>
+  <rect width="1600" height="2200" fill="url(#glowB)"/>
+
+  <g opacity="0.7">
+    <circle cx="118" cy="154" r="2.1" fill="#F7E8C9"/>
+    <circle cx="286" cy="264" r="1.8" fill="#F7E8C9"/>
+    <circle cx="622" cy="140" r="1.6" fill="#F7E8C9"/>
+    <circle cx="1212" cy="186" r="2.2" fill="#F7E8C9"/>
+    <circle cx="1360" cy="302" r="1.7" fill="#F7E8C9"/>
+    <circle cx="1482" cy="190" r="1.4" fill="#F7E8C9"/>
+    <circle cx="132" cy="922" r="1.5" fill="#F7E8C9"/>
+    <circle cx="524" cy="812" r="1.8" fill="#F7E8C9"/>
+    <circle cx="1016" cy="884" r="1.6" fill="#F7E8C9"/>
+    <circle cx="1402" cy="972" r="2" fill="#F7E8C9"/>
+    <circle cx="252" cy="1764" r="1.8" fill="#F7E8C9"/>
+    <circle cx="904" cy="1686" r="1.4" fill="#F7E8C9"/>
+    <circle cx="1308" cy="1824" r="1.9" fill="#F7E8C9"/>
+    <circle cx="1450" cy="1560" r="1.5" fill="#F7E8C9"/>
+  </g>
+
+  <g opacity="0.32" filter="url(#soft)">
+    <ellipse cx="1010" cy="356" rx="520" ry="180" transform="rotate(-8 1010 356)" stroke="#C29A57" stroke-width="2"/>
+    <ellipse cx="1188" cy="304" rx="310" ry="84" transform="rotate(14 1188 304)" stroke="#C29A57" stroke-width="2"/>
+    <ellipse cx="498" cy="1664" rx="420" ry="118" transform="rotate(5 498 1664)" stroke="#8D6A33" stroke-width="2"/>
+  </g>
+
+  <text x="120" y="144" class="eyebrow">Dark Gold Thinker / Mood Board</text>
+  <text x="120" y="252" class="title">Editorial space, quiet ambition,</text>
+  <text x="120" y="344" class="title">and antique-gold restraint.</text>
+  <text x="120" y="426" class="subtitle">A visual direction derived from `image-prompts.md` for a writing-focused developer blog.</text>
+  <text x="120" y="466" class="subtitle">Near-black space, sparse stars, muted gold light, and calm negative space over sci-fi spectacle.</text>
+
+  <g transform="translate(120 548)">
+    <rect width="1360" height="220" rx="28" fill="url(#panel)" stroke="#3A2D20"/>
+    <text x="42" y="54" class="label">Core Direction</text>
+    <text x="42" y="102" class="body">Understated elegance. Contemplative atmosphere. Editorial restraint. Soft celestial light.</text>
+    <text x="42" y="144" class="body">The site should feel mature, thoughtful, and quietly ambitious, never flashy or luxury-brand glossy.</text>
+    <rect x="42" y="168" width="220" height="28" rx="14" fill="#C29A57"/>
+    <text x="70" y="188" class="chip">muted antique gold</text>
+    <rect x="278" y="168" width="154" height="28" rx="14" fill="#2D231B"/>
+    <text x="308" y="188" class="small">near-black void</text>
+    <rect x="450" y="168" width="148" height="28" rx="14" fill="#1A1614" stroke="#4A3928"/>
+    <text x="482" y="188" class="small">editorial calm</text>
+  </g>
+
+  <g transform="translate(120 816)">
+    <text x="0" y="0" class="eyebrow">Palette</text>
+    <g transform="translate(0 30)">
+      <g>
+        <rect width="210" height="160" rx="26" fill="#0B0908" stroke="#2E251D"/>
+        <text x="22" y="124" class="h2">Void</text>
+        <text x="22" y="146" class="small">#0B0908</text>
+      </g>
+      <g transform="translate(230 0)">
+        <rect width="210" height="160" rx="26" fill="#171311" stroke="#3A2D20"/>
+        <text x="22" y="124" class="h2">Charcoal</text>
+        <text x="22" y="146" class="small">#171311</text>
+      </g>
+      <g transform="translate(460 0)">
+        <rect width="210" height="160" rx="26" fill="#3B2E21" stroke="#5B4732"/>
+        <text x="22" y="124" class="h2">Smoked Bronze</text>
+        <text x="22" y="146" class="small">#3B2E21</text>
+      </g>
+      <g transform="translate(690 0)">
+        <rect width="210" height="160" rx="26" fill="#8D6A33" stroke="#B78845"/>
+        <text x="22" y="124" class="h2" fill="#120F0C">Old Gold</text>
+        <text x="22" y="146" class="small" fill="#1A1208">#8D6A33</text>
+      </g>
+      <g transform="translate(920 0)">
+        <rect width="210" height="160" rx="26" fill="#C29A57" stroke="#E0B977"/>
+        <text x="22" y="124" class="h2" fill="#120F0C">Antique Gold</text>
+        <text x="22" y="146" class="small" fill="#1A1208">#C29A57</text>
+      </g>
+      <g transform="translate(1150 0)">
+        <rect width="210" height="160" rx="26" fill="#D8CCB6" stroke="#F0E6D6"/>
+        <text x="22" y="124" class="h2" fill="#2D231B">Faded Parchment</text>
+        <text x="22" y="146" class="small" fill="#3A2D20">#D8CCB6</text>
+      </g>
+    </g>
+  </g>
+
+  <g transform="translate(120 1078)">
+    <text x="0" y="0" class="eyebrow">Atmosphere Studies</text>
+
+    <g transform="translate(0 32)">
+      <rect width="660" height="330" rx="30" fill="url(#panel)" stroke="#3A2D20"/>
+      <rect width="660" height="330" rx="30" fill="url(#cardGlow)"/>
+      <ellipse cx="498" cy="104" rx="182" ry="110" fill="#C29A57" opacity="0.16"/>
+      <ellipse cx="284" cy="210" rx="412" ry="118" transform="rotate(-8 284 210)" stroke="#8D6A33" stroke-width="2" opacity="0.4"/>
+      <ellipse cx="540" cy="112" rx="168" ry="46" transform="rotate(14 540 112)" stroke="#C29A57" stroke-width="2" opacity="0.32"/>
+      <text x="34" y="280" class="h2">Hero background</text>
+      <text x="34" y="312" class="small">Wide frame. Low-noise text area. Calm off-frame illumination.</text>
+    </g>
+
+    <g transform="translate(700 32)">
+      <rect width="660" height="330" rx="30" fill="url(#panel)" stroke="#3A2D20"/>
+      <rect width="660" height="330" rx="30" fill="url(#cardGlow)"/>
+      <path d="M510 0C630 92 640 250 640 330H660V0H510Z" fill="#C29A57" opacity="0.18"/>
+      <circle cx="112" cy="74" r="2" fill="#F7E8C9"/>
+      <circle cx="220" cy="124" r="1.7" fill="#F7E8C9"/>
+      <circle cx="364" cy="86" r="1.5" fill="#F7E8C9"/>
+      <circle cx="486" cy="188" r="1.8" fill="#F7E8C9"/>
+      <circle cx="556" cy="126" r="1.5" fill="#F7E8C9"/>
+      <text x="34" y="280" class="h2">Quiet cosmos</text>
+      <text x="34" y="312" class="small">Sparse stars carrying atmosphere instead of visual clutter.</text>
+    </g>
+
+    <g transform="translate(0 392)">
+      <rect width="430" height="390" rx="30" fill="url(#panel)" stroke="#3A2D20"/>
+      <ellipse cx="216" cy="126" rx="118" ry="118" fill="#C29A57" opacity="0.18"/>
+      <path d="M154 352C156 254 176 164 216 164C256 164 274 254 278 352H154Z" fill="#0B0908"/>
+      <text x="30" y="338" class="h2">Thinker in space</text>
+      <text x="30" y="366" class="small">Silhouette-led portrait, editorial not cinematic-fantasy.</text>
+    </g>
+
+    <g transform="translate(470 392)">
+      <rect width="430" height="390" rx="30" fill="url(#panel)" stroke="#3A2D20"/>
+      <ellipse cx="216" cy="146" rx="220" ry="86" transform="rotate(11 216 146)" stroke="#C29A57" stroke-width="2" opacity="0.38"/>
+      <ellipse cx="234" cy="232" rx="160" ry="58" transform="rotate(-6 234 232)" stroke="#8D6A33" stroke-width="2" opacity="0.28"/>
+      <ellipse cx="316" cy="96" rx="90" ry="30" transform="rotate(16 316 96)" stroke="#C29A57" stroke-width="2" opacity="0.26"/>
+      <text x="30" y="338" class="h2">Orbital light</text>
+      <text x="30" y="366" class="small">Abstract curvature and soft transitions with no tech-grid cues.</text>
+    </g>
+
+    <g transform="translate(930 392)">
+      <rect width="430" height="390" rx="30" fill="url(#panel)" stroke="#3A2D20"/>
+      <circle cx="126" cy="140" r="4" fill="#C29A57"/>
+      <circle cx="212" cy="102" r="4" fill="#C29A57"/>
+      <circle cx="284" cy="184" r="4" fill="#C29A57"/>
+      <circle cx="324" cy="126" r="4" fill="#C29A57"/>
+      <line x1="126" y1="140" x2="212" y2="102" stroke="#8D6A33" stroke-width="1.5" opacity="0.42"/>
+      <line x1="212" y1="102" x2="284" y2="184" stroke="#8D6A33" stroke-width="1.5" opacity="0.32"/>
+      <line x1="284" y1="184" x2="324" y2="126" stroke="#8D6A33" stroke-width="1.5" opacity="0.28"/>
+      <rect x="268" y="56" width="112" height="202" rx="18" fill="#0E0C0B" stroke="#4A3928" stroke-dasharray="10 10"/>
+      <text x="30" y="338" class="h2">Mobile-safe portrait</text>
+      <text x="30" y="366" class="small">Portrait crop with a protected low-detail text zone.</text>
+    </g>
+  </g>
+
+  <g transform="translate(120 1918)">
+    <rect width="1360" height="182" rx="28" fill="url(#panel)" stroke="#3A2D20"/>
+    <text x="40" y="52" class="label">Avoid</text>
+    <text x="40" y="102" class="body">Neon purple. Bright sci-fi HUDs. Explosive nebula drama. Glossy gold-brand aesthetics.</text>
+    <text x="40" y="138" class="body">Keep it literary, quiet, personal, and mature. The image should support writing, not compete with it.</text>
+    <text x="900" y="52" class="label">Short Prompt Formula</text>
+    <text x="900" y="102" class="mono">dark editorial space scene, near-black background,</text>
+    <text x="900" y="130" class="mono">muted antique-gold light, sparse stars, quiet atmosphere,</text>
+    <text x="900" y="158" class="mono">generous negative space, no sci-fi UI, no neon, no text</text>
+  </g>
+</svg>
