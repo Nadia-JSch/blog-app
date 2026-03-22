@@ -22,7 +22,7 @@ const latestPosts = collections
     }));
   })
   .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-  .slice(0, 3);
+  .slice(0, 1);
 
 const sectionLabels: Record<string, string> = {
   'til': 'Today I Learned',
@@ -34,429 +34,357 @@ const sectionLabels: Record<string, string> = {
 ---
 
 <BaseLayout title="pg of code - Home">
-  <canvas id="starfield" class="starfield" aria-hidden="true"></canvas>
   <section class="hero-shell">
-    <div class="hero-copy">
+    <div class="hero">
       <p class="eyebrow">pg of code</p>
-      <h1>Notes, thoughts, and experiments from someone curious.</h1>
-      <p class="subtitle">
-        Welcome. I’m Nadia. I’m a technical writer and use this site to keep track of what I’m learning and building.
-      </p>
+      <h1>Coding notes, essays, and experiments</h1>
+      <p class="hero-line">A personal blog by Nadia about learning in public, building projects, and keeping useful notes.</p>
       <div class="hero-actions">
-        <a href="/coding-notes" class="hero-link primary">Start with the notes</a>
-        <a href="/thoughts" class="hero-link">Read the essays</a>
+        <a href="/coding-notes" class="hero-link hero-link-primary">Read the notes</a>
+        <a href="/thoughts" class="hero-link">Browse essays</a>
       </div>
     </div>
 
-    <aside class="hero-panel">
-      <p class="panel-label">Recent posts</p>
-      <ul class="recent-list">
-        {latestPosts.map((post) => (
-          <li>
-            <a href={post.href} class="recent-link">
-              <span class="recent-section">{sectionLabels[post.section]}</span>
-              <strong>{post.title}</strong>
-              {post.description && <span>{post.description}</span>}
-            </a>
-          </li>
-        ))}
-      </ul>
+    <aside class="hero-panel" aria-label="Site sections">
+      <p class="panel-kicker">Start here</p>
+      <div class="hero-links">
+        <a href="/til" class="hero-panel-link">
+          <strong>~/til</strong>
+          <span>Quick lessons and notes I want to remember.</span>
+        </a>
+        <a href="/coding-notes" class="hero-panel-link">
+          <strong>~/coding-notes</strong>
+          <span>Notes on frontend fundamentals and more.</span>
+        </a>
+        <a href="/thoughts" class="hero-panel-link">
+          <strong>~/thoughts</strong>
+          <span>Writing on learning, AI, and building things.</span>
+        </a>
+      </div>
     </aside>
   </section>
 
-  <section class="sections">
-    <a href="/til" class="section-card">
-      <h2>Today I Learned</h2>
-      <p>Would need more lifetimes to learn it all.</p>
-      <span class="card-command">$ cat today-i-learned</span>
-    </a>
+  <section class="writing-list" aria-labelledby="latest-writing">
+    <div class="section-heading">
+      <div>
+        <p class="section-kicker">Latest writing</p>
+        <h2 id="latest-writing">Lately, I’ve been writing about</h2>
+      </div>
+      <a href="/coding-notes" class="section-link">See all notes</a>
+    </div>
 
-    <a href="/coding-notes" class="section-card section-card-featured">
-      <h2>Coding Notes</h2>
-      <p>Notes I come back to when I’m working on something.</p>
-      <span class="card-command">$ open coding-notes</span>
-    </a>
-
-    <a href="/thoughts" class="section-card">
-      <h2>Thoughts</h2>
-      <p>Posts about coding, AI, learning, and other things.</p>
-      <span class="card-command">$ ls thoughts/</span>
-    </a>
-
-    <a href="/experiments" class="section-card">
-      <h2>Experiments</h2>
-      <p>Small projects, tests, and things I’m trying out.</p>
-      <span class="card-command">$ run experiments</span>
-    </a>
-
-    <a href="/ai-taught-me" class="section-card">
-      <h2>AI Taught Me</h2>
-      <p>Lessons generated with AI on things I'm learning.</p>
-      <span class="card-command">$ ask ai --teach</span>
-    </a>
+    <ol class="home-posts">
+      {latestPosts.map((post) => (
+        <li class="home-post">
+          <p class="home-post-meta">
+            <span>{sectionLabels[post.section]}</span>
+            <time datetime={post.date}>
+              {new Date(post.date).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+              })}
+            </time>
+          </p>
+          <h3>
+            <a href={post.href}>{post.title}</a>
+          </h3>
+          {post.description && <p class="home-post-summary">{post.description}</p>}
+        </li>
+      ))}
+    </ol>
   </section>
-
-  <!-- background pixel cats -->
-  <div class="bg-cats" aria-hidden="true">
-    <img src="/images/cats/pixel-cat-1.png" alt="" class="bg-cat" style="top: 5%; left: 2%; width: 70px; transform: rotate(-5deg);" />
-    <img src="/images/cats/pixel-cat-3.png" alt="" class="bg-cat" style="top: 10%; right: 3%; width: 55px; transform: rotate(4deg);" />
-    <img src="/images/cats/pixel-cat-2.png" alt="" class="bg-cat" style="top: 35%; left: 1%; width: 60px; transform: rotate(-3deg);" />
-    <img src="/images/cats/pixel-cat-4.png" alt="" class="bg-cat" style="top: 30%; right: 2%; width: 55px; transform: rotate(6deg);" />
-    <img src="/images/cats/pixel-cat-5.png" alt="" class="bg-cat" style="top: 55%; left: 3%; width: 70px; transform: rotate(-4deg);" />
-    <img src="/images/cats/pixel-cat-6.png" alt="" class="bg-cat" style="top: 58%; right: 2%; width: 55px; transform: rotate(8deg);" />
-    <img src="/images/cats/pixel-cat-1.png" alt="" class="bg-cat" style="top: 78%; left: 1%; width: 60px; transform: scaleX(-1) rotate(3deg);" />
-    <img src="/images/cats/pixel-cat-3.png" alt="" class="bg-cat" style="top: 82%; right: 4%; width: 50px; transform: rotate(-5deg);" />
-  </div>
 </BaseLayout>
 
-<script>
-  function initStarfield() {
-    const canvas = document.getElementById('starfield') as HTMLCanvasElement;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext('2d')!;
-    let animationId: number;
-
-    interface Star {
-      x: number;
-      y: number;
-      radius: number;
-      opacity: number;
-      twinkleSpeed: number;
-      twinkleOffset: number;
-    }
-
-    let stars: Star[] = [];
-
-    function resize() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      createStars();
-    }
-
-    function createStars() {
-      const count = Math.floor((canvas.width * canvas.height) / 4000);
-      stars = Array.from({ length: count }, () => ({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        radius: Math.random() * 1.2 + 0.3,
-        opacity: Math.random() * 0.4 + 0.1,
-        twinkleSpeed: Math.random() * 0.008 + 0.003,
-        twinkleOffset: Math.random() * Math.PI * 2,
-      }));
-    }
-
-    function getStarColor() {
-      const theme = document.documentElement.getAttribute('data-theme');
-      return theme === 'light' ? '148, 104, 32' : '224, 176, 96';
-    }
-
-    function draw(time: number) {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      const color = getStarColor();
-
-      for (const star of stars) {
-        const twinkle = Math.sin(time * star.twinkleSpeed + star.twinkleOffset);
-        const opacity = star.opacity + twinkle * 0.15;
-
-        ctx.beginPath();
-        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${color}, ${Math.max(0.05, opacity)})`;
-        ctx.fill();
-      }
-
-      animationId = requestAnimationFrame(draw);
-    }
-
-    resize();
-    animationId = requestAnimationFrame(draw);
-    window.addEventListener('resize', resize);
-
-    return () => {
-      cancelAnimationFrame(animationId);
-      window.removeEventListener('resize', resize);
-    };
-  }
-
-  initStarfield();
-</script>
-
 <style>
-  .starfield {
-    position: fixed;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.62;
-    mask-image:
-      linear-gradient(180deg, transparent 0, rgba(0, 0, 0, 0.35) 7rem, rgba(0, 0, 0, 0.9) 14rem, rgba(0, 0, 0, 0.95) 100%),
-      radial-gradient(circle at 28% 22%, transparent 0, transparent 10rem, rgba(0, 0, 0, 0.35) 18rem, rgba(0, 0, 0, 0.9) 30rem),
-      radial-gradient(circle at 72% 24%, transparent 0, transparent 8rem, rgba(0, 0, 0, 0.3) 16rem, rgba(0, 0, 0, 0.85) 28rem);
+  .hero-shell {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(300px, 0.8fr);
+    gap: 0;
+    align-items: stretch;
+    margin-bottom: 3rem;
   }
 
   .hero {
-    text-align: center;
-    padding: 2.5rem 0 3.5rem;
     position: relative;
+    padding: 2rem 2rem 2rem 0;
+    border-bottom: 1px solid var(--border);
+    background: none;
+    overflow: hidden;
   }
 
-  .hero-shell {
-    display: grid;
-    grid-template-columns: minmax(0, 1.5fr) minmax(260px, 0.75fr);
-    gap: 2rem;
-    align-items: start;
-    margin-bottom: 2.75rem;
-    position: relative;
-    z-index: 1;
+  .hero-panel::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 14% 18%, rgba(255, 248, 236, 0.4) 0 1px, transparent 2px),
+      radial-gradient(circle at 70% 22%, rgba(255, 248, 236, 0.36) 0 1px, transparent 2px),
+      radial-gradient(circle at 84% 40%, rgba(255, 248, 236, 0.32) 0 1px, transparent 2px),
+      radial-gradient(circle at 42% 72%, rgba(255, 248, 236, 0.3) 0 1px, transparent 2px);
+    opacity: 0.42;
+    pointer-events: none;
   }
 
-  .hero-copy {
-    padding: 0.5rem 0 0;
+  .hero::after {
+    content: none;
   }
 
-  .hero-copy h1 {
-    font-size: clamp(2.1rem, 4.2vw, 3.25rem);
+  .hero h1 {
+    font-size: clamp(3.2rem, 8vw, 5.2rem);
     color: var(--text-heading);
-    margin-bottom: 0.9rem;
-    max-width: 14ch;
-    line-height: 1.05;
-    letter-spacing: -0.04em;
+    margin-bottom: 0.85rem;
+    line-height: 0.98;
+    letter-spacing: -0.05em;
+    max-width: 10ch;
   }
 
-  .subtitle {
-    font-size: 1rem;
+  .hero-line {
+    font-size: 1.08rem;
     color: var(--text);
-    max-width: 46ch;
+    max-width: 34ch;
     line-height: 1.7;
-    text-align: left;
+    margin-bottom: 1rem;
   }
 
   .hero-actions {
     display: flex;
     flex-wrap: wrap;
     gap: 0.85rem;
-    margin-top: 1.8rem;
+    margin-top: 0;
   }
 
   .hero-link {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 2.9rem;
-    padding: 0.75rem 1.1rem;
-    border-radius: 999px;
-    border: 1px solid var(--border-strong);
-    background: var(--bg-soft);
-    color: var(--text);
-    font-weight: 500;
+    min-height: 0;
+    padding: 0;
+    border-radius: 0;
+    border: none;
+    background: transparent;
+    color: var(--text-light);
+    font-family: 'Fira Code', monospace;
+    font-size: 0.82rem;
+    transition: transform 0.2s ease, border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
   }
 
-  .hero-link.primary {
-    background: var(--text-heading);
-    border-color: transparent;
-    color: #18120a;
+  .hero-link:hover {
+    transform: none;
+    color: var(--link-hover);
+    background: transparent;
   }
 
-  .hero-link.primary:hover {
-    color: #18120a;
-    transform: translateY(-1px);
+  .hero-link-primary {
+    color: var(--text-heading);
   }
 
   .hero-panel {
-    padding-top: 0.85rem;
+    position: relative;
+    padding: 2rem 0 2rem 2rem;
+    border-left: 1px solid var(--border);
+    background: none;
+    min-height: 100%;
   }
 
-  .panel-label {
-    font-size: 0.9rem;
+  .panel-kicker,
+  .section-kicker {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.76rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
     color: var(--text-light);
+    margin-bottom: 0.8rem;
+  }
+
+  .hero-panel h2 {
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    color: var(--text);
+    line-height: 1.1;
+    letter-spacing: -0.04em;
+    max-width: 16ch;
     margin-bottom: 0.9rem;
   }
 
-  .recent-list {
+  .hero-panel p:last-child {
+    max-width: 34ch;
+    color: var(--text-light);
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  .hero-links {
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  .hero-panel-link {
+    display: grid;
+    gap: 0.3rem;
+    padding: 0.55rem 0;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid rgba(239, 187, 103, 0.08);
+    background: transparent;
+    color: var(--text);
+    text-decoration: none;
+    transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+  }
+
+  .hero-panel-link:hover {
+    transform: none;
+    border-color: var(--border-hover);
+    background: transparent;
+    color: var(--text);
+  }
+
+  .hero-panel-link:visited,
+  .hero-panel-link:active {
+    color: var(--text);
+  }
+
+  .hero-panel-link strong {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.84rem;
+    color: var(--text-heading);
+  }
+
+  .hero-panel-link span {
+    color: var(--text-light);
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+
+  .section-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .writing-list h2 {
+    font-size: 1.55rem;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+
+  .section-link {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.8rem;
+    color: var(--text-light);
+  }
+
+  .home-posts {
     list-style: none;
     padding: 0;
     margin: 0;
     display: grid;
-    gap: 0.85rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
   }
 
-  .recent-link {
-    display: grid;
-    gap: 0.15rem;
-    padding: 0.85rem 0;
-    border-top: 1px solid var(--border);
-    color: inherit;
+  .home-post {
+    padding: 1rem 0 1.2rem;
+    border-bottom: 1px solid var(--border);
+    background: transparent;
+    transition: border-color 0.2s ease;
+  }
+
+  .home-post:first-child {
+    grid-column: 1 / -1;
+    padding: 0 0 1.35rem;
+    border-bottom: none;
+  }
+
+  .home-post:first-child h3 {
+    font-size: 1.5rem;
+    line-height: 1.2;
+    max-width: 24ch;
+  }
+
+  .home-post:first-child .home-post-summary {
+    font-size: 1rem;
+    max-width: 62ch;
+  }
+
+  .home-post:hover {
+    border-color: var(--border-hover);
+  }
+
+  .home-post-meta {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.32rem;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.72rem;
+    color: color-mix(in srgb, var(--text-light) 78%, var(--text) 22%);
+  }
+
+  .home-post h3 {
+    margin: 0 0 0.42rem;
+    font-size: 1.18rem;
+    letter-spacing: -0.03em;
+    line-height: 1.3;
+  }
+
+  .home-post h3 a {
+    color: color-mix(in srgb, var(--text) 82%, var(--text-light) 18%);
     transition: color 0.2s;
   }
 
-  .recent-link:hover {
-    color: inherit;
+  .home-post h3 a:hover {
+    color: var(--link-hover);
   }
 
-  .recent-section {
-    font-family: 'Fira Code', monospace;
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--text-light);
+  .home-post-summary {
+    max-width: 50ch;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: color-mix(in srgb, var(--text-light) 84%, var(--text) 16%);
   }
 
-  .recent-link strong {
-    color: var(--text-heading);
-    font-size: 1rem;
-  }
+  @media (max-width: 900px) {
+    .hero-shell,
+    .home-posts {
+      grid-template-columns: 1fr;
+    }
 
-  .recent-link span:last-child {
-    color: var(--text-light);
-    font-size: 0.84rem;
-    line-height: 1.55;
-  }
+    .hero-panel h2 {
+      max-width: none;
+    }
 
-  .sections {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-    position: relative;
-    z-index: 1;
-    margin-top: 0.5rem;
-  }
-
-  .section-card {
-    background: rgba(255, 255, 255, 0.015);
-    border: 1px solid rgba(224, 176, 96, 0.08);
-    border-radius: calc(var(--radius) - 2px);
-    padding: 1.35rem 1.4rem;
-    text-align: left;
-    transition: border-color 0.2s, background 0.2s, transform 0.2s;
-    box-shadow: none;
-    color: inherit;
-    min-height: 172px;
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-  }
-
-  .section-card:hover {
-    transform: translateY(-1px);
-    border-color: rgba(224, 176, 96, 0.18);
-    background: rgba(255, 255, 255, 0.028);
-  }
-
-  .section-card h2 {
-    font-size: 1.35rem;
-    color: var(--text-heading);
-    margin-bottom: 0;
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    min-height: 1.9rem;
-    display: flex;
-    align-items: flex-start;
-  }
-
-  .section-card p {
-    font-size: 0.92rem;
-    color: var(--text);
-    line-height: 1.6;
-    max-width: 26ch;
-    min-height: 3.8rem;
-  }
-
-  .card-command {
-    font-family: 'Fira Code', monospace;
-    font-size: 0.74rem;
-    color: var(--text-light);
-    margin-top: auto;
-    opacity: 0.9;
-  }
-
-  .bg-cats {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .bg-cat {
-    position: absolute;
-    opacity: 0.12;
-    transition: opacity 0.3s;
-    border: none !important;
-    border-radius: 0 !important;
-  }
-
-  :global([data-theme="light"]) .bg-cat {
-    opacity: 0.1;
-  }
-
-  :global([data-theme="dark"]) .bg-cats,
-  :global(:not([data-theme])) .bg-cats {
-    display: none;
-  }
-
-  @media (max-width: 768px) {
-    .bg-cats {
-      display: none;
+    .home-post:first-child {
+      grid-column: auto;
     }
   }
 
   @media (max-width: 768px) {
-    .sections {
-      grid-template-columns: 1fr;
-    }
-
-    .hero-shell {
-      grid-template-columns: 1fr;
-      gap: 1.4rem;
-    }
-
-    .hero-copy {
-      padding: 0;
-    }
-
-    .hero-copy h1 {
+    .hero h1 {
       max-width: none;
       font-size: 2.2rem;
     }
 
+    .hero {
+      padding: 1.5rem 0 1.5rem;
+    }
+
+    .hero-panel,
+    .home-post {
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .section-heading {
+      align-items: start;
+      flex-direction: column;
+    }
+
     .hero-panel {
-      padding-top: 0;
+      border-left: none;
+      border-top: 1px solid var(--border);
+      padding-top: 1.2rem;
     }
-
-    .starfield {
-      opacity: 0.48;
-    }
-
-    .section-card {
-      min-height: auto;
-    }
-
-    .section-card h2,
-    .section-card p {
-      min-height: 0;
-      max-width: none;
-    }
-  }
-
-  :global([data-theme="light"]) .starfield {
-    opacity: 0.28;
-    mask-image:
-      linear-gradient(180deg, transparent 0, rgba(0, 0, 0, 0.16) 6rem, rgba(0, 0, 0, 0.45) 12rem, rgba(0, 0, 0, 0.55) 100%),
-      radial-gradient(circle at 28% 22%, transparent 0, transparent 9rem, rgba(0, 0, 0, 0.1) 16rem, rgba(0, 0, 0, 0.35) 28rem),
-      radial-gradient(circle at 72% 24%, transparent 0, transparent 7rem, rgba(0, 0, 0, 0.08) 14rem, rgba(0, 0, 0, 0.28) 26rem);
-  }
-
-  :global([data-theme="light"]) .section-card {
-    background: rgba(255, 255, 255, 0.32);
-    border-color: rgba(148, 104, 32, 0.1);
-  }
-
-  :global([data-theme="light"]) .section-card:hover {
-    background: rgba(255, 255, 255, 0.5);
-    border-color: rgba(148, 104, 32, 0.18);
   }
 </style>

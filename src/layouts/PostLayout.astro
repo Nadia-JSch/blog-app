@@ -147,7 +147,7 @@ const sectionLabel = sectionLabels[section] || '';
   }
 
   .breadcrumb a:hover {
-    color: var(--text-heading);
+    color: var(--link-hover);
   }
 
   .breadcrumb-sep {
@@ -174,7 +174,7 @@ const sectionLabel = sectionLabels[section] || '';
   }
 
   .footer-back:hover {
-    color: var(--text-heading);
+    color: var(--link-hover);
   }
 
   .hero-image {
@@ -183,8 +183,6 @@ const sectionLabel = sectionLabels[section] || '';
     object-fit: cover;
     border-radius: var(--radius);
     margin-bottom: 1.4rem;
-    border: 1px solid var(--border);
-    box-shadow: none;
   }
 
   .post-header {
@@ -228,7 +226,7 @@ const sectionLabel = sectionLabels[section] || '';
     color: var(--text-heading);
     margin-bottom: 0.7rem;
     letter-spacing: -0.05em;
-    max-width: 18ch;
+    max-width: 20ch;
     line-height: 1.05;
   }
 
@@ -260,20 +258,18 @@ const sectionLabel = sectionLabels[section] || '';
   }
 
   .tag {
-    background: var(--tag-bg);
-    color: var(--tag-text);
-    padding: 0.35rem 0.8rem;
-    border-radius: 999px;
+    color: var(--text-light);
     font-size: 0.75rem;
-    font-weight: 500;
-    transition: all 0.2s;
-    border: 1px solid transparent;
+    transition: color 0.2s;
+    font-family: 'Fira Code', monospace;
+  }
+
+  .tag::before {
+    content: '#';
   }
 
   .tag:hover {
-    background: var(--tag-bg-hover);
-    color: var(--tag-text-hover);
-    border-color: var(--tag-text-hover);
+    color: var(--link-hover);
   }
 
   .post-content {
@@ -299,7 +295,7 @@ const sectionLabel = sectionLabels[section] || '';
 
   .post-content :global(h3) {
     font-size: 1.22rem;
-    color: var(--text-heading);
+    color: var(--text-heading-alt);
     margin: 2rem 0 0.6rem;
   }
 
@@ -322,8 +318,6 @@ const sectionLabel = sectionLabels[section] || '';
 
   .post-content :global(img) {
     margin: 2rem 0;
-    border: 1px solid var(--border);
-    box-shadow: none;
   }
 
   .post-content :global(blockquote) {
