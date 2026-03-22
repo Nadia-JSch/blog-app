@@ -87,10 +87,6 @@ const allTags = [...new Set(sorted.flatMap((p) => p.data.tags ?? []))].sort();
     display: flex;
     gap: 0.5rem;
     margin-bottom: 1.5rem;
-    padding: 0.4rem;
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    background: var(--bg-raised);
     overflow-x: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -103,24 +99,20 @@ const allTags = [...new Set(sorted.flatMap((p) => p.data.tags ?? []))].sort();
   .filter-btn {
     font-family: 'Fira Code', monospace;
     font-size: 0.78rem;
-    padding: 0.45rem 0.85rem;
-    border-radius: 999px;
-    border: 1px solid transparent;
+    padding: 0.15rem 0;
+    border: none;
     background: transparent;
     color: var(--text-light);
     cursor: pointer;
-    transition: all 0.2s;
+    transition: color 0.2s;
+    white-space: nowrap;
   }
 
   .filter-btn:hover {
-    border-color: var(--border-hover);
-    color: var(--text-heading);
-    background: var(--bg-soft);
+    color: var(--link-hover);
   }
 
   .filter-btn.active {
-    background: var(--tag-bg);
-    border-color: var(--tag-text);
-    color: var(--tag-text);
+    color: var(--text);
   }
 </style>
