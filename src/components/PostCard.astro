@@ -22,7 +22,7 @@ const formattedDate = new Date(date).toLocaleDateString('en-US', {
       <p class="entry-tags">
         {tags.map((tag: string, index: number) => (
           <>
-            <span class="tag">#{tag}</span>
+            <span class="tag">{tag.replace(/^#/, '')}</span>
             {index < tags.length - 1 && <span class="tag-sep">·</span>}
           </>
         ))}
@@ -78,6 +78,10 @@ const formattedDate = new Date(date).toLocaleDateString('en-US', {
 
   .tag {
     white-space: nowrap;
+  }
+
+  .tag::before {
+    content: '#';
   }
 
   .tag-sep {
