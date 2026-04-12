@@ -38,7 +38,7 @@ const sectionLabels: Record<string, string> = {
     <div class="hero">
       <p class="eyebrow">pg of code</p>
       <h1>Coding notes, essays, and experiments</h1>
-      <p class="hero-line">A personal blog by Nadia about learning in public, building projects, and keeping useful notes.</p>
+      <p class="hero-line">Hi! This is Nadia's blog about continuous learning in tech and writing down what I want to remember before I forget it.</p>
       <div class="hero-actions">
         <a href="/coding-notes" class="hero-link hero-link-primary">Read the notes</a>
         <a href="/thoughts" class="hero-link">Browse essays</a>
@@ -50,15 +50,15 @@ const sectionLabels: Record<string, string> = {
       <div class="hero-links">
         <a href="/til" class="hero-panel-link">
           <strong>~/til</strong>
-          <span>Quick lessons and notes I want to remember.</span>
+          <span>Small things I learned and wanted to keep.</span>
         </a>
         <a href="/coding-notes" class="hero-panel-link">
           <strong>~/coding-notes</strong>
-          <span>Notes on frontend fundamentals and more.</span>
+          <span>Longer notes on frontend fundamentals and whatever else I'm figuring out.</span>
         </a>
         <a href="/thoughts" class="hero-panel-link">
           <strong>~/thoughts</strong>
-          <span>Writing on learning, AI, and building things.</span>
+          <span>Essays on learning, AI, skill-building, and making things.</span>
         </a>
       </div>
     </aside>
@@ -68,9 +68,8 @@ const sectionLabels: Record<string, string> = {
     <div class="section-heading">
       <div>
         <p class="section-kicker">Latest post</p>
-        <h2 id="latest-writing">Lately, I’ve been writing about</h2>
+        <h2 id="latest-writing">Lately, I’ve posted</h2>
       </div>
-      <a href="/coding-notes" class="section-link">See all notes</a>
     </div>
 
     <ol class="home-posts">
@@ -190,7 +189,7 @@ const sectionLabels: Record<string, string> = {
   .panel-kicker,
   .section-kicker {
     font-family: 'Fira Code', monospace;
-    font-size: 0.76rem;
+    font-size: 0.88rem;
     text-transform: uppercase;
     letter-spacing: 0.14em;
     color: var(--text-light);
@@ -264,15 +263,10 @@ const sectionLabels: Record<string, string> = {
   }
 
   .writing-list h2 {
-    font-size: 1.55rem;
+    font-size: clamp(1.9rem, 3.8vw, 2.7rem);
     color: var(--text);
-    letter-spacing: -0.02em;
-  }
-
-  .section-link {
-    font-family: 'Fira Code', monospace;
-    font-size: 0.8rem;
-    color: var(--text-light);
+    letter-spacing: -0.04em;
+    line-height: 1.02;
   }
 
   .home-posts {
