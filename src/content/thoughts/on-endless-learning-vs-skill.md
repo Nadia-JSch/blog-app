@@ -3,7 +3,7 @@ title: "Learning is not the same as skill"
 date: "2026-04-12"
 description: "On the differences between learning and building ingrained skill and why enjoyment is necessary."
 tags: ["skill"]
-draft: true
+draft: false
 ---
 
 Schooling teaches us to memorize paradigms and describe them in a format that is pleasing and correct. If you're someone who loves exploring new ideas and learning the nuances between things like river mouths and gorges, the education system works for you.
