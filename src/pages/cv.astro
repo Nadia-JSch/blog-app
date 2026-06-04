@@ -1,0 +1,396 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const techAbilities = [
+  'Terminal use',
+  'AI agent skills and MCP servers',
+  'HTML and CSS',
+  'Basic JavaScript',
+  'Basic MySQL',
+  'Git and GitHub',
+  'Markdown',
+  'Jira',
+];
+
+const competencies = [
+  'Explaining complex technical concepts simply',
+  'Collaborating remotely and async',
+  'Adaptability',
+  'Self-study',
+  'Problem-solving',
+];
+
+const currentEmployment = [
+  {
+    role: 'Technical Writer',
+    org: 'Ritza (May 2023 - present)',
+    points: [
+      'Creating and maintaining technical content for different clients in IT and frontend development.',
+      'Using the docs-as-code workflow and WordPress.',
+      'Using AI-assisted workflows for content creation, cleanup, and admin.',
+      'Creating social media posts about a JavaScript component library.',
+      'Managing the publication cycle of blog posts (draft to approval).',
+      'Communicating with clients and SMEs.',
+      'Updating and creating landing pages for product features and integrations.',
+      'Supporting project coordination across client deliverables.',
+    ],
+  },
+  {
+    role: 'Part-time Junior Software Developer',
+    org: 'Rubigo IT (Nov 2022 - April 2023)',
+    points: [
+      "Making design changes to a client's website.",
+      'Working with Laravel and Vue.js.',
+    ],
+  },
+];
+
+const nonTechExperience = [
+  {
+    role: 'English as a 2nd Language Teacher',
+    org: 'The really great teacher company (Aug 2020 - Aug 2021)',
+    points: [
+      'Preparing and delivering online English lessons.',
+      "Assessing students' ability and progress.",
+    ],
+  },
+  {
+    role: 'Freelance Content Writer',
+    org: '(2016 - 2021)',
+    points: [
+      'Writing articles about well-being for various online publications.',
+      'Ghostwriting about personal finance.',
+    ],
+  },
+  {
+    role: 'Departmental Academic Tutor',
+    org: 'Rhodes University (March 2013 - June 2015)',
+    points: [
+      'Facilitating and preparing weekly tutorials and practical demonstrations. Marking student assignments.',
+      'Giving student-focused feedback and explanations.',
+    ],
+  },
+];
+
+const qualifications = [
+  {
+    title: 'MSc. Human Kinetics and Ergonomics',
+    sub: 'Rhodes University (2020)',
+  },
+  {
+    title: 'BA. (Philosophy, Human Kinetics & Ergonomics)',
+    sub: 'Rhodes University (2014)',
+  },
+];
+
+const courses = [
+  {
+    title: 'freeCodeCamp',
+    sub: 'JavaScript Certification (2025 - present)',
+  },
+  {
+    title: 'Software Engineering Bootcamp',
+    sub: 'Hyperiondev.com (2022)',
+    link: { label: 'HyperionDev Portfolio', href: '#' },
+  },
+  {
+    title: 'Introduction to SQL for Data Science',
+    sub: 'Coursera.com: University of California (2021)',
+  },
+  {
+    title: 'Introduction to Programming in Python',
+    sub: 'Coursera.com: RICE University (2016)',
+  },
+];
+---
+
+<BaseLayout title="Nadia-Jasmine Schmidtke - CV" description="Curriculum vitae of Nadia-Jasmine Schmidtke, technical writer.">
+  <article class="cv">
+    <header class="cv-header">
+      <h1 class="cv-name">Nadia-Jasmine Schmidtke</h1>
+      <div class="cv-header-cols">
+        <div class="cv-intro">
+          <p class="cv-title">Technical writer</p>
+          <ul class="cv-contacts">
+            <li><span class="cv-contact-label">Email</span><a href="mailto:jasminesch@gmail.com">jasminesch@gmail.com</a></li>
+            <li><span class="cv-contact-label">GitHub</span><a href="https://github.com/" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+            <li><span class="cv-contact-label">LinkedIn</span><a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">LinkedIn Profile</a></li>
+            <li><span class="cv-contact-label">X</span><a href="https://x.com/pgofcode" target="_blank" rel="noopener noreferrer">@pgofcode</a></li>
+          </ul>
+        </div>
+        <p class="cv-summary">
+          Technical writer with an academic background and teaching experience. Skilled in
+          documentation, social media content, and AI-assisted workflows. Looking to grow within a
+          collaborative, documentation-focused team.
+        </p>
+      </div>
+    </header>
+
+    <div class="cv-body">
+      <aside class="cv-sidebar">
+        <section class="cv-section">
+          <h2>Formal qualifications</h2>
+          {qualifications.map((q) => (
+            <div class="cv-entry">
+              <h3>{q.title}</h3>
+              <p class="cv-sub">{q.sub}</p>
+            </div>
+          ))}
+        </section>
+
+        <section class="cv-section cv-panel">
+          <h2>Tech abilities</h2>
+          <ul class="cv-list">
+            {techAbilities.map((item) => <li>{item}</li>)}
+          </ul>
+        </section>
+
+        <section class="cv-section">
+          <h2>Competencies</h2>
+          <ul class="cv-list">
+            {competencies.map((item) => <li>{item}</li>)}
+          </ul>
+        </section>
+
+        <section class="cv-section cv-panel">
+          <h2>Skills courses</h2>
+          {courses.map((c) => (
+            <div class="cv-entry">
+              <h3>{c.title}</h3>
+              <p class="cv-sub">{c.sub}</p>
+              {c.link && <a class="cv-entry-link" href={c.link.href}>{c.link.label}</a>}
+            </div>
+          ))}
+        </section>
+
+        <section class="cv-section">
+          <h2>References</h2>
+          <p class="cv-sub">Available after interview</p>
+        </section>
+      </aside>
+
+      <div class="cv-main">
+        <section class="cv-section">
+          <h2>Current employment</h2>
+          {currentEmployment.map((job) => (
+            <div class="cv-job">
+              <h3>{job.role}</h3>
+              <p class="cv-sub">{job.org}</p>
+              <ul class="cv-bullets">
+                {job.points.map((p) => <li>{p}</li>)}
+              </ul>
+            </div>
+          ))}
+        </section>
+
+        <section class="cv-section">
+          <h2>Non-tech work experience</h2>
+          {nonTechExperience.map((job) => (
+            <div class="cv-job">
+              <h3>{job.role}</h3>
+              <p class="cv-sub">{job.org}</p>
+              <ul class="cv-bullets">
+                {job.points.map((p) => <li>{p}</li>)}
+              </ul>
+            </div>
+          ))}
+        </section>
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .cv {
+    max-width: 100%;
+  }
+
+  .cv-header {
+    padding-bottom: 2rem;
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .cv-name {
+    font-size: clamp(2.4rem, 5.5vw, 3.6rem);
+    color: var(--text-heading);
+    letter-spacing: -0.04em;
+    line-height: 1;
+    margin-bottom: 1.5rem;
+  }
+
+  .cv-header-cols {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    gap: 2.5rem;
+    align-items: end;
+  }
+
+  .cv-title {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--text-light);
+    margin-bottom: 1.4rem;
+  }
+
+  .cv-contacts {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .cv-contacts li {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    font-size: 0.92rem;
+  }
+
+  .cv-contact-label {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-light);
+    min-width: 4.5rem;
+  }
+
+  .cv-summary {
+    font-size: 1.02rem;
+    line-height: 1.75;
+    color: var(--text);
+    max-width: 46ch;
+  }
+
+  .cv-body {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .cv-section {
+    margin-bottom: 2.25rem;
+  }
+
+  .cv-section:last-child {
+    margin-bottom: 0;
+  }
+
+  .cv-section h2 {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--text-heading);
+    margin-bottom: 1.1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .cv-panel {
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.25rem 1.35rem;
+  }
+
+  .cv-panel h2 {
+    border-bottom: none;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0;
+  }
+
+  .cv-entry {
+    margin-bottom: 1.1rem;
+  }
+
+  .cv-entry:last-child {
+    margin-bottom: 0;
+  }
+
+  .cv-entry h3,
+  .cv-job h3 {
+    font-size: 1rem;
+    color: var(--text);
+    line-height: 1.35;
+    margin-bottom: 0.2rem;
+  }
+
+  .cv-sub {
+    font-size: 0.88rem;
+    color: var(--text-light);
+    line-height: 1.5;
+  }
+
+  .cv-entry-link {
+    display: inline-block;
+    margin-top: 0.3rem;
+    font-size: 0.85rem;
+  }
+
+  .cv-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.4rem;
+  }
+
+  .cv-list li {
+    font-size: 0.92rem;
+    color: var(--text);
+    line-height: 1.45;
+  }
+
+  .cv-job {
+    margin-bottom: 1.75rem;
+  }
+
+  .cv-job:last-child {
+    margin-bottom: 0;
+  }
+
+  .cv-bullets {
+    list-style: none;
+    padding: 0;
+    margin: 0.65rem 0 0;
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  .cv-bullets li {
+    position: relative;
+    padding-left: 1.1rem;
+    font-size: 0.94rem;
+    line-height: 1.6;
+    color: var(--text);
+  }
+
+  .cv-bullets li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 6px;
+    height: 6px;
+    background: var(--text-heading);
+    border-radius: 1px;
+  }
+
+  @media (max-width: 768px) {
+    .cv-header-cols,
+    .cv-body {
+      grid-template-columns: 1fr;
+      gap: 1.75rem;
+    }
+
+    .cv-header-cols {
+      align-items: start;
+    }
+  }
+</style>
